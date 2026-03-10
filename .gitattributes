@@ -1,4 +1,3 @@
-# Normalize text files
 * text=auto
 
 # Keep Unity/C# recognized properly
@@ -8,27 +7,27 @@
 *.hlsl linguist-language=HLSL
 *.cginc linguist-language=HLSL
 
-# Exclude Unity asset/config files from GitLab language stats
-TransportTycoon/*.mat linguist-vendored
-TransportTycoon/*.anim linguist-vendored
-TransportTycoon/*.controller linguist-vendored
-TransportTycoon/*.prefab linguist-vendored
-TransportTycoon/*.unity linguist-vendored
-TransportTycoon/*.asset linguist-vendored
-TransportTycoon/*.meta linguist-vendored
+# Exclude Unity asset/config files from language stats
+TransportTycoon/**/*.mat linguist-vendored
+TransportTycoon/**/*.anim linguist-vendored
+TransportTycoon/**/*.controller linguist-vendored
+TransportTycoon/**/*.prefab linguist-vendored
+TransportTycoon/**/*.unity linguist-vendored
+TransportTycoon/**/*.asset linguist-vendored
+TransportTycoon/**/*.meta linguist-vendored
 
 # Exclude common non-code / generated content from language stats
-TransportTycoon/*.log linguist-vendored
-TransportTycoon/*.apk linguist-vendored
-TransportTycoon/*.aab linguist-vendored
-TransportTycoon/*.app linguist-vendored
-TransportTycoon/*.unitypackage linguist-vendored
-TransportTycoon/*.pdb linguist-vendored
-TransportTycoon/*.mdb linguist-vendored
-TransportTycoon/*.pidb linguist-vendored
-TransportTycoon/*.slnx linguist-vendored
-TransportTycoon/*.csproj linguist-vendored
-TransportTycoon/*.unityproj linguist-vendored
+TransportTycoon/**/*.log linguist-vendored
+TransportTycoon/**/*.apk linguist-vendored
+TransportTycoon/**/*.aab linguist-vendored
+TransportTycoon/**/*.app linguist-vendored
+TransportTycoon/**/*.unitypackage linguist-vendored
+TransportTycoon/**/*.pdb linguist-vendored
+TransportTycoon/**/*.mdb linguist-vendored
+TransportTycoon/**/*.pidb linguist-vendored
+TransportTycoon/**/*.slnx linguist-vendored
+TransportTycoon/**/*.csproj linguist-vendored
+TransportTycoon/**/*.unityproj linguist-vendored
 
 # Exclude folders that are generated, external, or not useful for language breakdown
 TransportTycoon/Packages/** linguist-vendored
