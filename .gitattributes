@@ -9,33 +9,33 @@
 *.cginc linguist-language=HLSL
 
 # Exclude Unity asset/config files from GitLab language stats
-*.mat linguist-vendored
-*.anim linguist-vendored
-*.controller linguist-vendored
-*.prefab linguist-vendored
-*.unity linguist-vendored
-*.asset linguist-vendored
-*.meta linguist-vendored
+TransportTycoon/*.mat linguist-vendored
+TransportTycoon/*.anim linguist-vendored
+TransportTycoon/*.controller linguist-vendored
+TransportTycoon/*.prefab linguist-vendored
+TransportTycoon/*.unity linguist-vendored
+TransportTycoon/*.asset linguist-vendored
+TransportTycoon/*.meta linguist-vendored
 
 # Exclude common non-code / generated content from language stats
-*.log linguist-vendored
-*.apk linguist-vendored
-*.aab linguist-vendored
-*.app linguist-vendored
-*.unitypackage linguist-vendored
-*.pdb linguist-vendored
-*.mdb linguist-vendored
-*.pidb linguist-vendored
-*.sln linguist-vendored
-*.csproj linguist-vendored
-*.unityproj linguist-vendored
+TransportTycoon/*.log linguist-vendored
+TransportTycoon/*.apk linguist-vendored
+TransportTycoon/*.aab linguist-vendored
+TransportTycoon/*.app linguist-vendored
+TransportTycoon/*.unitypackage linguist-vendored
+TransportTycoon/*.pdb linguist-vendored
+TransportTycoon/*.mdb linguist-vendored
+TransportTycoon/*.pidb linguist-vendored
+TransportTycoon/*.slnx linguist-vendored
+TransportTycoon/*.csproj linguist-vendored
+TransportTycoon/*.unityproj linguist-vendored
 
 # Exclude folders that are generated, external, or not useful for language breakdown
-Packages/** linguist-vendored
-ProjectSettings/** linguist-vendored
-UserSettings/** linguist-vendored
-Assets/Plugins/** linguist-vendored
-Assets/StreamingAssets/** linguist-vendored
-Assets/AddressableAssetsData/** linguist-vendored
-Assets/Unity.VisualScripting.Generated/** linguist-vendored
-ServerData/** linguist-vendored
+TransportTycoon/Packages/** linguist-vendored
+TransportTycoon/ProjectSettings/** linguist-vendored
+TransportTycoon/UserSettings/** linguist-vendored
+TransportTycoon/Assets/Plugins/** linguist-vendored
+TransportTycoon/Assets/StreamingAssets/** linguist-vendored
+TransportTycoon/Assets/AddressableAssetsData/** linguist-vendored
+TransportTycoon/Assets/Unity.VisualScripting.Generated/** linguist-vendored
+TransportTycoon/ServerData/** linguist-vendored
