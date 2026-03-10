@@ -1,0 +1,41 @@
+# Normalize text files
+* text=auto
+
+# Keep Unity/C# recognized properly
+*.cs linguist-language=C#
+*.shader linguist-language=ShaderLab
+*.compute linguist-language=HLSL
+*.hlsl linguist-language=HLSL
+*.cginc linguist-language=HLSL
+
+# Exclude Unity asset/config files from GitLab language stats
+*.mat linguist-vendored
+*.anim linguist-vendored
+*.controller linguist-vendored
+*.prefab linguist-vendored
+*.unity linguist-vendored
+*.asset linguist-vendored
+*.meta linguist-vendored
+
+# Exclude common non-code / generated content from language stats
+*.log linguist-vendored
+*.apk linguist-vendored
+*.aab linguist-vendored
+*.app linguist-vendored
+*.unitypackage linguist-vendored
+*.pdb linguist-vendored
+*.mdb linguist-vendored
+*.pidb linguist-vendored
+*.sln linguist-vendored
+*.csproj linguist-vendored
+*.unityproj linguist-vendored
+
+# Exclude folders that are generated, external, or not useful for language breakdown
+Packages/** linguist-vendored
+ProjectSettings/** linguist-vendored
+UserSettings/** linguist-vendored
+Assets/Plugins/** linguist-vendored
+Assets/StreamingAssets/** linguist-vendored
+Assets/AddressableAssetsData/** linguist-vendored
+Assets/Unity.VisualScripting.Generated/** linguist-vendored
+ServerData/** linguist-vendored
