@@ -4,7 +4,7 @@ public sealed class Player
 {
     public int Money { get; set; }
     public List<Vehicle> Vehicles { get; private set; }
-    public LinkedList<Facility> Facilities { get; set; }
+    public List<Facility> Facilities { get; set; }
     public void Purchase(ITradeable item)
     {
         throw new System.NotImplementedException();
