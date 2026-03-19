@@ -7,11 +7,17 @@ public sealed class Player
     public List<Facility> Facilities { get; set; }
     public void Purchase(ITradeable item)
     {
-        throw new System.NotImplementedException();
+        if (item.Cost > Money)
+        {
+            throw new NotEnoughMoneyException($"Player does not have enough money to buy: {item.GetType().Name}");
+        }
+        Money -= item.Cost;
+        
+        item.Purchase(this);
     }
     public void SellItem(ITradeable item)
     {
-        throw new System.NotImplementedException();
+        item.Sell(this);
     }
 
 

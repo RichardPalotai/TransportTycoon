@@ -13,11 +13,11 @@ public abstract class Vehicle : ITradeable, IUpdateable
     }
     public void Purchase(Player player)
     {
-        throw new System.NotImplementedException();
+        player.Vehicles.Add(this);
     }
-    public void Sell()
+    public void Sell(Player player)
     {
-        throw new System.NotImplementedException();
+        player.Vehicles.Remove(this);
     }
     public void Update(double deltaTime)
     {

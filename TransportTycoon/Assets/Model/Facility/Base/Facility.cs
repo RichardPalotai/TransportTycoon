@@ -14,12 +14,12 @@ public abstract class Facility : IBuildable, ITradeable, IUpdateable
 
     public void Purchase(Player player)
     {
-        throw new System.NotImplementedException();
+        player.Facilities.Add(this);
     }
 
-    public void Sell()
+    public void Sell(Player player)
     {
-        throw new System.NotImplementedException();
+        player.Facilities.Remove(this);
     }
 
     public void Update(double deltaTime)
