@@ -1,4 +1,7 @@
-public sealed class Mine<T> where T : Commodity
+public sealed class Mine<T> : ProdFacility where T : Commodity
 {
-    
+    public Mine() : base(1) //dummy one
+    {
+        
+    }
 }

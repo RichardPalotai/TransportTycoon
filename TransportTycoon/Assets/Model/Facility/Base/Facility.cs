@@ -1,10 +1,15 @@
 public abstract class Facility : IBuildable, ITradeable, IUpdateable
 {
-    public int Cost => throw new System.NotImplementedException();
+    public int Cost { get; }
     
+    protected Facility(int cost)
+    {
+        Cost = cost;
+    }
+
     public void Build(Map map, Tile tile)
     {
-        
+        map.SetTile(tile.X, tile.Y, this);
     }
 
     public void Demolish()
