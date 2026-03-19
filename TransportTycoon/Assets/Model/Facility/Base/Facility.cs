@@ -1,7 +1,7 @@
 public abstract class Facility : IBuildable, ITradeable, IUpdateable
 {
     public int Cost => throw new System.NotImplementedException();
-
+    
     public void Build(Map map, Tile tile)
     {
         throw new System.NotImplementedException();
