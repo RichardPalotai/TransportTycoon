@@ -7,7 +7,7 @@ public abstract class Vehicle : ITradeable, IUpdateable
     public double Speed { get; init; }
     public double Condition { get; private set; }
 
-    public Vehicle(int cost, double speed)
+    protected Vehicle(int cost, double speed)
     {
         Cost = cost;
         Speed = speed;
