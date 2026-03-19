@@ -4,7 +4,7 @@ public abstract class Facility : IBuildable, ITradeable, IUpdateable
     
     public void Build(Map map, Tile tile)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void Demolish()

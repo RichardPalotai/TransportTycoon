@@ -9,7 +9,8 @@ public abstract class Vehicle : ITradeable, IUpdateable
 
     public Vehicle(int cost, double speed)
     {
-        
+        Cost = cost;
+        Speed = speed;
     }
     public void Purchase(Player player)
     {
