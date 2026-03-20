@@ -1,6 +1,6 @@
 public sealed class Farm<T> : ProdFacility where T : Food
 {
-    public Farm() : base(1) // dummy one
+    public Farm(bool isGenerated = true) : base(1, isGenerated) // dummy one
     {
         
     }

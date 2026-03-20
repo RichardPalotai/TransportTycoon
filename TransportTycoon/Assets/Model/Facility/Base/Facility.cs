@@ -1,10 +1,11 @@
 public abstract class Facility : IBuildable, ITradeable, IUpdateable
 {
     public int Cost { get; }
-    
-    protected Facility(int cost)
+    public bool IsGenerated { get; init; }
+    protected Facility(int cost, bool isGenerated)
     {
         Cost = cost;
+        IsGenerated = isGenerated;
     }
 
     public void Build(Map map, Tile tile)
