@@ -1,16 +1,19 @@
+using System;
 using System.Collections.Generic;
 
-public sealed class Game
+public sealed class Game : IUpdateable
 {
     private Map _map;
     private Player _player;
-    private HashSet<Save> _saves;
-    public ulong CurrentTime { get; private set; }
+    public HashSet<Save> Saves { get; private set; }
+    public DateTime CurrentTime { get; private set; }
+    public double TimeScale { get; set; } = 1.0;
     public bool IsPaused { get; private set; }
 
     public void NewGame()
     {
-        throw new System.NotImplementedException();
+        CurrentTime = DateTime.Today;
+        _map = new();
     }
     public void ResumeGame()
     {
@@ -39,5 +42,10 @@ public sealed class Game
     public void PauseGame()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void Update(double deltaTime)
+    {
+        CurrentTime = CurrentTime.AddSeconds(deltaTime * TimeScale);
     }
 }

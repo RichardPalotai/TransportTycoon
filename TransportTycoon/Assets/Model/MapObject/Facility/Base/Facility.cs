@@ -1,4 +1,4 @@
-public abstract class Facility : IBuildable, ITradeable, IUpdateable
+public abstract class Facility : MapObject, IBuildable, ITradeable, IUpdateable
 {
     public int Cost { get; }
     public bool IsGenerated { get; init; }
@@ -8,9 +8,9 @@ public abstract class Facility : IBuildable, ITradeable, IUpdateable
         IsGenerated = isGenerated;
     }
 
-    public void Build(Map map, Tile tile)
+    public virtual void Build(Map map, Tile tile)
     {
-        map.SetTile(tile.X, tile.Y, this);
+        map.PlaceObject(tile.X, tile.Y, this);
     }
 
     public void Purchase(Player player)
