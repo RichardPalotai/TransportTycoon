@@ -13,11 +13,6 @@ public abstract class Facility : IBuildable, ITradeable, IUpdateable
         map.SetTile(tile.X, tile.Y, this);
     }
 
-    public void Demolish()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void Purchase(Player player)
     {
         player.Facilities.Add(this);
