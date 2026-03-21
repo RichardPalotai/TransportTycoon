@@ -785,8 +785,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -270, y: 25}
-  m_SizeDelta: {x: 180, y: 50}
+  m_AnchoredPosition: {x: -320, y: 25}
+  m_SizeDelta: {x: 190, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &39505201
 GameObject:
@@ -1287,7 +1287,7 @@ GameObject:
   - component: {fileID: 108270412}
   - component: {fileID: 108270411}
   m_Layer: 5
-  m_Name: Stop_btn
+  m_Name: Pause_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1824,8 +1824,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -65, y: 0}
-  m_SizeDelta: {x: 130, y: 50}
+  m_AnchoredPosition: {x: -93, y: 0}
+  m_SizeDelta: {x: 187.936, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &136298743
 MonoBehaviour:
@@ -1913,7 +1913,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0.6036377, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2582,8 +2582,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -65, y: 0}
-  m_SizeDelta: {x: 130, y: 50}
+  m_AnchoredPosition: {x: -75, y: 0}
+  m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &229697777
 MonoBehaviour:
@@ -2605,7 +2605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: --.--.--
+  m_text: --:--:--
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3238,6 +3238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 388186803}
+  - component: {fileID: 388186804}
   m_Layer: 5
   m_Name: VehicleData
   m_TagString: Untagged
@@ -3276,6 +3277,18 @@ RectTransform:
   m_AnchoredPosition: {x: -70, y: 0}
   m_SizeDelta: {x: 140, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &388186804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388186802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d2a716fb72a4740a64dc337e3b447f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleDataHandler
 --- !u!1 &413708940
 GameObject:
   m_ObjectHideFlags: 0
@@ -5800,7 +5813,7 @@ GameObject:
   - component: {fileID: 817274987}
   - component: {fileID: 817274986}
   m_Layer: 5
-  m_Name: Stop_icon
+  m_Name: Pause_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6736,7 +6749,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 40, y: 0}
+  m_AnchoredPosition: {x: 20, y: 0}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &926070480
@@ -7906,8 +7919,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -89.99999, y: 25}
-  m_SizeDelta: {x: 180, y: 50}
+  m_AnchoredPosition: {x: -107, y: 25}
+  m_SizeDelta: {x: 235, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1242888684
 GameObject:
@@ -8400,6 +8413,7 @@ GameObject:
   - component: {fileID: 1361734063}
   - component: {fileID: 1361734065}
   - component: {fileID: 1361734064}
+  - component: {fileID: 1361734066}
   m_Layer: 5
   m_Name: MenuBar
   m_TagString: Untagged
@@ -8468,6 +8482,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361734062}
   m_CullTransparentMesh: 1
+--- !u!114 &1361734066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361734062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c65e44bc41e1443bdb8a34d084db2b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuBarHandler
+  AccountBalance_text: {fileID: 413708942}
+  Pause_btn: {fileID: 108270411}
+  Play_btn: {fileID: 2116495858}
+  Forward_btn: {fileID: 1703181655}
+  FastForward_btn: {fileID: 27389920}
+  CalendarTime_text: {fileID: 136298743}
+  Time_text: {fileID: 229697777}
 --- !u!1 &1378776013
 GameObject:
   m_ObjectHideFlags: 0
