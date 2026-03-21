@@ -2,9 +2,12 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using Unity.Mathematics;
 
 public class MenuBarHandler : MonoBehaviour
 {
+    public static MenuBarHandler instance;
+
     [SerializeField]
     private TextMeshProUGUI AccountBalance_text;
     [SerializeField]
@@ -19,7 +22,7 @@ public class MenuBarHandler : MonoBehaviour
     private TextMeshProUGUI CalendarTime_text;
     [SerializeField]
     private TextMeshProUGUI Time_text;
-
+    
     /// <summary>
     /// The account balance of the player
     /// </summary>
@@ -91,18 +94,18 @@ public class MenuBarHandler : MonoBehaviour
 
     private void OnPauseClicked()
     {
-        // TODO - Connect with Model
+        // TODO - Connect to Model
     }
     private void OnPlayClicked()
     {
-        // TODO - Connect with Model
+        // TODO - Connect to Model
     }
     private void OnForwardClicked()
     {
-        // TODO - Connect with Model
+        // TODO - Connect to Model
     }
     private void OnFastForwardClicked()
     {
-        // TODO - Connect with Model
+        // TODO - Connect to Model
     }
 }

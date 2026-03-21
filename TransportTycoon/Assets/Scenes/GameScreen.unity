@@ -2358,19 +2358,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 202963304}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1564550756}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &202963304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3289,6 +3277,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d2a716fb72a4740a64dc337e3b447f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleDataHandler
+  Type_Text: {fileID: 12875179}
+  Condition_Text: {fileID: 1378776015}
+  Capacity_Text: {fileID: 1037490235}
+  Worth_Text: {fileID: 420283731}
+  RepairCost_Text: {fileID: 1184113334}
+  Close_btn: {fileID: 1512907293}
+  SetRoute_btn: {fileID: 386713151}
+  Repair_btn: {fileID: 2055427450}
+  Sell_btn: {fileID: 4059521}
+  SelectedCar: {fileID: 0}
 --- !u!1 &413708940
 GameObject:
   m_ObjectHideFlags: 0
@@ -4817,19 +4815,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 553671948}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1510911926}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &553671948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8277,19 +8263,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1285822367}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1393921703}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1285822367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9955,19 +9929,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1512907294}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 388186802}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1512907294
 MonoBehaviour:
   m_ObjectHideFlags: 0
