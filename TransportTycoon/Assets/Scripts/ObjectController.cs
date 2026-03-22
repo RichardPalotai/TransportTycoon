@@ -10,10 +10,11 @@ public class ObjectController : MonoBehaviour
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-                if (Physics.Raycast(ray))
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
                 {
-                    CameraController.instance.followTransform = transform;
+                    if (hit.transform == transform)
+                        CameraController.instance.followTransform = transform;
                 }
             }
         }
