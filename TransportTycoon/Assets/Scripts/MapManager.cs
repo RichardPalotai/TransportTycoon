@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    private Tile[,] _map;
+    private TileResource[,] _map;
     private int _size = 30;
 
     public int Size
@@ -12,12 +12,12 @@ public class MapManager : MonoBehaviour
             return _size;
         }
     }
-    public Tile GetTile(int x, int y)
+    public TileResource GetTile(int x, int y)
     {
         return _map[x, y];
     }
 
-    public void SetTile(int x, int y, Tile tile)
+    public void SetTile(int x, int y, TileResource tile)
     {
         _map[x, y] =tile;
     }
@@ -29,12 +29,12 @@ public class MapManager : MonoBehaviour
 
     private void GenerateGrid()
     {
-        _map = new Tile[_size, _size];
+        _map = new TileResource[_size, _size];
         for (int x = 0; x < _size; x++)
         {
             for (int z = 0; z < _size; z++)
             {
-                _map[x, z] = new Tile(x,z);
+                _map[x, z] = new TileResource(x,z);
             }
         }
     }

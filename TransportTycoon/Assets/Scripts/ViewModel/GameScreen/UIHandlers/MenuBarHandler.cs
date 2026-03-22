@@ -101,11 +101,11 @@ namespace ViewModel.GameScreen.UIHandlers
         }
         private void OnForwardClicked()
         {
-            Game.instance.TimeScale *= 1.2f;
+            Game.instance.TimeScale *= 1.4f;
         }
         private void OnFastForwardClicked()
         {
-            Game.instance.TimeScale *= 1.4f;
+            Game.instance.TimeScale *= 2.0f;
         }
     }
 }

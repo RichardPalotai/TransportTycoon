@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using UnityEngine;
 
 public sealed class Map
 {
@@ -21,52 +23,50 @@ public sealed class Map
     public void PlaceObject(int x, int y, MapObject obj)
     {
         int areaSize = GetAreaSize(obj);
-        
+
 
         if (x < 0 || y < 0 || x >= Size || y >= Size)
         {
             throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
         }
-        if (areaSize > 1)
+        for (int i = x; i < x+areaSize; ++i)
         {
-            for (int i = 0; i < areaSize; ++i)
+            for (int j = y; j < y+areaSize; ++j)
             {
-                for (int j = 0; j < areaSize; ++j)
+                if (!_map[i, j].IsFree)
                 {
-                    if (!_map[i, j].IsFree)
-                    {
-                        throw new AreaIsNotFreeException();
-                    }
+                    UnityEngine.Debug.Log(i + " " + j + " " + _map[i, j].IsFree);
+                    throw new AreaIsNotFreeException();
                 }
             }
         }
         int currentId = ++idCounter;
         obj.ID = currentId;
         _map[x, y] = new(x, y, obj, currentId);
-        for (int i = 0; i < areaSize; ++i)
+        for (int i = x; i < x+areaSize; ++i)
         {
-            for (int j = 0; j < areaSize; ++j)
+            for (int j = y; j < y+areaSize; ++j)
             {
                 if (x != i && y != j)
-                    _map[i, j] = new (i, j, null, currentId);
+                    _map[i, j] = new(i, j, null, currentId);
             }
         }
         Logger.ObjectPlacedLog(obj.GetType(), x, y);
     }
 
-    
+
     public void GenerateMap()
     {
         for (int i = 0; i < Size; i++)
         {
             for (int j = 0; j < Size; j++)
             {
-                _map[i,j] = new Tile(i, j);
+                _map[i, j] = new Tile(i, j);
             }
         }
-        
+
         PlaceObject(0, 0, new Factory<Steel>());
-        PlaceObject(Size-3,0, new Mine<Iron>());
+        PlaceObject(Size - 3, 0, new Mine<Iron>());
         PlaceObject(0, Size - 3, new Farm<Milk>());
         PlaceObject(Size - 3, Size - 3, new LumberMill<Wood>());
 

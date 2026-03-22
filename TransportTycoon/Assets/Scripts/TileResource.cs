@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class Tile
+public class TileResource
 {
     private int X { get; }
     private int Y { get; }
-    private GridObject? _type;
 
-    public Tile(int x, int y)
+    #nullable enable
+    private GridObject? _type;
+    #nullable disable
+
+    public TileResource(int x, int y)
     {
         X = x;
         Y = y;
@@ -17,6 +20,7 @@ public class Tile
         return new Vector2Int(X, Y);
     }
 
+    #nullable enable
     public GridObject? Type
     {
         set
@@ -24,6 +28,8 @@ public class Tile
             _type = value;
         }
     }
+    #nullable disable
+
     public bool IsFree()
     {
         return _type == null;
