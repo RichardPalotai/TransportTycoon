@@ -14,6 +14,7 @@ public sealed class Game : IUpdateable
     {
         CurrentTime = DateTime.Today;
         _map = new();
+        _player = new();
     }
     public void ResumeGame()
     {

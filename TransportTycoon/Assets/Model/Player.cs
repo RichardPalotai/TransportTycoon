@@ -5,6 +5,12 @@ public sealed class Player
     public int Money { get; set; }
     public List<Vehicle> Vehicles { get; private set; }
     public List<Facility> Facilities { get; set; }
+    public Player()
+    {
+        Money = 2000;
+        Vehicles = new();
+        Facilities = new();
+    }
     public void Purchase(ITradeable item)
     {
         if (item.Cost > Money)
