@@ -47,7 +47,15 @@ public sealed class Game : IUpdateable
 
         CurrentTime = CurrentTime.AddSeconds(deltaTime * TimeScale);
 
+        foreach (var item in _player.Vehicles)
+        {
+            item.Update(deltaTime);
+        }
 
+        foreach (var item in _player.Facilities)
+        {
+            item.Update(deltaTime);
+        }
     }
     public void EndGame()
     {
