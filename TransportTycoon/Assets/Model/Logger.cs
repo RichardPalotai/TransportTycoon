@@ -10,7 +10,11 @@ public static class Logger
 
     public static void ProductionLog(Type facilityType, int amount)
     {
-        Debug.Log($"[PROD] {facilityType.Name} facility produced:\t{amount}\t");
+        Debug.Log($"[PROD] {facilityType.Name} facility produced: {amount}");
+    }
+    public static void ObjectPlacedLog(Type @object, int toX, int toY)
+    {
+        Debug.Log($"[PLCD] {@object.Name} placed to X: {toX}, Y: {toY}");
     }
 
     public static void LogTime(DateTime currentTime)

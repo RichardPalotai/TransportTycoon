@@ -50,6 +50,7 @@ public sealed class Map
                     _map[i, j] = new (i, j, null, currentId);
             }
         }
+        Logger.ObjectPlacedLog(obj.GetType(), x, y);
     }
 
     
@@ -68,7 +69,7 @@ public sealed class Map
         PlaceObject(0, Size - 3, new Farm<Milk>());
         PlaceObject(Size - 3, Size - 3, new LumberMill<Wood>());
 
-
+        Logger.Log("Map generated successfully");
     }
     public int GetAreaSize(MapObject obj)
     {

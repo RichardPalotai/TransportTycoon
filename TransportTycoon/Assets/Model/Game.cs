@@ -23,12 +23,21 @@ public sealed class Game : IUpdateable
     public void NewGame()
     {
         CurrentTime = DateTime.Today;
+        Logger.Log("Current time set to today");
         _map = new();
+        Logger.Log("Map created");
         _player = new();
+        Logger.Log("New player created");
         _stopwatch = new();
+        Logger.Log("Stopwatch set");
 
     }
-    public void ResumeGame() => IsPaused = false;
+    public void ResumeGame()
+    {
+        IsPaused = false;
+        Logger.Log("Resumed");
+
+    }
     public void SaveGame()
     {
         throw new System.NotImplementedException();
@@ -61,7 +70,11 @@ public sealed class Game : IUpdateable
     {
         throw new System.NotImplementedException();
     }
-    public void PauseGame() => IsPaused = true;
+    public void PauseGame()
+    {
+        IsPaused = true;
+        Logger.Log("Paused");
+    }
 
     public void Update(double deltaTime)
     {
@@ -70,6 +83,7 @@ public sealed class Game : IUpdateable
 
     public void Loop()
     {
+        Logger.Log("Game loop started");
         _stopwatch.Start();
 
         double lastTime = _stopwatch.Elapsed.TotalSeconds;

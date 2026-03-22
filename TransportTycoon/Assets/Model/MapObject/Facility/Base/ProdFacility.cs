@@ -17,6 +17,7 @@ public abstract class ProdFacility : Facility
         {
             _prodBuffer -= produced;
             producedCount += produced;
+            Logger.ProductionLog(this.GetType(), produced);
         }
     }
     public override void Update(double deltaTime)
