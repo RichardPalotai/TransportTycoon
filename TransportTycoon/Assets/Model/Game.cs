@@ -7,6 +7,11 @@ public sealed class Game : IUpdateable
 {
     public static Game instance;
     private Map _map;
+    public Map Map
+    {
+        get { return _map; }
+    }
+    
     private Player _player;
     public HashSet<Save> Saves { get; private set; }
     public DateTime CurrentTime { get; private set; }

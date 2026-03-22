@@ -87,12 +87,19 @@ namespace ViewModel.GameScreen.UIHandlers
         // Update is called once per frame
         void Update()
         {
-            CalendarTime = Game.instance.CurrentTime;
-            Time = Game.instance.CurrentTime;
+            if (Game.instance != null)
+            {
+                CalendarTime = Game.instance.CurrentTime;
+                Time = Game.instance.CurrentTime;
+            }
         }
 
         private void OnPauseClicked()
         {
+            Debug.Log("GAME INSTANCE: " + Game.instance);
+            Debug.Log("GAME CURRENTIME: " + Game.instance?.CurrentTime);
+            Debug.Log("CALENDAR: " + CalendarTime);
+            Debug.Log("TIME: " + Time);
             Game.instance.PauseGame();
         }
         private void OnPlayClicked()

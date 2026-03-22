@@ -65,10 +65,10 @@ public sealed class Map
             }
         }
 
-        PlaceObject(0, 0, new Factory<Steel>());
-        PlaceObject(Size - 3, 0, new Mine<Iron>());
-        PlaceObject(0, Size - 3, new Farm<Milk>());
-        PlaceObject(Size - 3, Size - 3, new LumberMill<Wood>());
+        // PlaceObject(0, 0, new Factory<Steel>());
+        // PlaceObject(Size - 3, 0, new Mine<Iron>());
+        // PlaceObject(0, Size - 3, new Farm<Milk>());
+        // PlaceObject(Size - 3, Size - 3, new LumberMill<Wood>());
 
         Logger.Log("Map generated successfully");
     }

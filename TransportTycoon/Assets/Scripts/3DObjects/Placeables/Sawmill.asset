@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b7c2a92f102c94a9d00504f40fdaf6, type: 3}
   m_Name: Sawmill
   m_EditorClassIdentifier: Assembly-CSharp::Placeable
+  FacilityObj: 3
   objectName: Sawmill
-  tileSize: 2
+  tileSize: 3
   prefab: {fileID: 6701647968657713676, guid: 2cd27fed66d272243851a02bd5805e59, type: 3}
   placementCost: 1000

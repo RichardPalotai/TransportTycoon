@@ -3,13 +3,12 @@ using UnityEngine.InputSystem;
 
 public class BuildingPlacer : MonoBehaviour
 {
-
     public MapManager mapManager;
     public Placeable selectedBuilding;
 
     private void Start()
     {
-        PlaceBuilding(2, 2);
+        //PlaceBuilding(2, 2);
     }
 
     void Update()
@@ -29,8 +28,8 @@ public class BuildingPlacer : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
-            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z+15));
-            int originX = Mathf.FloorToInt((hit.point.x / 5.0f )+ 15);
+            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
+            int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
             int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
 
             if (IsFootprintValid(originX, originZ, selectedBuilding.tileSize))
@@ -48,13 +47,13 @@ public class BuildingPlacer : MonoBehaviour
     {
         for (int x = 0; x < footprint; x++)
         {
-            for (int z = 0; z < footprint; z++) 
+            for (int z = 0; z < footprint; z++)
             {
                 int checkX = startX + x;
                 int checkZ = startZ + z;
                 Debug.LogWarning("Hit Tile: " + checkX + " " + checkZ);
 
-                if (checkX < 0 || checkX >= mapManager.Size||
+                if (checkX < 0 || checkX >= mapManager.Size ||
                     checkZ < 0 || checkZ >= mapManager.Size)
                 {
                     return false;
@@ -80,13 +79,32 @@ public class BuildingPlacer : MonoBehaviour
         GridObject gridObjScript = newBuildingObj.GetComponent<GridObject>();
         gridObjScript.data = selectedBuilding;
         gridObjScript.position = new Vector2Int(startX, startZ);
-
-        for (int x = 0; x < selectedBuilding.tileSize; x++)
+        
+        int x = 0;
+        int z = 0;
+        for (x = 0; x < selectedBuilding.tileSize; x++)
         {
-            for (int z = 0; z < selectedBuilding.tileSize; z++)
+            for (z = 0; z < selectedBuilding.tileSize; z++)
             {
                 mapManager.GetTile(startX + x, startZ + z).Type = gridObjScript;
             }
+        }
+        switch (selectedBuilding.FacilityObj)
+        {
+            case Placeable.Facility.FARM:
+                Game.instance.Map.PlaceObject(startX + x, startZ + z, new Farm<Milk>());
+                break;
+            case Placeable.Facility.FACTORY:
+                Game.instance.Map.PlaceObject(startX + x, startZ + z, new Factory<Steel>());
+                break;
+            case Placeable.Facility.MINE:
+                Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Iron>());
+                break;
+            case Placeable.Facility.SAWMILL:
+                Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Wood>());
+                break;
+            default:
+                break;
         }
 
         gridObjScript.OnObjectPlaced();
