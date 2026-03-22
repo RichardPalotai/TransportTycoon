@@ -23,8 +23,8 @@ public abstract class Facility : MapObject, IBuildable, ITradeable, IUpdateable
         player.Facilities.Remove(this);
     }
 
-    public void Update(double deltaTime)
+    public virtual void Update(double deltaTime)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
