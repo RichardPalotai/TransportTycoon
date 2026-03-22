@@ -3,7 +3,7 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 
-namespace ViewModel.GameScreen
+namespace ViewModel.GameScreen.UIHandlers
 {
     public class MenuBarHandler : MonoBehaviour
     {

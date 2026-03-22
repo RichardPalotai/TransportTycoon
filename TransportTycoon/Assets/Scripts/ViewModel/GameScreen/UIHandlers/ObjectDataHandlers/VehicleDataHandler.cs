@@ -1,16 +1,18 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace ViewModel.GameScreen
+namespace ViewModel.GameScreen.UIHandlers
 {
     public class VehicleDataHandler : MonoBehaviour
     {
+        // INSTANCE MUST BE SET ACTIVE WHEN VEHICLE IS CLICKED - (3D modell - Bálint)
         public static VehicleDataHandler instance;
 
         [SerializeField]
-        private TextMeshProUGUI Type_Text;
+        private TextMeshProUGUI ID_Text;
         [SerializeField]
         private TextMeshProUGUI Condition_Text;
         [SerializeField]
@@ -31,12 +33,12 @@ namespace ViewModel.GameScreen
         [SerializeField]
         private GameObject SelectedCar;
 
-        public string Type
+        public int ID
         {
-            get { return Type_Text.text; }
+            get { return int.Parse(ID_Text.text); }
             set
             {
-                Type_Text.text = value;
+                ID_Text.text = value.ToString();
             }
         }
 
@@ -98,7 +100,7 @@ namespace ViewModel.GameScreen
             Repair_btn.onClick.AddListener(OnRepairClicked);
             Sell_btn.onClick.AddListener(OnSellClicked);
             
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
 
         // Update is called once per frame
@@ -106,10 +108,14 @@ namespace ViewModel.GameScreen
         {
             if (SelectedCar != null)
             {
-                // TODO - Connect to Model (Set properties)
+                // TODO - Set properties to the selected car's (3D modell - Bálint)
+            }
+            else
+            {
+                OnEscapePressed();
             }
         }
-
+        
         private void OnCloseClicked()
         {
             SetDefaultValues();
@@ -126,14 +132,23 @@ namespace ViewModel.GameScreen
         private void OnSellClicked()
         {
             // TODO - Connect to model
-            // TODO - Destroy Car Object
+            Destroy(SelectedCar);
             SetDefaultValues();
+        }
+
+        private void OnEscapePressed()
+        {
+            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                SetDefaultValues();
+                gameObject.SetActive(false);
+            }
         }
 
         private void SetDefaultValues()
         {
             SelectedCar = null;
-            Type = "None";
+            ID = -2;
             Condition = "None";
             Capacity = 9999;
             Worth = 0;
