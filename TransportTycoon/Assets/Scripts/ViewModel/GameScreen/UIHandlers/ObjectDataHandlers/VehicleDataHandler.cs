@@ -100,7 +100,7 @@ namespace ViewModel.GameScreen.UIHandlers
             Repair_btn.onClick.AddListener(OnRepairClicked);
             Sell_btn.onClick.AddListener(OnSellClicked);
             
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         // Update is called once per frame
