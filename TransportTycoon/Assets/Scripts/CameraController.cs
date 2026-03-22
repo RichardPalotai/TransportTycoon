@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
             HandleMovementInput();
         }
 
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
         {
             followTransform = null;
         }
