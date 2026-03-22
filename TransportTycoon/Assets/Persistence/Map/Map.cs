@@ -41,6 +41,7 @@ public sealed class Map
             }
         }
         int currentId = ++idCounter;
+        obj.ID = currentId;
         _map[x, y] = new(x, y, obj, currentId);
         for (int i = 0; i < areaSize; ++i)
         {

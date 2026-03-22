@@ -5,6 +5,7 @@ using System.Threading;
 
 public sealed class Game : IUpdateable
 {
+    public static Game instance;
     private Map _map;
     private Player _player;
     public HashSet<Save> Saves { get; private set; }
@@ -16,7 +17,7 @@ public sealed class Game : IUpdateable
     public double TimeScale
     {
         get { return _timeScale; }
-        set { _timeScale = Math.Max(0, value); }
+        set { _timeScale = Math.Max(1, value); }
     }
     public bool IsPaused { get; private set; }
 
@@ -35,6 +36,7 @@ public sealed class Game : IUpdateable
     public void ResumeGame()
     {
         IsPaused = false;
+        TimeScale = 1.0f;
         Logger.Log("Resumed");
 
     }

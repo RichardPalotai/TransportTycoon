@@ -23,7 +23,7 @@ namespace ViewModel.GameScreen.UIHandlers
         private Button Close_btn;
 
         [SerializeField]
-        private GameObject SelectedCity;
+        public GameObject SelectedCity;
 
         public int ID
         {

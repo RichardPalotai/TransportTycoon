@@ -79,35 +79,33 @@ namespace ViewModel.GameScreen.UIHandlers
             FastForward_btn.onClick.AddListener(OnFastForwardClicked);
 
             // Only for debug pruposes
-            Debug.Log(AccountBalance);
-            Debug.Log(CalendarTime);
-            Debug.Log(Time);
+            Debug.Log("Account Balance: " + AccountBalance);
+            Debug.Log("Calendar Time: " + CalendarTime);
+            Debug.Log("Time: " + Time);
         }
 
         // Update is called once per frame
         void Update()
         {
-            // The Properties can refresh real time if they are changed in non-monobehavior C# file
-            // This is just for test purposes
-            CalendarTime = DateTime.Now;
-            Time = DateTime.Now;
+            CalendarTime = Game.instance.CurrentTime;
+            Time = Game.instance.CurrentTime;
         }
 
         private void OnPauseClicked()
         {
-            // TODO - Connect to Model
+            Game.instance.PauseGame();
         }
         private void OnPlayClicked()
         {
-            // TODO - Connect to Model
+            Game.instance.ResumeGame();
         }
         private void OnForwardClicked()
         {
-            // TODO - Connect to Model
+            Game.instance.TimeScale *= 1.2f;
         }
         private void OnFastForwardClicked()
         {
-            // TODO - Connect to Model
+            Game.instance.TimeScale *= 1.4f;
         }
     }
 }
