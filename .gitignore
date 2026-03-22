@@ -57,6 +57,7 @@
 /TransportTycoon/*.mdb
 /TransportTycoon/*.opendb
 /TransportTycoon/*.VC.db
+/TransportTycoon/.vsconfig
 
 # Unity3D generated meta files
 /TransportTycoon/*.pidb.meta
