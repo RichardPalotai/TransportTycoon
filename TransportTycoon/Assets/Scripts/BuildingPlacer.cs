@@ -23,7 +23,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         if (selectedBuilding == null) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
