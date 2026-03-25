@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class ObjectController : MonoBehaviour
 {
+    public static ObjectController instance;
     void Update()
     {
         if (Mouse.current != null && Camera.main != null)

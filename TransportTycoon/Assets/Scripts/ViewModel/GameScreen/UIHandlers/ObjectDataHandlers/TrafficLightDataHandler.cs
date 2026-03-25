@@ -64,6 +64,8 @@ namespace ViewModel.GameScreen.UIHandlers
 
         void Awake()
         {
+            instance = this;
+
             SetDefaultValues();
         }
 
@@ -126,6 +128,14 @@ namespace ViewModel.GameScreen.UIHandlers
             ID = -2;
             Worth = 0;
             GreenLight = 1;
+        }
+
+        public void SetButtonsActive(bool state)
+        {
+            Close_btn.interactable = state;
+            Plus_btn.interactable = state;
+            Minus_btn.interactable = state;
+            Sell_btn.interactable = state;
         }
     }   
 }

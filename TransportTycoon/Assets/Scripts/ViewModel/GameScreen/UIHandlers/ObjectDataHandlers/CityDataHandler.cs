@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -57,6 +58,8 @@ namespace ViewModel.GameScreen.UIHandlers
 
         void Awake()
         {
+            instance = this;
+
             SetDefaultValues();
         }
 
@@ -102,6 +105,11 @@ namespace ViewModel.GameScreen.UIHandlers
             ID = -2;
             Satisfaction = 0;
             Needs = new List<string> {"N/A", "N/A", "N/A"};
+        }
+
+        public void SetButtonsActive(bool state)
+        {
+            Close_btn.interactable = state;
         }
     }   
 }

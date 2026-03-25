@@ -65,6 +65,8 @@ namespace ViewModel.GameScreen.UIHandlers
 
         void Awake()
         {
+            instance = this;
+
             AccountBalance = 0;
             CalendarTime = DateTime.Now;
             Time = DateTime.Now;
@@ -113,6 +115,14 @@ namespace ViewModel.GameScreen.UIHandlers
         private void OnFastForwardClicked()
         {
             Game.instance.TimeScale *= 2.0f;
+        }
+
+        public void SetButtonsActive(bool status)
+        {
+            Pause_btn.interactable = status;
+            Play_btn.interactable = status;
+            Forward_btn.interactable = status;
+            FastForward_btn.interactable = status;
         }
     }
 }

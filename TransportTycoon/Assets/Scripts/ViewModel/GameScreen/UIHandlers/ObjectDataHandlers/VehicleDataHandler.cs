@@ -89,6 +89,8 @@ namespace ViewModel.GameScreen.UIHandlers
 
         void Awake()
         {
+            instance = this;
+
             SetDefaultValues();
         }
 
@@ -153,6 +155,14 @@ namespace ViewModel.GameScreen.UIHandlers
             Capacity = 9999;
             Worth = 0;
             RepairCost = 0;
+        }
+
+        public void SetButtonsActive(bool state)
+        {
+            Close_btn.interactable = state;
+            SetRoute_btn.interactable = state;
+            Repair_btn.interactable = state;
+            Sell_btn.interactable = state;
         }
     }   
 }

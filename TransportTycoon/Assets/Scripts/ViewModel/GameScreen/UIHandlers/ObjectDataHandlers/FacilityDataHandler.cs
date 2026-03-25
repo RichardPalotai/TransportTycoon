@@ -66,6 +66,8 @@ namespace ViewModel.GameScreen.UIHandlers
 
         void Awake()
         {
+            instance = this;
+
             SetDefaultValues();
         }
 
@@ -112,6 +114,11 @@ namespace ViewModel.GameScreen.UIHandlers
             Traffic = 0;
             Consume = "None";
             Produce = "None";
+        }
+
+        public void SetButtonsActive(bool state)
+        {
+            Close_btn.interactable = state;
         }
     }   
 }

@@ -8,6 +8,8 @@ namespace ViewModel.GameScreen.UIHandlers
 {
     public class BuilderSelectorHandler : MonoBehaviour
     {
+        public static BuilderSelectorHandler instance;
+
         [SerializeField]
         private TextMeshProUGUI Price_Text;
         [SerializeField]
@@ -33,7 +35,7 @@ namespace ViewModel.GameScreen.UIHandlers
         private Button SelectedButton = null;
 
         private bool buildMode;
-        private string selectedBuilding;
+        private string selectedBuilding; // TODO Connect to 3D Model
 
         private int Price
         {
@@ -61,7 +63,10 @@ namespace ViewModel.GameScreen.UIHandlers
 
         void Awake()
         {
+            instance = this;
+
             SelectButton(Mouse_btn);
+            selectedBuilding = "None";
             RemovePriceTag();
             buildMode = false;
         }
@@ -211,6 +216,18 @@ namespace ViewModel.GameScreen.UIHandlers
                     Price = 1;
                     break;
             }
+        }
+
+        public void SetButtonsActive(bool status)
+        {
+            Mouse_btn.interactable = status;
+            Road_btn.interactable = status;
+            BusStop_btn.interactable = status;
+            TrafficLight_btn.interactable = status;
+            Bus_btn.interactable = status;
+            Car_btn.interactable = status;
+            Truck_btn.interactable = status;
+            Minivan_btn.interactable = status;
         }
     }
 }

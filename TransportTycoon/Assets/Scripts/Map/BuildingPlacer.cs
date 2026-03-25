@@ -3,8 +3,15 @@ using UnityEngine.InputSystem;
 
 public class BuildingPlacer : MonoBehaviour
 {
+    public static BuildingPlacer instance;
+
     public MapManager mapManager;
     public Placeable selectedBuilding;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -13,17 +20,14 @@ public class BuildingPlacer : MonoBehaviour
 
     void Update()
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            AttemptPlacement();
-        }
+
     }
 
-    private void AttemptPlacement()
+    public void AttemptPlacement(Vector2 mousePos)
     {
         if (selectedBuilding == null) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
