@@ -1,0 +1,7 @@
+public sealed class LumberMill<T> : ProdFacility where T : Commodity
+{
+    public LumberMill(bool isGenerated = true) : base(1200, isGenerated)
+    {
+        producedPerSec = 3;
+    }
+}
