@@ -21,13 +21,21 @@ public sealed class Tile
         }
     }
     #nullable disable
-    public Tile(int x, int y, MapObject @object, int _objectId)
+    public Tile(int x, int y, MapObject @object)
     {
         X = x;
         Y = y;
-        Object = @object;
-        ObjectId = _objectId;
+        Object = @object; //W
         IsFree = false;
+        ObjectId = @object.ID;
+    }
+    public Tile(int x, int y, int mapObjectId)
+    {
+        X = x;
+        Y = y;
+        Object = null;
+        IsFree = false;
+        ObjectId = mapObjectId;
     }
     public Tile(int x, int y)
     {
@@ -36,5 +44,11 @@ public sealed class Tile
         Object = null;
         ObjectId = -1;
         IsFree = true;
+    }
+
+    public enum ObjectPosition
+    {
+        UPPER_LEFT,
+        OTHER
     }
 }
