@@ -4,7 +4,6 @@ using UnityEngine;
 
 public sealed class Map
 {
-    private static int idCounter = 0;
     private Tile[,] _map;
     public int Size => _map.GetLength(0);
     public Map(int size = 100)
@@ -40,15 +39,14 @@ public sealed class Map
                 }
             }
         }
-        int currentId = ++idCounter;
-        obj.ID = currentId;
-        _map[x, y] = new(x, y, obj, currentId);
+
+        _map[x, y] = new(x, y, obj);
         for (int i = x; i < x+areaSize; ++i)
         {
             for (int j = y; j < y+areaSize; ++j)
             {
                 if (x != i && y != j)
-                    _map[i, j] = new(i, j, null, currentId);
+                    _map[i, j] = new(i, j, _map[x, y].Object.ID);
             }
         }
         Logger.ObjectPlacedLog(obj.GetType(), x, y);

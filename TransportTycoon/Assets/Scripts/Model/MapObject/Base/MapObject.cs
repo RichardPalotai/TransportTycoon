@@ -1,15 +1,11 @@
-﻿public class MapObject
+﻿public abstract class MapObject
 {
-    private int _id = -1;
-    public int ID
+    private static int _idCounter = 0;
+    public int ID { get; init; }
+
+    protected MapObject()
     {
-        get { return _id; }
-        set
-        {
-            if (_id == -1)
-                _id = value;
-        }
+        ID = ++_idCounter;
     }
-    
 }
 
