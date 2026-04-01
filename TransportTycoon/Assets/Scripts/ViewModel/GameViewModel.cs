@@ -6,17 +6,31 @@ using ViewModel.GameScreen.UIHandlers;
 public class GameViewModel : MonoBehaviour
 {
     public static GameViewModel instance;
+    public enum GameMode { BUILD, DEMOLISH, MOUSE }
 
     [SerializeField]
     private Canvas GameMenu_cnv;
     [SerializeField]
     private Canvas VehicleRoute_cnv;
 
+    private GameMode gameMode;
     private Mouse mouse;
     private Keyboard keyboard;
-
     private bool IsGameMenuOn;
 
+    private bool IsDemolishOn;
+
+    public GameMode Gamemode
+    {
+        get { return gameMode; }
+        set
+        {
+            if (gameMode == value)
+                return;
+            
+            gameMode = value;
+        }
+    }
 
     void Awake()
     {
@@ -26,6 +40,8 @@ public class GameViewModel : MonoBehaviour
         keyboard = Keyboard.current;
 
         IsGameMenuOn = false;
+        IsDemolishOn = false;
+        gameMode = GameMode.MOUSE;
 
         Game game = new Game();
         Game.instance = game;
@@ -42,14 +58,27 @@ public class GameViewModel : MonoBehaviour
         Game.instance.UpdateGame(Time.deltaTime);
         if (mouse != null && mouse.leftButton.wasPressedThisFrame)
         {
-            if (!IsMouseOverUI() && BuilderSelectorHandler.instance.BuildMode)
+            if (!IsMouseOverUI() && gameMode == GameMode.BUILD)
             {
                 BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue());
             }
+            else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH)
+            {
+                // Destror building from  -- BuildingPlacer --
+            }
         }
-        if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame)
+
+        if (keyboard != null)
         {
-            SetMenuActive(!IsGameMenuOn);
+            if (keyboard.escapeKey.wasPressedThisFrame)
+                SetMenuActive(!IsGameMenuOn);
+
+            if (keyboard.leftShiftKey.wasPressedThisFrame && !IsGameMenuOn && BuilderSelectorHandler.instance.IsMouseSelected)
+            {
+                IsDemolishOn = !IsDemolishOn;
+                gameMode = IsDemolishOn ? GameMode.DEMOLISH : GameMode.MOUSE;
+                BuilderSelectorHandler.instance.SetDemolishMode(IsDemolishOn);
+            }
         }
     }
 

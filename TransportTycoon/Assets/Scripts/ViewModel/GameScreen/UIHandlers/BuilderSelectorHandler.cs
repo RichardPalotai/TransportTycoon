@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -34,8 +35,7 @@ namespace ViewModel.GameScreen.UIHandlers
         [SerializeField]
         private Button SelectedButton = null;
 
-        private bool buildMode;
-        private string selectedBuilding; // TODO Connect to 3D Model
+        private string selectedBuilding;
 
         private int Price
         {
@@ -49,17 +49,15 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
-        // TODO - Make objects follow mouse based on BuildMode and SelectedBuilding
-        public bool BuildMode
-        {
-            get { return buildMode; }
-        }
-
         public string SelectedBuilding
         {
             get { return selectedBuilding; }
         }
-        // TODO
+
+        public bool IsMouseSelected
+        {
+            get { return SelectedButton == Mouse_btn; }
+        }
 
         void Awake()
         {
@@ -68,7 +66,6 @@ namespace ViewModel.GameScreen.UIHandlers
             SelectButton(Mouse_btn);
             selectedBuilding = "None";
             RemovePriceTag();
-            buildMode = false;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -87,7 +84,7 @@ namespace ViewModel.GameScreen.UIHandlers
         // Update is called once per frame
         void Update()
         {
-            if (buildMode && Mouse.current != null)
+            if (GameViewModel.instance.Gamemode == GameViewModel.GameMode.BUILD && Mouse.current != null)
             {
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
@@ -102,56 +99,56 @@ namespace ViewModel.GameScreen.UIHandlers
             SelectButton(Mouse_btn);
             selectedBuilding = "None";
             RemovePriceTag();
-            buildMode = false;
+            GameViewModel.instance.Gamemode = GameViewModel.GameMode.MOUSE;
         }
         private void OnRoadSelected()
         {
             SelectButton(Road_btn);
             selectedBuilding = "Road";
             AddPriceTag();
-            buildMode = true;
+            GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnBusStopSelected()
         {
             SelectButton(BusStop_btn);
             selectedBuilding = "BusStop";
             AddPriceTag();
-            buildMode = true;
+            GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnTrafficLightSelected()
         {
             SelectButton(TrafficLight_btn);
             selectedBuilding = "TrafficLight";
             AddPriceTag();
-            buildMode = true;
+            GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnBusSelected()
         {
             SelectButton(Bus_btn);
             selectedBuilding = "Bus";
             AddPriceTag();
-            buildMode = true;
+            GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnCarSelected()
         {
             SelectButton(Car_btn);
             selectedBuilding = "Car";
             AddPriceTag();
-            buildMode = true;
+            GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnTruckSelected()
         {
             SelectButton(Truck_btn);
             selectedBuilding = "Truck";
             AddPriceTag();
-            buildMode = true;
+            GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnMinivanSelected()
         {
             SelectButton(Minivan_btn);
             selectedBuilding = "Minivan";
             AddPriceTag();
-            buildMode = true;
+            GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
 
         private void SelectButton(Button btn)
@@ -176,6 +173,20 @@ namespace ViewModel.GameScreen.UIHandlers
             ol.effectDistance = new Vector2(2, -2);
 
             SelectedButton = btn;
+        }
+
+        public void SetDemolishMode(bool state)
+        {
+            if (state)
+            {
+                Outline dol = SelectedButton.GetComponent<Outline>();
+                dol.effectColor = Color.red;
+            }
+            else
+            {
+                Outline dol = SelectedButton.GetComponent<Outline>();
+                dol.effectColor = Color.black;
+            }
         }
 
         private void RemovePriceTag()
