@@ -102,7 +102,7 @@ namespace ViewModel.GameScreen.UIHandlers
             Repair_btn.onClick.AddListener(OnRepairClicked);
             Sell_btn.onClick.AddListener(OnSellClicked);
             
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);//RESET TO FALSE!!!!!
         }
 
         // Update is called once per frame
@@ -125,7 +125,7 @@ namespace ViewModel.GameScreen.UIHandlers
         }
         private void OnSetRouteClicked()
         {
-            // TODO - Milestone III.
+            GameViewModel.instance.SetRouteDisplayActive(true);
         }
         private void OnRepairClicked()
         {

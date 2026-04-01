@@ -19,6 +19,8 @@ public class MenuHandler : MonoBehaviour
         SaveGame_btn.onClick.AddListener(OnSaveGameClicked);
         MainMenu_btn.onClick.AddListener(OnMainMenuClicked);
         QuitGame_btn.onClick.AddListener(OnQuitGameClicked);
+
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
