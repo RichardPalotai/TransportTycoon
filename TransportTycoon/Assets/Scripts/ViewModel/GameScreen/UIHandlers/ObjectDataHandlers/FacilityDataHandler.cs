@@ -23,7 +23,7 @@ namespace ViewModel.GameScreen.UIHandlers
         private Button Close_btn;
 
         [SerializeField]
-        private GameObject SelectedFacility;
+        public GameObject SelectedFacility;
 
         public int ID
         {
@@ -85,10 +85,7 @@ namespace ViewModel.GameScreen.UIHandlers
             if (SelectedFacility != null)
             {
                 // TODO - Set properties to the selected facility's (3D modell - Bálint)
-            }
-            else
-            {
-                OnEscapePressed();
+                OnkKeyPressed();
             }
         }
         
@@ -98,9 +95,9 @@ namespace ViewModel.GameScreen.UIHandlers
             gameObject.SetActive(false);
         }
 
-        private void OnEscapePressed()
+        private void OnkKeyPressed()
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {
                 SetDefaultValues();
                 gameObject.SetActive(false);

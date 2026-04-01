@@ -27,7 +27,7 @@ namespace ViewModel.GameScreen.UIHandlers
         private Button Sell_btn;
 
         [SerializeField]
-        private GameObject SelectedTrafficLight;
+        public GameObject SelectedTrafficLight;
 
         public int ID
         {
@@ -86,10 +86,7 @@ namespace ViewModel.GameScreen.UIHandlers
             if (SelectedTrafficLight != null)
             {
                 // TODO - Set properties to the selected car's (3D modell - Bálint)
-            }
-            else
-            {
-                OnEscapePressed();
+                OnkKeyPressed();
             }
         }
         
@@ -113,9 +110,9 @@ namespace ViewModel.GameScreen.UIHandlers
             SetDefaultValues();
         }
 
-        private void OnEscapePressed()
+        private void OnkKeyPressed()
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {
                 SetDefaultValues();
                 gameObject.SetActive(false);

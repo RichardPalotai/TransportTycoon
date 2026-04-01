@@ -33,7 +33,7 @@ namespace ViewModel.GameScreen.UIHandlers
         private Button Sell_btn;
 
         [SerializeField]
-        private GameObject SelectedCar;
+        public GameObject SelectedVehicle;
 
         public int ID
         {
@@ -119,13 +119,10 @@ namespace ViewModel.GameScreen.UIHandlers
         // Update is called once per frame
         void Update()
         {
-            if (SelectedCar != null)
+            if (SelectedVehicle != null)
             {
                 // TODO - Set properties to the selected car's (3D modell - Bálint)
-            }
-            else
-            {
-                OnEscapePressed();
+                OnkKeyPressed();
             }
         }
         
@@ -145,13 +142,13 @@ namespace ViewModel.GameScreen.UIHandlers
         private void OnSellClicked()
         {
             // TODO - Connect to model
-            Destroy(SelectedCar);
+            Destroy(SelectedVehicle);
             SetDefaultValues();
         }
 
-        private void OnEscapePressed()
+        private void OnkKeyPressed()
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {
                 SetDefaultValues();
                 gameObject.SetActive(false);
@@ -160,7 +157,7 @@ namespace ViewModel.GameScreen.UIHandlers
 
         private void SetDefaultValues()
         {
-            SelectedCar = null;
+            SelectedVehicle = null;
             ID = -2;
             Resource = "None";
             Capacity = 9999;

@@ -77,10 +77,7 @@ namespace ViewModel.GameScreen.UIHandlers
             if (SelectedCity != null)
             {
                 // TODO - Set properties to the selected city's (3D modell - Bálint)
-            }
-            else
-            {
-                OnEscapePressed();
+                OnkKeyPressed();
             }
         }
         
@@ -90,9 +87,9 @@ namespace ViewModel.GameScreen.UIHandlers
             gameObject.SetActive(false);
         }
 
-        private void OnEscapePressed()
+        private void OnkKeyPressed()
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {
                 SetDefaultValues();
                 gameObject.SetActive(false);

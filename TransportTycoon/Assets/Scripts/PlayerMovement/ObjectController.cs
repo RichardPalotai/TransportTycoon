@@ -15,7 +15,10 @@ public class ObjectController : MonoBehaviour
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (hit.transform == transform)
+                    {
                         CameraController.instance.followTransform = transform;
+                        // GameViewModel.instance.SelectedObject = gameObject.GetComponent<DataScript>; SOME DATA SCRIPT WHICH HAS THE OBJECT INFO
+                    }
                 }
             }
         }

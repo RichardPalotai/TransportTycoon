@@ -12,12 +12,13 @@ public class GameViewModel : MonoBehaviour
     private Canvas GameMenu_cnv;
     [SerializeField]
     private Canvas VehicleRoute_cnv;
+    [SerializeField]
+    private GameObject selectedObject;
 
     private GameMode gameMode;
     private Mouse mouse;
     private Keyboard keyboard;
     private bool IsGameMenuOn;
-
     private bool IsDemolishOn;
 
     public GameMode Gamemode
@@ -27,8 +28,17 @@ public class GameViewModel : MonoBehaviour
         {
             if (gameMode == value)
                 return;
-            
+
             gameMode = value;
+        }
+    }
+
+    public GameObject SelectedObject
+    {
+        get { return selectedObject; }
+        set
+        {
+            selectedObject = value;
         }
     }
 
@@ -38,6 +48,7 @@ public class GameViewModel : MonoBehaviour
 
         mouse = Mouse.current;
         keyboard = Keyboard.current;
+        selectedObject = null;
 
         IsGameMenuOn = false;
         IsDemolishOn = false;
@@ -79,6 +90,28 @@ public class GameViewModel : MonoBehaviour
                 gameMode = IsDemolishOn ? GameMode.DEMOLISH : GameMode.MOUSE;
                 BuilderSelectorHandler.instance.SetDemolishMode(IsDemolishOn);
             }
+        }
+
+        if (selectedObject != null)
+        {
+            // SET SELECTED properties to given
+            // switch (selectedObject)
+            // {
+            //     case "City":
+            //         CityDataHandler.instance.SelectedCity = selectedObject;
+            //         break;
+            //     case "Facility":
+            //         FacilityDataHandler.instance.SelectedFacility = selectedObject;
+            //         break;
+            //     case "TrafficLight":
+            //         TrafficLightDataHandler.instance.SelectedTrafficLight = selectedObject;
+            //         break;
+            //     case "Vehicle":
+            //         VehicleDataHandler.instance.SelectedVehicle = selectedObject;
+            //         break;
+            //     default:
+            //         break;
+            // }
         }
     }
 
@@ -162,5 +195,28 @@ public class GameViewModel : MonoBehaviour
         CameraController.instance.enabled = state;
         if (ObjectController.instance != null)
             ObjectController.instance.enabled = state;
+    }
+
+    public void DeselectObject()
+    {
+        // Reset the PROPERTIES
+        // switch (selectedObject)
+        // {
+        //     case "City":
+        //         CityDataHandler.instance.SelectedCity = null;
+        //         break;
+        //     case "Facility":
+        //         FacilityDataHandler.instance.SelectedFacility = null;
+        //         break;
+        //     case "TrafficLight":
+        //         TrafficLightDataHandler.instance.SelectedTrafficLight = null;
+        //         break;
+        //     case "Vehicle":
+        //         VehicleDataHandler.instance.SelectedVehicle = null;
+        //         break;
+        //     default:
+        //         break;
+        // }
+        selectedObject = null;
     }
 }
