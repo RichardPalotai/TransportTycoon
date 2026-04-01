@@ -14,13 +14,15 @@ namespace ViewModel.GameScreen.UIHandlers
         [SerializeField]
         private TextMeshProUGUI ID_Text;
         [SerializeField]
-        private TextMeshProUGUI Condition_Text;
+        private TextMeshProUGUI Resource_Text;
         [SerializeField]
         private TextMeshProUGUI Capacity_Text;
         [SerializeField]
-        private TextMeshProUGUI Worth_Text;
+        private TextMeshProUGUI Condition_Text;
         [SerializeField]
         private TextMeshProUGUI RepairCost_Text;
+        [SerializeField]
+        private TextMeshProUGUI Worth_Text;
         [SerializeField]
         private Button Close_btn;
         [SerializeField]
@@ -42,12 +44,12 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
-        public string Condition
+        public string Resource
         {
-            get { return Condition_Text.text; }
+            get { return Resource_Text.text; }
             set
             {
-                Condition_Text.text = value;
+                Resource_Text.text = value;
             }
         }
 
@@ -63,15 +65,12 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
-        public int Worth
+        public string Condition
         {
-            get { return int.Parse(Worth_Text.text); }
+            get { return Condition_Text.text; }
             set
             {
-                if (value < 0)
-                    throw new Exception("Worth is negative");
-                else
-                    Worth_Text.text = value.ToString();
+                Condition_Text.text = value;
             }
         }
 
@@ -84,6 +83,18 @@ namespace ViewModel.GameScreen.UIHandlers
                     throw new Exception("Repair cost is negative");
                 else
                     RepairCost_Text.text = value.ToString();
+            }
+        }
+
+        public int Worth
+        {
+            get { return int.Parse(Worth_Text.text); }
+            set
+            {
+                if (value < 0)
+                    throw new Exception("Worth is negative");
+                else
+                    Worth_Text.text = value.ToString();
             }
         }
 
@@ -151,10 +162,11 @@ namespace ViewModel.GameScreen.UIHandlers
         {
             SelectedCar = null;
             ID = -2;
-            Condition = "None";
+            Resource = "None";
             Capacity = 9999;
-            Worth = 0;
+            Condition = "None";
             RepairCost = 0;
+            Worth = 0;
         }
 
         public void SetButtonsActive(bool state)

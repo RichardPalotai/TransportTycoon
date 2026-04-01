@@ -23,6 +23,8 @@ namespace ViewModel.GameScreen.UIHandlers
         private TextMeshProUGUI CalendarTime_text;
         [SerializeField]
         private TextMeshProUGUI Time_text;
+        [SerializeField]
+        private Button SelectedButton = null;
         
         /// <summary>
         /// The account balance of the player
@@ -80,6 +82,8 @@ namespace ViewModel.GameScreen.UIHandlers
             Forward_btn.onClick.AddListener(OnForwardClicked);
             FastForward_btn.onClick.AddListener(OnFastForwardClicked);
 
+            SelectButton(Play_btn);
+
             // Only for debug pruposes
             Debug.Log("Account Balance: " + AccountBalance);
             Debug.Log("Calendar Time: " + CalendarTime);
@@ -91,8 +95,9 @@ namespace ViewModel.GameScreen.UIHandlers
         {
             if (Game.instance != null)
             {
-                CalendarTime = Game.instance.CurrentTime;
+                AccountBalance = Game.instance.AccountBalance;
                 Time = Game.instance.CurrentTime;
+                CalendarTime = Game.instance.CurrentTime;
             }
         }
 
@@ -103,18 +108,28 @@ namespace ViewModel.GameScreen.UIHandlers
             Debug.Log("CALENDAR: " + CalendarTime);
             Debug.Log("TIME: " + Time);
             Game.instance.PauseGame();
+            SelectButton(Pause_btn);
         }
         private void OnPlayClicked()
         {
             Game.instance.ResumeGame();
+            SelectButton(Play_btn);
         }
         private void OnForwardClicked()
         {
-            Game.instance.TimeScale *= 1.4f;
+            if (Game.instance.IsPaused)
+                Game.instance.ResumeGame();
+                
+            Game.instance.TimeScale = 64.0f;
+            SelectButton(Forward_btn);
         }
         private void OnFastForwardClicked()
         {
-            Game.instance.TimeScale *= 2.0f;
+            if (Game.instance.IsPaused)
+                Game.instance.ResumeGame();
+
+            Game.instance.TimeScale = 512.0f;
+            SelectButton(FastForward_btn);
         }
 
         public void SetButtonsActive(bool status)
@@ -123,6 +138,16 @@ namespace ViewModel.GameScreen.UIHandlers
             Play_btn.interactable = status;
             Forward_btn.interactable = status;
             FastForward_btn.interactable = status;
+        }
+
+        private void SelectButton(Button btn)
+        {
+            if (SelectedButton != null)
+                SelectedButton.image.color = Color.white;
+
+            btn.image.color = Color.lightGray;
+
+            SelectedButton = btn;
         }
     }
 }

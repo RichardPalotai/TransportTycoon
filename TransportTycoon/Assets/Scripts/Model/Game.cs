@@ -15,6 +15,7 @@ public sealed class Game : IUpdateable
     private Player _player;
     public HashSet<Save> Saves { get; private set; }
     public DateTime CurrentTime { get; private set; }
+    public int AccountBalance { get{ return _player.Money; } }
     private double _timeScale = 1.0;
     private Stopwatch _stopwatch;
 

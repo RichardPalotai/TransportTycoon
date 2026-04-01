@@ -198,18 +198,25 @@ namespace ViewModel.GameScreen.UIHandlers
             switch (selectedBuilding.ToLower())
             {
                 case "road":
+                    Price = 10;
                     break;
                 case "busstop":
+                    Price = 30;
                     break;
                 case "trafficlight":
+                    Price = 50;
                     break;
                 case "bus":
+                    Price = 150;
                     break;
                 case "car":
+                    Price = 100;
                     break;
                 case "truck":
+                    Price = 200;
                     break;
                 case "minivan":
+                    Price = 150;
                     break;
                 
                 default:
