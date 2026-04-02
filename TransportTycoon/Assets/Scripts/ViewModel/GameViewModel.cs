@@ -132,14 +132,16 @@ public class GameViewModel : MonoBehaviour
     {
         IsGameMenuOn = state;
         GameMenu_cnv.gameObject.SetActive(state);
-        SetGameScreenUIActive(!state);
+        SetGameScreenUIButtonsActive(!state);
         SetCameraControllerActive(!state);
 
         if (state)
             Game.instance.PauseGame();
         else
+        {
             Game.instance.ResumeGame();
-        MenuBarHandler.instance.SelectPlayButton();
+            MenuBarHandler.instance.SelectPlayButton();
+        }
     }
 
 
@@ -152,20 +154,50 @@ public class GameViewModel : MonoBehaviour
         IsRouteDisplayOn = state;
         VehicleRoute_cnv.gameObject.SetActive(state);
         SetGameScreenUIActive(!state);
-        SetCameraControllerActive(!state);
+        //SetCameraControllerActive(!state);
 
         if (state)
             Game.instance.PauseGame();
         else
+        {
             Game.instance.ResumeGame();
-        MenuBarHandler.instance.SelectPlayButton();
+            MenuBarHandler.instance.SelectPlayButton();
+        }
+    }
+
+    private void SetGameScreenUIActive(bool state)
+    {
+        MenuBarHandler.instance.gameObject.SetActive(state);
+        BuilderSelectorHandler.instance.gameObject.SetActive(state);
+
+        // TODO - Delete
+        VehicleDataHandler.instance.gameObject.SetActive(state);
+
+        // REACTIVATE THE SELECTED VEHICLE DATA DISPLAY
+        // switch (selectedObject)
+        // {
+        //     case "City":
+        //         CityDataHandler.instance.gameObject.SetActive(state);
+        //         break;
+        //     case "Facility":
+        //         FacilityDataHandler.instance.gameObject.SetActive(state);
+        //         break;
+        //     case "TrafficLight":
+        //         TrafficLightDataHandler.instance.gameObject.SetActive(state);
+        //         break;
+        //     case "Vehicle":
+        //         VehicleDataHandler.instance.gameObject.SetActive(state);
+        //         break;
+        //     default:
+        //         break;
+        // }
     }
 
     /// <summary>
     /// Sets the buttons on/off on the GameScreenUI canvas
     /// </summary>
     /// <param name="state">true == UI is on / false == UI is off on</param>
-    private void SetGameScreenUIActive(bool state)
+    private void SetGameScreenUIButtonsActive(bool state)
     {
         MenuBarHandler.instance.SetButtonsActive(state);
         BuilderSelectorHandler.instance.SetButtonsActive(state);
