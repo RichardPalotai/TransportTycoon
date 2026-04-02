@@ -88,22 +88,22 @@ public sealed class Game : IUpdateable
         CurrentTime = CurrentTime.AddSeconds(deltaTime * TimeScale);
     }
 
-    public void Loop()
-    {
-        Logger.Log("Game loop started");
-        _stopwatch.Start();
+    //public void Loop()
+    //{
+    //    Logger.Log("Game loop started");
+    //    _stopwatch.Start();
 
-        double lastTime = _stopwatch.Elapsed.TotalSeconds;
+    //    double lastTime = _stopwatch.Elapsed.TotalSeconds;
 
-        while (true)
-        {
-            double currentTime = _stopwatch.Elapsed.TotalSeconds;
-            double deltaTime = currentTime - lastTime;
-            lastTime = currentTime;
+    //    while (true)
+    //    {
+    //        double currentTime = _stopwatch.Elapsed.TotalSeconds;
+    //        double deltaTime = currentTime - lastTime;
+    //        lastTime = currentTime;
 
-            Update(deltaTime);
+    //        Update(deltaTime);
 
-            Thread.Sleep(16);
-        }
-    }
+    //        Thread.Sleep(16);
+    //    }
+    //}
 }
