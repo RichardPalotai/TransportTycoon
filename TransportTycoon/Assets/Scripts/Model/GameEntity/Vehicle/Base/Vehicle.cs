@@ -1,5 +1,10 @@
+using System;
+
 public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
 {
+    /// <summary>
+    /// Brand new price
+    /// </summary>
     public int Cost { get; }
     /// <summary>
     /// X coord on the map
@@ -9,7 +14,15 @@ public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
     /// Y coord on the map
     /// </summary>
     public int? Y { get; private set; }
-    public int PurchaseCost { get; init; }
+    /// <summary>
+    /// Current worth: Cost * Condition * 0.01 * 0.5.
+    /// For example: When the condition is 50%, then it'll worth 25% of the brand new price.
+    /// </summary>
+    public double Worth => Math.Round(Cost * Condition * 0.01 * 0.5, 2);
+    /// <summary>
+    /// Repair cost: Cost * Condition * 0.01.
+    /// </summary>
+    public double RepairCost => Math.Round(Cost * Condition * 0.01, 2);
     public double Speed { get; init; }
     private double _condition;
     /// <summary>
@@ -47,6 +60,7 @@ public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
     /// <param name="player"></param>
     public void Purchase(Player player)
     {
+        player.Money -= Cost;
         player.Vehicles.Add(this);
     }
     /// <summary>
@@ -55,6 +69,7 @@ public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
     /// <param name="player"></param>
     public void Sell(Player player)
     {
+        player.Money += Worth;
         player.Vehicles.Remove(this);
     }
     /// <summary>
