@@ -16,17 +16,47 @@ public sealed class TrafficLight : Facility
             _greenInterval = value;
         }
     }
+    public LightColor Color { get; private set; }
+    private double _elapsedTime;
     public TrafficLight(bool isGenerated, double greenInterval) : base((int)Prices.TRAFFICLIGHT, isGenerated)
     {
         GreenInterval = greenInterval;
+        _elapsedTime = 0.0;
     }
 
     public void Synchronize()
     {
-        
+        // TODO
     }
     public override void Update(double deltaTime)
     {
-        
+        _elapsedTime += deltaTime;
+        // [0..GreenInterval) -> green
+        if (_elapsedTime < GreenInterval)
+        {
+            Color = LightColor.GREEN;
+        }
+        // [GreenInterval..GreenInterval+2) -> yellow
+        else if (_elapsedTime < GreenInterval + 2)
+        {
+            Color = LightColor.YELLOW;
+        }
+        // [GreenInterval+2..GreenInterval + 2 + GreenInterval) -> red
+        else if (_elapsedTime < GreenInterval + 2 + GreenInterval)
+        {
+            Color = LightColor.RED;
+        }
+        else
+        {
+            _elapsedTime = 0;
+        }
+    }
+
+    public enum LightColor
+    {
+        RED,
+        YELLOW,
+        GREEN
     }
 }
+
