@@ -1,8 +1,10 @@
 public abstract class TransportVehicle : Vehicle
 {
     public int CargoCapacity { get; init; }
-    protected TransportVehicle(int cost, double speed, int cargoCapacity) : base(cost, speed)
+    public Resource CargoType { get; init; }
+    protected TransportVehicle(int cost, double speed, int cargoCapacity, Resource cargoType) : base(cost, speed)
     {
         CargoCapacity = cargoCapacity;
+        CargoType = cargoType;
     }
 }
