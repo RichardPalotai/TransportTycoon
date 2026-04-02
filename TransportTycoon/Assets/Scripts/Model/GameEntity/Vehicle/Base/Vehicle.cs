@@ -72,6 +72,11 @@ public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
         player.Money += Worth;
         player.Vehicles.Remove(this);
     }
+    public void Repair(Player player)
+    {
+        player.Money -= RepairCost;
+        Condition = 100;
+    }
     /// <summary>
     /// Update runs in every _updateCondInterval (10) seconds
     /// </summary>
