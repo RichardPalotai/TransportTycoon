@@ -57,6 +57,10 @@ public sealed class Game : IUpdateable
     {
         throw new System.NotImplementedException();
     }
+    /// <summary>
+    /// Updates time, vehicles and facilities in every deltaTime
+    /// </summary>
+    /// <param name="deltaTime"></param>
     public void UpdateGame(double deltaTime)
     {
         if (IsPaused) return;
