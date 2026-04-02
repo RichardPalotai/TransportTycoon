@@ -7,25 +7,25 @@ public sealed class Tile
     public int Y { get; init; }
     public int ObjectId { get; private set; }
     #nullable enable
-    private MapObject? _object;
-    public MapObject? Object
+    private GameEntity? _entity;
+    public GameEntity? Entity
     {
-        get => _object; 
+        get => _entity; 
         private set
         {
-            if (_object is not null)
+            if (_entity is not null)
             {
                 throw new FieldOverrideException();
             }
-            _object = value;
+            _entity = value;
         }
     }
     #nullable disable
-    public Tile(int x, int y, MapObject @object)
+    public Tile(int x, int y, GameEntity @object)
     {
         X = x;
         Y = y;
-        Object = @object; //W
+        Entity = @object; //W
         IsFree = false;
         ObjectId = @object.ID;
     }
@@ -33,7 +33,7 @@ public sealed class Tile
     {
         X = x;
         Y = y;
-        Object = null;
+        Entity = null;
         IsFree = false;
         ObjectId = mapObjectId;
     }
@@ -41,7 +41,7 @@ public sealed class Tile
     {
         X = x;
         Y = y;
-        Object = null;
+        Entity = null;
         ObjectId = -1;
         IsFree = true;
     }

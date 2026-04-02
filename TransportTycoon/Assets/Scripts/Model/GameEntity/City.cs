@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-public class City : MapObject
+public class City : GameEntity
 {
     public Dictionary<Resource, int> Need { get; private set; }
     public Dictionary<Resource, double> NeedPerc()

@@ -19,9 +19,9 @@ public sealed class Map
         }
         return _map[x, y];
     }
-    public void PlaceObject(int x, int y, MapObject obj)
+    public void PlaceObject(int x, int y, GameEntity entity)
     {
-        int areaSize = GetAreaSize(obj);
+        int areaSize = GetAreaSize(entity);
 
 
         if (x < 0 || y < 0 || x >= Size || y >= Size)
@@ -40,16 +40,16 @@ public sealed class Map
             }
         }
 
-        _map[x, y] = new(x, y, obj);
+        _map[x, y] = new(x, y, entity);
         for (int i = x; i < x+areaSize; ++i)
         {
             for (int j = y; j < y+areaSize; ++j)
             {
                 if (x != i && y != j)
-                    _map[i, j] = new(i, j, _map[x, y].Object.ID);
+                    _map[i, j] = new(i, j, _map[x, y].Entity.ID);
             }
         }
-        Logger.ObjectPlacedLog(obj.GetType(), x, y);
+        Logger.ObjectPlacedLog(entity.GetType(), x, y);
     }
 
 
@@ -70,10 +70,10 @@ public sealed class Map
 
         Logger.Log("Map generated successfully");
     }
-    public int GetAreaSize(MapObject obj)
+    public int GetAreaSize(GameEntity entity)
     {
-        if (obj is ProdFacility) return 2;
-        else if (obj is City) return 3;
+        if (entity is ProdFacility) return 2;
+        else if (entity is City) return 3;
         return 1;
     }
 }

@@ -1,4 +1,4 @@
-public abstract class Vehicle : MapObject, ITradeable, IUpdateable
+public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
 {
     public int Cost { get; }
     /// <summary>

@@ -1,4 +1,4 @@
-public abstract class Facility : MapObject, IBuildable, ITradeable, IUpdateable
+public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
 {
     public int Cost { get; }
     public bool IsGenerated { get; init; }
