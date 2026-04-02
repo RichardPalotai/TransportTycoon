@@ -1,4 +1,4 @@
-public abstract class Vehicle : ITradeable, IUpdateable
+public abstract class Vehicle : MapObject, ITradeable, IUpdateable
 {
     public int Cost { get; }
     /// <summary>
@@ -20,6 +20,9 @@ public abstract class Vehicle : ITradeable, IUpdateable
     /// It accumulates the seconds during every update. If >= 10, then condition updates, and -= _updateCondInterval
     /// </summary>
     private double _elapsedTimeSinceLastUpdate;
+    /// <summary>
+    /// Vehicles condition in % ([0-100] double value).
+    /// </summary>
     public double Condition
     {
         get => _condition;
