@@ -28,6 +28,20 @@ public sealed class TrafficLight : Facility
     {
         // TODO
     }
+    /// <summary>
+    /// GreenInterval increased by one
+    /// </summary>
+    public void GreenLightIncrement()
+    {
+        GreenInterval += 1;
+    }
+    /// <summary>
+    /// GreenInterval decreased by one
+    /// </summary>
+    public void GreenLightDecrement()
+    {
+        GreenInterval -= 1;
+    }
     public override void Update(double deltaTime)
     {
         _elapsedTime += deltaTime;
