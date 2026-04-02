@@ -1,6 +1,6 @@
 public sealed class Truck : TransportVehicle
 {
-    public Truck(int cost, Resource cargoType) : base(cost, 90, 24, cargoType)
+    public Truck(Resource cargoType) : base((int)Prices.TRUCK, 90, 24, cargoType)
     {
         
     }

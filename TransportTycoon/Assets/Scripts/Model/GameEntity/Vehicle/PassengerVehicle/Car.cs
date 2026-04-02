@@ -1,6 +1,6 @@
 public sealed class Car : PassengerVehicle
 {
-    public Car(int cost, int seats) : base(cost, 130, seats)
+    public Car(int seats) : base((int)Prices.CAR, 130, seats)
     {
         
     }
