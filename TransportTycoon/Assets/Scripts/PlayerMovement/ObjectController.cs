@@ -8,7 +8,7 @@ public class ObjectController : MonoBehaviour
     {
         if (Mouse.current != null && Camera.main != null)
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+            if (Mouse.current.leftButton.wasPressedThisFrame && GameViewModel.instance.Gamemode == GameViewModel.GameMode.MOUSE && !GameViewModel.instance.IsRouteDisplayOn)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
                 RaycastHit hit;

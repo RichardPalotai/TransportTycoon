@@ -20,6 +20,7 @@ public class GameViewModel : MonoBehaviour
     private Keyboard keyboard;
     private bool IsGameMenuOn;
     private bool IsDemolishOn;
+    public bool IsRouteDisplayOn { get; private set; }
 
     public GameMode Gamemode
     {
@@ -52,6 +53,7 @@ public class GameViewModel : MonoBehaviour
 
         IsGameMenuOn = false;
         IsDemolishOn = false;
+        IsRouteDisplayOn = false;
         gameMode = GameMode.MOUSE;
 
         Game game = new Game();
@@ -73,7 +75,7 @@ public class GameViewModel : MonoBehaviour
             {
                 BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue());
             }
-            else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH)
+            else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject == null)
             {
                 // Destror building from  -- BuildingPlacer --
             }
@@ -94,6 +96,7 @@ public class GameViewModel : MonoBehaviour
 
         if (selectedObject != null)
         {
+            BuilderSelectorHandler.instance.SetBuildButtonsActive(false);
             // SET SELECTED properties to given
             // switch (selectedObject)
             // {
@@ -136,6 +139,7 @@ public class GameViewModel : MonoBehaviour
             Game.instance.PauseGame();
         else
             Game.instance.ResumeGame();
+        MenuBarHandler.instance.SelectPlayButton();
     }
 
 
@@ -145,6 +149,7 @@ public class GameViewModel : MonoBehaviour
     /// <param name="state">true == UI is on / false == UI is off</param>
     public void SetRouteDisplayActive(bool state)
     {
+        IsRouteDisplayOn = state;
         VehicleRoute_cnv.gameObject.SetActive(state);
         SetGameScreenUIActive(!state);
         SetCameraControllerActive(!state);
@@ -153,6 +158,7 @@ public class GameViewModel : MonoBehaviour
             Game.instance.PauseGame();
         else
             Game.instance.ResumeGame();
+        MenuBarHandler.instance.SelectPlayButton();
     }
 
     /// <summary>
@@ -199,6 +205,7 @@ public class GameViewModel : MonoBehaviour
 
     public void DeselectObject()
     {
+        BuilderSelectorHandler.instance.SetBuildButtonsActive(true);
         // Reset the PROPERTIES
         // switch (selectedObject)
         // {

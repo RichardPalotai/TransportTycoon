@@ -187,6 +187,7 @@ namespace ViewModel.GameScreen.UIHandlers
                 Outline dol = SelectedButton.GetComponent<Outline>();
                 dol.effectColor = Color.black;
             }
+            SetBuildButtonsActive(!state);
         }
 
         private void RemovePriceTag()
@@ -236,16 +237,27 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
-        public void SetButtonsActive(bool status)
+        public void SetButtonsActive(bool state)
         {
-            Mouse_btn.interactable = status;
-            Road_btn.interactable = status;
-            BusStop_btn.interactable = status;
-            TrafficLight_btn.interactable = status;
-            Bus_btn.interactable = status;
-            Car_btn.interactable = status;
-            Truck_btn.interactable = status;
-            Minivan_btn.interactable = status;
+            Mouse_btn.interactable = state;
+            Road_btn.interactable = state;
+            BusStop_btn.interactable = state;
+            TrafficLight_btn.interactable = state;
+            Bus_btn.interactable = state;
+            Car_btn.interactable = state;
+            Truck_btn.interactable = state;
+            Minivan_btn.interactable = state;
+        }
+
+        public void SetBuildButtonsActive(bool state)
+        {
+            Road_btn.interactable = state;
+            BusStop_btn.interactable = state;
+            TrafficLight_btn.interactable = state;
+            Bus_btn.interactable = state;
+            Car_btn.interactable = state;
+            Truck_btn.interactable = state;
+            Minivan_btn.interactable = state;
         }
     }
 }

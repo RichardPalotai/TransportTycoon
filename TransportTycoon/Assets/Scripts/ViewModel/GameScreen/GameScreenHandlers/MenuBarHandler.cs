@@ -149,5 +149,10 @@ namespace ViewModel.GameScreen.UIHandlers
 
             SelectedButton = btn;
         }
+
+        public void SelectPlayButton()
+        {
+            SelectButton(Play_btn);
+        }
     }
 }
