@@ -55,14 +55,17 @@ public sealed class Map
     {
         (int dx, int dy)[] dirs =
         {
-            (1, -1),
             (1, 1),
-            (-1, -1),
-            (-1, 1)
+            (1, -1),
+            (-1, 1),
+            (-1, -1)
         };
 
         foreach (var (dirX, dirY) in dirs)
         {
+            if (x + dirX < 0 || x + dirX >= Size || y + dirY < 0 || y + dirY > Size)
+                continue;
+
             if (_map[x + dirX, y + dirY].Entity is Road r && r.IsCrossRoad)
             {
                 _crossroads[r].TrafficLights.Add(trafficLight);
