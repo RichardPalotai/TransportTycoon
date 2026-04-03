@@ -28,18 +28,32 @@ public sealed class Map
         {
             throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
         }
-        
-        if (!IsFree(x, y, areaSize))
-                    throw new AreaIsNotFreeException();
 
+        if (!IsFree(x, y, areaSize))
+            throw new AreaIsNotFreeException();
+
+        if (entity is Road)
+        {
+            ((Road)entity).IsCrossRoad = IsCrossRoad(x, y);
+        }
 
         _map[x, y] = new(x, y, entity);
         MarkAreaTilesWithId(x, y, areaSize);
 
 
 
-        
+
         Logger.ObjectPlacedLog(entity.GetType(), x, y);
+    }
+
+    private bool IsCrossRoad(int x, int y)
+    {
+        return (
+            (_map[x, y - 1].Entity is Road ? 1 : 0) +
+            (_map[x, y + 1].Entity is Road ? 1 : 0) +
+            (_map[x - 1, y].Entity is Road ? 1 : 0) +
+            (_map[x + 1, y].Entity is Road ? 1 : 0)
+            ) >= 3;
     }
 
     private bool IsFree(int x, int y, int areaSize)
