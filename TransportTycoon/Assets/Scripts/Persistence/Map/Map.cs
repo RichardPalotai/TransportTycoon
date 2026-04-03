@@ -1,14 +1,16 @@
 using System;
-using System.Diagnostics;
-using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public sealed class Map
 {
     private Tile[,] _map;
+    private Dictionary<Road, Crossroad> _crossroads;
     public int Size => _map.GetLength(0);
     public Map(int size = 100)
     {
         _map = new Tile[size, size];
+        _crossroads = new();
         GenerateMap();
     }
     public Tile GetTile(int x, int y)
@@ -32,9 +34,15 @@ public sealed class Map
         if (!IsFree(x, y, areaSize))
             throw new NotEnoughSpaceForObjectException();
 
-        if (entity is Road)
+        if (entity is Road road)
         {
-            ((Road)entity).IsCrossRoad = IsCrossRoad(x, y);
+            road.IsCrossRoad = IsCrossRoad(x, y);
+            _crossroads.Add(road, new Crossroad());
+        }
+
+        if (entity is TrafficLight trafficLight)
+        {
+            AddToCrossRoadIfNeeded(x, y, trafficLight);
         }
 
         _map[x, y] = new(x, y, entity);
@@ -43,7 +51,25 @@ public sealed class Map
 
         Logger.ObjectPlacedLog(entity.GetType(), x, y);
     }
+    private void AddToCrossRoadIfNeeded(int x, int y, TrafficLight trafficLight)
+    {
+        (int dx, int dy)[] dirs =
+        {
+            (1, -1),
+            (1, 1),
+            (-1, -1),
+            (-1, 1)
+        };
 
+        foreach (var (dirX, dirY) in dirs)
+        {
+            if (_map[x + dirX, y + dirY].Entity is Road r && r.IsCrossRoad)
+            {
+                _crossroads[r].TrafficLights.Add(trafficLight);
+                return;
+            }
+        }
+    }
     private bool IsCrossRoad(int x, int y)
     {
         return (
@@ -56,7 +82,7 @@ public sealed class Map
             (x - 1 >= 0
                 ? _map[x - 1, y].Entity is Road ? 1 : 0
                 : 0) +
-            (x + 1 < Size 
+            (x + 1 < Size
                 ? _map[x + 1, y].Entity is Road ? 1 : 0
                 : 0)
             ) >= 3;

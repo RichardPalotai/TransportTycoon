@@ -18,10 +18,12 @@ public sealed class TrafficLight : Facility
     }
     public LightColor Color { get; private set; }
     private double _elapsedTime;
-    public TrafficLight(bool isGenerated, double greenInterval) : base((int)Prices.TRAFFICLIGHT, isGenerated)
+    public LightDirection Direction { get; private set; }
+    public TrafficLight(bool isGenerated, double greenInterval, LightDirection dir) : base((int)Prices.TRAFFICLIGHT, isGenerated)
     {
         GreenInterval = greenInterval;
         _elapsedTime = 0.0;
+        Direction = dir;
     }
 
     public void Synchronize()
@@ -71,6 +73,14 @@ public sealed class TrafficLight : Facility
         RED,
         YELLOW,
         GREEN
+    }
+
+    public enum LightDirection
+    {
+        NORTH,
+        EAST,
+        SOUTH,
+        WEST
     }
 }
 
