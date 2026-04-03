@@ -76,6 +76,11 @@ public sealed class Game : IUpdateable
         {
             item.Update(deltaTime);
         }
+        foreach (var item in _map.Crossroads)
+        {
+            item.Value.Update(deltaTime);
+        }
+
     }
     public void EndGame()
     {

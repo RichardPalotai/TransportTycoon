@@ -5,12 +5,12 @@ using System.Linq;
 public sealed class Map
 {
     private Tile[,] _map;
-    private Dictionary<Road, Crossroad> _crossroads;
+    public Dictionary<Road, Crossroad> Crossroads { get; private set; }
     public int Size => _map.GetLength(0);
     public Map(int size = 100)
     {
         _map = new Tile[size, size];
-        _crossroads = new();
+        Crossroads = new();
         GenerateMap();
     }
     public Tile GetTile(int x, int y)
@@ -37,7 +37,7 @@ public sealed class Map
         if (entity is Road road)
         {
             road.IsCrossRoad = IsCrossRoad(x, y);
-            _crossroads.Add(road, new Crossroad());
+            Crossroads.Add(road, new Crossroad());
         }
 
         if (entity is TrafficLight trafficLight)
@@ -68,7 +68,8 @@ public sealed class Map
 
             if (_map[x + dirX, y + dirY].Entity is Road r && r.IsCrossRoad)
             {
-                _crossroads[r].TrafficLights.Add(trafficLight);
+                Crossroads[r].TrafficLights.Add(trafficLight);
+                trafficLight.Crossroad = Crossroads[r];
                 return;
             }
         }
