@@ -30,7 +30,7 @@ public sealed class Map
         }
 
         if (!IsFree(x, y, areaSize))
-            throw new AreaIsNotFreeException();
+            throw new NotEnoughSpaceForObjectException();
 
         if (entity is Road)
         {
@@ -41,23 +41,33 @@ public sealed class Map
         MarkAreaTilesWithId(x, y, areaSize);
 
 
-
-
         Logger.ObjectPlacedLog(entity.GetType(), x, y);
     }
 
     private bool IsCrossRoad(int x, int y)
     {
         return (
-            (_map[x, y - 1].Entity is Road ? 1 : 0) +
-            (_map[x, y + 1].Entity is Road ? 1 : 0) +
-            (_map[x - 1, y].Entity is Road ? 1 : 0) +
-            (_map[x + 1, y].Entity is Road ? 1 : 0)
+            (y - 1 >= 0
+                ? _map[x, y - 1].Entity is Road ? 1 : 0
+                : 0) +
+            (y + 1 < Size
+                ? _map[x, y + 1].Entity is Road ? 1 : 0
+                : 0) +
+            (x - 1 >= 0
+                ? _map[x - 1, y].Entity is Road ? 1 : 0
+                : 0) +
+            (x + 1 < Size 
+                ? _map[x + 1, y].Entity is Road ? 1 : 0
+                : 0)
             ) >= 3;
     }
 
     private bool IsFree(int x, int y, int areaSize)
     {
+        if (x + areaSize > Size || y + areaSize > Size)
+        {
+            return false;
+        }
         for (int i = x; i < x + areaSize; ++i)
         {
             for (int j = y; j < y + areaSize; ++j)
