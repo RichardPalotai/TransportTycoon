@@ -28,31 +28,46 @@ public sealed class Map
         {
             throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
         }
-        for (int i = x; i < x+areaSize; ++i)
+        
+        if (!IsFree(x, y, areaSize))
+                    throw new AreaIsNotFreeException();
+
+
+        _map[x, y] = new(x, y, entity);
+        MarkAreaTilesWithId(x, y, areaSize);
+
+
+
+        
+        Logger.ObjectPlacedLog(entity.GetType(), x, y);
+    }
+
+    private bool IsFree(int x, int y, int areaSize)
+    {
+        for (int i = x; i < x + areaSize; ++i)
         {
-            for (int j = y; j < y+areaSize; ++j)
+            for (int j = y; j < y + areaSize; ++j)
             {
                 if (!_map[i, j].IsFree)
                 {
                     UnityEngine.Debug.Log(i + " " + j + " " + _map[i, j].IsFree);
-                    throw new AreaIsNotFreeException();
+                    return false;
                 }
             }
         }
-
-        _map[x, y] = new(x, y, entity);
-        for (int i = x; i < x+areaSize; ++i)
+        return true;
+    }
+    private void MarkAreaTilesWithId(int x, int y, int areaSize)
+    {
+        for (int i = x; i < x + areaSize; ++i)
         {
-            for (int j = y; j < y+areaSize; ++j)
+            for (int j = y; j < y + areaSize; ++j)
             {
                 if (x != i && y != j)
                     _map[i, j] = new(i, j, _map[x, y].Entity.ID);
             }
         }
-        Logger.ObjectPlacedLog(entity.GetType(), x, y);
     }
-
-
     public void GenerateMap()
     {
         for (int i = 0; i < Size; i++)
