@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -42,6 +43,8 @@ public class GameViewModel : MonoBehaviour
             selectedObject = value;
         }
     }
+
+    public event Action<bool> OnRouteDisplayChanged;
 
     void Awake()
     {
@@ -154,7 +157,7 @@ public class GameViewModel : MonoBehaviour
         IsRouteDisplayOn = state;
         VehicleRoute_cnv.gameObject.SetActive(state);
         SetGameScreenUIActive(!state);
-        //SetCameraControllerActive(!state);
+        OnRouteDisplayChanged?.Invoke(state);
 
         if (state)
             Game.instance.PauseGame();
