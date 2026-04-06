@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
 {
+    private Map _map;
+    public Queue<Facility> Route { get; private set; }
     /// <summary>
     /// Brand new price
     /// </summary>
@@ -33,6 +37,11 @@ public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
     /// It accumulates the seconds during every update. If >= 10, then condition updates, and -= _updateCondInterval
     /// </summary>
     private double _elapsedTimeSinceLastUpdate;
+    private double _timeUntilNextStep;
+    /// <summary>
+    /// Seconds to wain until the next step.
+    /// </summary>
+    private double WaitTime => Speed / 15;
     /// <summary>
     /// Vehicles condition in % ([0-100] double value).
     /// </summary>
@@ -47,12 +56,15 @@ public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
         }
     }
 
-    protected Vehicle(int cost, double speed)
+    protected Vehicle(int cost, double speed, Map map)
     {
+        _map = map;
         Condition = 100;
         Cost = cost;
         Speed = speed;
         _elapsedTimeSinceLastUpdate = 0.0;
+        _timeUntilNextStep = 0.0;
+        Route = new();
     }
     /// <summary>
     /// Adds vehicle to the vehicles list
@@ -84,11 +96,72 @@ public abstract class Vehicle : GameEntity, ITradeable, IUpdateable
     public void Update(double deltaTime)
     {
         _elapsedTimeSinceLastUpdate += deltaTime;
+        _timeUntilNextStep += deltaTime;
         if (_elapsedTimeSinceLastUpdate >= _updateCondInterval)
         {
             _elapsedTimeSinceLastUpdate -= _updateCondInterval;
             Condition -= 0.01;
         }
+
+        if (_timeUntilNextStep >= WaitTime)
+        {
+            _timeUntilNextStep -= WaitTime;
+            Move(_map); //TODO better solution needed to _map
+        }
+
+
     }
-    
+
+    public void SetRoute(List<Facility> stops)
+    {
+        Route.Clear();
+        stops.ForEach(Route.Enqueue);
+    }
+    public void SetToNextStop()
+    {
+        Route.Enqueue(Route.Dequeue());
+    }
+#nullable enable
+    public Facility? GetNextStop() => Route.FirstOrDefault();
+#nullable disable
+
+    private (int x, int y) GetNextStep(Map map, Facility target)
+    {
+        if (X is null || Y is null)
+        {
+            throw new NoCoordsSetException();
+        }
+        var neighbors = map.GetTilesNeighborRoadsCoords(X.Value, Y.Value);
+
+        (int x, int y) best = neighbors.First();
+        double bestDist = Distance(best.x, best.y, target.X, target.Y);
+
+        foreach (var (neighborX, neighborY) in neighbors.Skip(1))
+        {
+            double dist = Distance(neighborX, neighborY, target.X, target.Y);
+
+
+            if (dist < bestDist)
+            {
+                bestDist = dist;
+                best = (neighborX, neighborY);
+            }
+        }
+
+        return best;
+    }
+    public void Move(Map map)
+    {
+        var target = GetNextStop();
+        var nextStep = GetNextStep(map, target);
+
+        if (nextStep.x == target.X && nextStep.y == target.Y)
+        {
+            SetToNextStop();
+        }
+    }
+    private double Distance(int neighborX, int neighborY, int x, int y)
+    {
+        return Math.Sqrt(Math.Pow(neighborX - x, 2) + Math.Pow(neighborY - y, 2));
+    }
 }

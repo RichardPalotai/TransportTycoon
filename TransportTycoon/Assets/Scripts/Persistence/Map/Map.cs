@@ -51,7 +51,7 @@ public sealed class Map
 
         Logger.ObjectPlacedLog(entity.GetType(), x, y);
     }
-    private void AddToCrossRoadIfNeeded(int x, int y, TrafficLight trafficLight)
+    public List<(int x, int y)> GetTilesNeighborRoadsCoords(int x, int y)
     {
         (int dx, int dy)[] dirs =
         {
@@ -60,16 +60,31 @@ public sealed class Map
             (-1, 1),
             (-1, -1)
         };
-
+        List<(int x, int y)> neighborRoads = new();
         foreach (var (dirX, dirY) in dirs)
         {
             if (x + dirX < 0 || x + dirX >= Size || y + dirY < 0 || y + dirY > Size)
                 continue;
 
-            if (_map[x + dirX, y + dirY].Entity is Road r && r.IsCrossRoad)
+            if (_map[x + dirX, y + dirY].Entity is Road)
             {
-                Crossroads[r].TrafficLights.Add(trafficLight);
-                trafficLight.Crossroad = Crossroads[r];
+                neighborRoads.Add((x + dirX, y + dirY));
+
+            }
+        }
+        return neighborRoads;
+    }
+    private void AddToCrossRoadIfNeeded(int x, int y, TrafficLight trafficLight)
+    {
+        var roadCoords = GetTilesNeighborRoadsCoords(x, y);
+
+        foreach (var (coordX, coordY) in roadCoords)
+        {
+            var road = _map[coordX, coordY].Entity as Road;
+            if (road.IsCrossRoad)
+            {
+                Crossroads[road].TrafficLights.Add(trafficLight);
+                trafficLight.Crossroad = Crossroads[road];
                 return;
             }
         }
@@ -145,4 +160,5 @@ public sealed class Map
         else if (entity is City) return 3;
         return 1;
     }
+    
 }
