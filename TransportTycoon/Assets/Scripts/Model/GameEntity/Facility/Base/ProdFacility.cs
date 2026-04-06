@@ -1,9 +1,12 @@
+using System;
+
 public abstract class ProdFacility : Facility
 {
     protected int producedPerSec;
     protected double producedCount = 0;
     protected double _prodBuffer;
-    protected ProdFacility(int cost, bool isGenerated) : base(cost, isGenerated) {}
+    public int VehiclesWhoAreVisitingThisFacilityCount { get; set; } = 0;
+    protected ProdFacility(int cost, bool isGenerated) : base(cost, isGenerated) { }
     public override void Build(Map map, Tile tile)
     {
         map.PlaceObject(tile.X, tile.Y, this);
@@ -24,5 +27,10 @@ public abstract class ProdFacility : Facility
     {
         base.Update(deltaTime); //doesn't do anything yet
         Produce(deltaTime);
+    }
+    public double Traffic(Player player)
+    {
+        return Math.Round((double)VehiclesWhoAreVisitingThisFacilityCount /
+            player.Vehicles.Count * 100.0, 2);
     }
 }
