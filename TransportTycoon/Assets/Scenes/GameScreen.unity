@@ -5262,6 +5262,7 @@ MonoBehaviour:
   Cancel_btn: {fileID: 2124400902}
   Reset_btn: {fileID: 516494101}
   Ok_btn: {fileID: 1556708234}
+  TestObjID: 0
 --- !u!1 &505831610
 GameObject:
   m_ObjectHideFlags: 0
@@ -12375,14 +12376,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1407126406}
-    - target: {fileID: 2898579346059576504, guid: 2cd27fed66d272243851a02bd5805e59, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.64705884
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898579346059576504, guid: 2cd27fed66d272243851a02bd5805e59, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4281509170
-      objectReference: {fileID: 0}
     - target: {fileID: 6218021922886643894, guid: 2cd27fed66d272243851a02bd5805e59, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -14871,11 +14864,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   followTransform: {fileID: 0}
   cameraTransform: {fileID: 1407126409}
-  normalSpeed: 0.2
-  fastSpeed: 0.5
-  moveSpeed: 0.1
+  normalSpeed: 0.5
+  fastSpeed: 3
+  moveSpeed: 1
   moveTime: 5
-  rotationAmount: 0.1
+  rotationAmount: 1
   zoomAmount: {x: 0, y: -10, z: 10}
   newPosition: {x: 0, y: 0, z: 0}
   newRotation: {x: 0, y: 0, z: 0, w: 0}

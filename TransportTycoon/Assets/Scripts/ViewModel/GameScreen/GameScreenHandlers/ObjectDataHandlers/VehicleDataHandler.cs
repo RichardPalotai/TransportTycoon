@@ -8,9 +8,9 @@ namespace ViewModel.GameScreen.UIHandlers
 {
     public class VehicleDataHandler : MonoBehaviour
     {
-        // INSTANCE MUST BE SET ACTIVE WHEN VEHICLE IS CLICKED - (3D modell - Bálint)
         public static VehicleDataHandler instance;
 
+        #region Private variables
         [SerializeField]
         private TextMeshProUGUI ID_Text;
         [SerializeField]
@@ -31,10 +31,17 @@ namespace ViewModel.GameScreen.UIHandlers
         private Button Repair_btn;
         [SerializeField]
         private Button Sell_btn;
+        #endregion
 
+        #region Public variables
         [SerializeField]
         public GameObject SelectedVehicle;
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// General object ID
+        /// </summary>
         public int ID
         {
             get { return int.Parse(ID_Text.text); }
@@ -44,6 +51,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The resource that the vehicle can carry
+        /// </summary>
         public string Resource
         {
             get { return Resource_Text.text; }
@@ -53,6 +63,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The maximum capacity of the resource the vehicle can carry, must be a positive number
+        /// </summary>
         public int Capacity
         {
             get { return int.Parse(Capacity_Text.text); }
@@ -65,6 +78,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The condition of the vehicle (Obsolete/Service/New)
+        /// </summary>
         public string Condition
         {
             get { return Condition_Text.text; }
@@ -74,6 +90,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The price of changing the vehicle's condition to "New", must be non-negative number
+        /// </summary>
         public int RepairCost
         {
             get { return int.Parse(RepairCost_Text.text); }
@@ -85,7 +104,10 @@ namespace ViewModel.GameScreen.UIHandlers
                     RepairCost_Text.text = value.ToString();
             }
         }
-
+        
+        /// <summary>
+        /// The worth of the vehicle, depends on the Condition and must be non-negative number
+        /// </summary>
         public int Worth
         {
             get { return int.Parse(Worth_Text.text); }
@@ -97,7 +119,9 @@ namespace ViewModel.GameScreen.UIHandlers
                     Worth_Text.text = value.ToString();
             }
         }
+        #endregion
 
+        #region Unity calls
         void Awake()
         {
             instance = this;
@@ -113,7 +137,8 @@ namespace ViewModel.GameScreen.UIHandlers
             Repair_btn.onClick.AddListener(OnRepairClicked);
             Sell_btn.onClick.AddListener(OnSellClicked);
             
-            gameObject.SetActive(true); // TODO - Set to false!!!!!
+            // TODO - Set to false!!!!!
+            gameObject.SetActive(true);
         }
 
         // Update is called once per frame
@@ -125,7 +150,9 @@ namespace ViewModel.GameScreen.UIHandlers
                 OnkKeyPressed();
             }
         }
+        #endregion
         
+        #region Button click events
         private void OnCloseClicked()
         {
             SetDefaultValues();
@@ -145,7 +172,9 @@ namespace ViewModel.GameScreen.UIHandlers
             Destroy(SelectedVehicle);
             SetDefaultValues();
         }
+        #endregion
 
+        #region Private methods
         private void OnkKeyPressed()
         {
             if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
@@ -165,7 +194,9 @@ namespace ViewModel.GameScreen.UIHandlers
             RepairCost = 0;
             Worth = 0;
         }
+        #endregion
 
+        #region Public methods
         public void SetButtonsActive(bool state)
         {
             Close_btn.interactable = state;
@@ -173,5 +204,6 @@ namespace ViewModel.GameScreen.UIHandlers
             Repair_btn.interactable = state;
             Sell_btn.interactable = state;
         }
+        #endregion
     }   
 }

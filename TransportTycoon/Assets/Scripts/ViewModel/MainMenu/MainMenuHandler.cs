@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MainMenuHandler : MonoBehaviour
 {
+    #region Private variables
     [SerializeField]
     private Button NewGame_btn;
     [SerializeField]
@@ -13,6 +14,9 @@ public class MainMenuHandler : MonoBehaviour
     private TMP_Dropdown GameSlot_dropdown;
     [SerializeField]
     private Button QuitGame_btn;
+    #endregion
+
+    #region Unity calls
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,18 +30,21 @@ public class MainMenuHandler : MonoBehaviour
     {
         
     }
+    #endregion
 
+    #region Private variables
     private void OnNewGameClicked()
     {
-        // TODO - Connect to model
+        // TODO - Model, New Game
         SceneManager.LoadScene("GameScreen");
     }
     private void OnLoadGameClicked()
     {
-        // TODO - Milestone III.
+        // TODO - Load Game
     }
     private void OnQuitGameClicked()
     {
         UnityEditor.EditorApplication.isPlaying = false;
     }
+    #endregion
 }

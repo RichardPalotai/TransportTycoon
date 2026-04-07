@@ -6,12 +6,15 @@ using UnityEngine.UI;
 public class RouteErrorHandler : MonoBehaviour
 {
     public static RouteErrorHandler instance;
-
+    
+    #region Private variables
     [SerializeField]
     private Button Close_btn;
     [SerializeField]
     private TMP_Text Error_txt;
+    #endregion
 
+    #region Properties
     public string ErrorText{
         get { return Error_txt.text; }
         set
@@ -19,7 +22,9 @@ public class RouteErrorHandler : MonoBehaviour
             Error_txt.text = value;
         }
     }
+    #endregion
 
+    #region Unity calls
     void Awake()
     {
         instance = this;
@@ -38,16 +43,21 @@ public class RouteErrorHandler : MonoBehaviour
     {
         
     }
+    #endregion
 
+    #region Private methods
     private void OnCloseClicked()
     {
         ErrorText = "Some error message";
         gameObject.SetActive(false);
     }
+    #endregion
 
+    #region Public methods
     public void DisplayError(string msg)
     {
         ErrorText = msg;
         gameObject.SetActive(true);
     }
+    #endregion
 }

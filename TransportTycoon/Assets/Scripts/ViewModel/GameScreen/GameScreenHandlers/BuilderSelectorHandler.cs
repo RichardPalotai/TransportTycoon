@@ -11,6 +11,7 @@ namespace ViewModel.GameScreen.UIHandlers
     {
         public static BuilderSelectorHandler instance;
 
+        #region Private variables
         [SerializeField]
         private TextMeshProUGUI Price_Text;
         [SerializeField]
@@ -35,8 +36,11 @@ namespace ViewModel.GameScreen.UIHandlers
         [SerializeField]
         private Button SelectedButton = null;
 
-        private string selectedBuilding;
+        private enum Building { NONE, ROAD, BUSSTOP, TRAFFICLIGHT, BUS, CAR, TRUCK, MINIVAN}
+        private Building selectedBuilding;
+        #endregion
 
+        #region Properties
         private int Price
         {
             get { return int.Parse(Price_Text.text); }
@@ -48,23 +52,19 @@ namespace ViewModel.GameScreen.UIHandlers
                     Price_Text.text = value.ToString();
             }
         }
-
-        public string SelectedBuilding
-        {
-            get { return selectedBuilding; }
-        }
-
         public bool IsMouseSelected
         {
             get { return SelectedButton == Mouse_btn; }
         }
+        #endregion
 
+        #region Unity calls
         void Awake()
         {
             instance = this;
 
             SelectButton(Mouse_btn);
-            selectedBuilding = "None";
+            selectedBuilding = Building.NONE;
             RemovePriceTag();
         }
 
@@ -84,73 +84,75 @@ namespace ViewModel.GameScreen.UIHandlers
         // Update is called once per frame
         void Update()
         {
-            if (GameViewModel.instance.Gamemode == GameViewModel.GameMode.BUILD && Mouse.current != null)
-            {
-                if (Mouse.current.leftButton.wasPressedThisFrame)
-                {
-                    // TODO - Connect to model (Add building to map)
-                    // TODO - Place objects on actual landscape (3D modell - Bálint)
-                }
-            }
+            
         }
+        #endregion
 
+        #region Button click events
         private void OnMouseSelected()
         {
             SelectButton(Mouse_btn);
-            selectedBuilding = "None";
+            selectedBuilding = Building.NONE;
             RemovePriceTag();
             GameViewModel.instance.Gamemode = GameViewModel.GameMode.MOUSE;
         }
         private void OnRoadSelected()
         {
             SelectButton(Road_btn);
-            selectedBuilding = "Road";
+            selectedBuilding = Building.ROAD;
             AddPriceTag();
             GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnBusStopSelected()
         {
             SelectButton(BusStop_btn);
-            selectedBuilding = "BusStop";
+            selectedBuilding = Building.BUSSTOP;
             AddPriceTag();
             GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnTrafficLightSelected()
         {
             SelectButton(TrafficLight_btn);
-            selectedBuilding = "TrafficLight";
+            selectedBuilding = Building.TRAFFICLIGHT;
             AddPriceTag();
             GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnBusSelected()
         {
             SelectButton(Bus_btn);
-            selectedBuilding = "Bus";
+            selectedBuilding = Building.BUS;
             AddPriceTag();
             GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnCarSelected()
         {
             SelectButton(Car_btn);
-            selectedBuilding = "Car";
+            selectedBuilding = Building.CAR;
             AddPriceTag();
             GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnTruckSelected()
         {
             SelectButton(Truck_btn);
-            selectedBuilding = "Truck";
+            selectedBuilding = Building.TRUCK;
             AddPriceTag();
             GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
         private void OnMinivanSelected()
         {
             SelectButton(Minivan_btn);
-            selectedBuilding = "Minivan";
+            selectedBuilding = Building.MINIVAN;
             AddPriceTag();
             GameViewModel.instance.Gamemode = GameViewModel.GameMode.BUILD;
         }
+        #endregion
 
+        #region Private methods
+        /// <summary>
+        /// Sets the given button's outline to visible/invisible and background color to black/white depending on selection.
+        /// If a button was already selected It will be deselected and the button given as parameter will be selected.
+        /// </summary>
+        /// <param name="btn">Button that is ought to be selected</param>
         private void SelectButton(Button btn)
         {
             if (SelectedButton != null)
@@ -175,6 +177,65 @@ namespace ViewModel.GameScreen.UIHandlers
             SelectedButton = btn;
         }
 
+        /// <summary>
+        /// Removes the price tag from the BuilderSelectorUI
+        /// </summary>
+        private void RemovePriceTag()
+        {
+            RectTransform rt = transform as RectTransform;
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -139);
+            rt.sizeDelta = new Vector2(rt.sizeDelta.x, 258);
+            PriceTag.gameObject.SetActive(false);
+            Price = 1;
+        }
+
+        /// <summary>
+        /// Adds the price tag to the BuilderSelectorUI
+        /// </summary>
+        private void AddPriceTag()
+        {
+            RectTransform rt = transform as RectTransform;
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -172);
+            rt.sizeDelta = new Vector2(rt.sizeDelta.x, 322);
+            PriceTag.gameObject.SetActive(true);
+            
+            // TODO - Connect to Model (Set prices)
+            switch (selectedBuilding)
+            {
+                case Building.ROAD:
+                    Price = 10;
+                    break;
+                case Building.BUSSTOP:
+                    Price = 30;
+                    break;
+                case Building.TRAFFICLIGHT:
+                    Price = 50;
+                    break;
+                case Building.BUS:
+                    Price = 150;
+                    break;
+                case Building.CAR:
+                    Price = 100;
+                    break;
+                case Building.TRUCK:
+                    Price = 200;
+                    break;
+                case Building.MINIVAN:
+                    Price = 150;
+                    break;
+                
+                default:
+                    Price = 1;
+                    break;
+            }
+        }
+        #endregion
+
+        #region Public methods
+        /// <summary>
+        /// Sets the "Mouse" button's outline to red/black and sets build mode buttons on/off depending on state
+        /// </summary>
+        /// <param name="state">true == demolish UI on / false == demolish UI off</param>
         public void SetDemolishMode(bool state)
         {
             if (state)
@@ -190,53 +251,10 @@ namespace ViewModel.GameScreen.UIHandlers
             SetBuildButtonsActive(!state);
         }
 
-        private void RemovePriceTag()
-        {
-            RectTransform rt = transform as RectTransform;
-            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -139);
-            rt.sizeDelta = new Vector2(rt.sizeDelta.x, 258);
-            PriceTag.gameObject.SetActive(false);
-            Price = 1;
-        }
-
-        private void AddPriceTag()
-        {
-            RectTransform rt = transform as RectTransform;
-            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -172);
-            rt.sizeDelta = new Vector2(rt.sizeDelta.x, 322);
-            PriceTag.gameObject.SetActive(true);
-            
-            // TODO - Connect to Model (Set prices)
-            switch (selectedBuilding.ToLower())
-            {
-                case "road":
-                    Price = 10;
-                    break;
-                case "busstop":
-                    Price = 30;
-                    break;
-                case "trafficlight":
-                    Price = 50;
-                    break;
-                case "bus":
-                    Price = 150;
-                    break;
-                case "car":
-                    Price = 100;
-                    break;
-                case "truck":
-                    Price = 200;
-                    break;
-                case "minivan":
-                    Price = 150;
-                    break;
-                
-                default:
-                    Price = 1;
-                    break;
-            }
-        }
-
+        /// <summary>
+        /// Sets all the buttons on/off
+        /// </summary>
+        /// <param name="state">true == buttons on / false == buttons off</param>
         public void SetButtonsActive(bool state)
         {
             Mouse_btn.interactable = state;
@@ -249,6 +267,10 @@ namespace ViewModel.GameScreen.UIHandlers
             Minivan_btn.interactable = state;
         }
 
+        /// <summary>
+        /// Sets Build mode buttons on/off
+        /// </summary>
+        /// <param name="state">true == build buttons on / false == build buttons off</param>
         public void SetBuildButtonsActive(bool state)
         {
             Road_btn.interactable = state;
@@ -259,5 +281,6 @@ namespace ViewModel.GameScreen.UIHandlers
             Truck_btn.interactable = state;
             Minivan_btn.interactable = state;
         }
+        #endregion
     }
 }

@@ -9,6 +9,7 @@ namespace ViewModel.GameScreen.UIHandlers
     {
         public static MenuBarHandler instance;
 
+        #region Private variables
         [SerializeField]
         private TextMeshProUGUI AccountBalance_text;
         [SerializeField]
@@ -25,7 +26,9 @@ namespace ViewModel.GameScreen.UIHandlers
         private TextMeshProUGUI Time_text;
         [SerializeField]
         private Button SelectedButton = null;
+        #endregion
         
+        #region Properties
         /// <summary>
         /// The account balance of the player
         /// </summary>
@@ -64,7 +67,9 @@ namespace ViewModel.GameScreen.UIHandlers
                 Time_text.text = value.ToString("HH:mm:ss");
             }
         }
+        #endregion
 
+        #region Unity calls
         void Awake()
         {
             instance = this;
@@ -100,7 +105,9 @@ namespace ViewModel.GameScreen.UIHandlers
                 CalendarTime = Game.instance.CurrentTime;
             }
         }
+        #endregion
 
+        #region Private methods
         private void OnPauseClicked()
         {
             Debug.Log("GAME INSTANCE: " + Game.instance);
@@ -131,7 +138,9 @@ namespace ViewModel.GameScreen.UIHandlers
             Game.instance.TimeScale = 512.0f;
             SelectButton(FastForward_btn);
         }
+        #endregion
 
+        #region Public methods
         public void SetButtonsActive(bool status)
         {
             Pause_btn.interactable = status;
@@ -154,5 +163,6 @@ namespace ViewModel.GameScreen.UIHandlers
         {
             SelectButton(Play_btn);
         }
+        #endregion
     }
 }

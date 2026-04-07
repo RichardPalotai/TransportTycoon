@@ -18,7 +18,8 @@ public class ObjectController : MonoBehaviour
                     if (hit.transform == transform)
                     {
                         CameraController.instance.followTransform = transform;
-                        GameViewModel.instance.SelectedObject = gameObject;
+                        // TODO - SOME DATA SCRIPT WHICH HAS THE OBJECT INFO
+                        //GameViewModel.instance.SelectedObject = gameObject.GetComponent<DataScript>;
                     }
                 }
             }

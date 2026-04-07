@@ -8,6 +8,7 @@ public class VehicleRouteHandler : MonoBehaviour
 {
     public static VehicleRouteHandler instance;
 
+    #region Private variables
     [SerializeField]
     private Button Cancel_btn;
     [SerializeField]
@@ -16,31 +17,58 @@ public class VehicleRouteHandler : MonoBehaviour
     private Button Ok_btn;
 
     private LinkedList<int> currentRoute = new LinkedList<int>();
+    #endregion
 
-    // TODO - Connect to REAL ID from Model
+    #region Public variables
+    // TODO - Connect to REAL ID from Model (delete dummy data)
     public int TestObjID = 0;
+    #endregion
 
+    #region Events
     public event Action OnRouteReset;
     public event Action OnRouteChanged;
+    #endregion
 
-    public bool IsPlaceSelected(int ID)
+    #region Unity calls
+    void Awake()
     {
-        if (currentRoute.Contains(ID) && IsPlaceAnEnd(ID))
-        {
-            currentRoute.Remove(ID);
-            OnRouteChanged?.Invoke();
-            Debug.LogAssertion("[REMOVED] " + ID + " from " + currentRoute.ToList());
-            return false;
-        }
-        else if (!currentRoute.Contains(ID) && IsPlaceNear())
-        {
-            currentRoute.AddLast(ID);
-            OnRouteChanged?.Invoke();
-            Debug.LogAssertion("[ADDED] " + ID + " to " + currentRoute.ToList());
-            return true;
-        }
+        instance = this;
+    }
 
-        return false;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        Cancel_btn.onClick.AddListener(OnCancelClicked);
+        Reset_btn.onClick.AddListener(OnResetClicked);
+        Ok_btn.onClick.AddListener(OnOkClicked);
+
+        gameObject.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    #endregion
+
+    #region Private methods
+    private void OnCancelClicked()
+    {
+        GameViewModel.instance.SetRouteDisplayActive(false);
+    }
+
+    private void OnResetClicked()
+    {
+        currentRoute = new LinkedList<int>();
+        OnRouteReset?.Invoke();
+    }
+
+    private void OnOkClicked()
+    {
+        GameObject vehicle = GameViewModel.instance.SelectedObject;
+        // TODO - SetRoute to vehicle
+        // vehicle.SetRoute(currentRoute)
     }
 
     // TODO - Implement this
@@ -65,6 +93,28 @@ public class VehicleRouteHandler : MonoBehaviour
             throw new RouteException("Places with two or more neighbours cannot be removed from route");
         }
     }
+    #endregion
+
+    #region Public methods
+    public bool IsPlaceSelected(int ID)
+    {
+        if (currentRoute.Contains(ID) && IsPlaceAnEnd(ID))
+        {
+            currentRoute.Remove(ID);
+            OnRouteChanged?.Invoke();
+            Debug.Log("[REMOVED] " + ID + " from " + currentRoute.ToList());
+            return false;
+        }
+        else if (!currentRoute.Contains(ID) && IsPlaceNear())
+        {
+            currentRoute.AddLast(ID);
+            OnRouteChanged?.Invoke();
+            Debug.Log("[ADDED] " + ID + " to " + currentRoute.ToList());
+            return true;
+        }
+
+        return false;
+    }
 
     public bool IsPlaceInRoute(int ID)
     {
@@ -81,43 +131,5 @@ public class VehicleRouteHandler : MonoBehaviour
         else
             return "N/A";
     }
-
-    void Awake()
-    {
-        instance = this;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        Cancel_btn.onClick.AddListener(OnCancelClicked);
-        Reset_btn.onClick.AddListener(OnResetClicked);
-        Ok_btn.onClick.AddListener(OnOkClicked);
-
-        gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void OnCancelClicked()
-    {
-        GameViewModel.instance.SetRouteDisplayActive(false);
-    }
-
-    private void OnResetClicked()
-    {
-        currentRoute = new LinkedList<int>();
-        OnRouteReset?.Invoke();
-    }
-
-    private void OnOkClicked()
-    {
-        GameObject vehicle = GameViewModel.instance.SelectedObject;
-        // TODO - SetRoute to vehicle
-        // vehicle.SetRoute(currentRoute)
-    }
+    #endregion
 }

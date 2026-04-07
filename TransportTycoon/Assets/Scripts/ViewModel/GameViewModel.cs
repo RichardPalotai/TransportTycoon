@@ -9,6 +9,7 @@ public class GameViewModel : MonoBehaviour
     public static GameViewModel instance;
     public enum GameMode { BUILD, DEMOLISH, MOUSE }
 
+    #region Private variables
     [SerializeField]
     private Canvas GameMenu_cnv;
     [SerializeField]
@@ -21,8 +22,14 @@ public class GameViewModel : MonoBehaviour
     private Keyboard keyboard;
     private bool IsGameMenuOn;
     private bool IsDemolishOn;
+    #endregion
+
+    #region Properties
     public bool IsRouteDisplayOn { get; private set; }
 
+    /// <summary>
+    /// Play mode of the game (BUILD/DEMOLISH/MOUSE)
+    /// </summary>
     public GameMode Gamemode
     {
         get { return gameMode; }
@@ -35,6 +42,9 @@ public class GameViewModel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The object that is selected by the mouse pointer click
+    /// </summary>
     public GameObject SelectedObject
     {
         get { return selectedObject; }
@@ -43,9 +53,13 @@ public class GameViewModel : MonoBehaviour
             selectedObject = value;
         }
     }
+    #endregion
 
+    #region Events
     public event Action<bool> OnRouteDisplayChanged;
+    #endregion
 
+    #region Unity calls
     void Awake()
     {
         instance = this;
@@ -62,6 +76,7 @@ public class GameViewModel : MonoBehaviour
         Game game = new Game();
         Game.instance = game;
     }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -80,7 +95,7 @@ public class GameViewModel : MonoBehaviour
             }
             else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject == null)
             {
-                // Destror building from  -- BuildingPlacer --
+                // TODO - Destror building from  -- BuildingPlacer --
             }
         }
 
@@ -100,7 +115,7 @@ public class GameViewModel : MonoBehaviour
         if (selectedObject != null)
         {
             BuilderSelectorHandler.instance.SetBuildButtonsActive(false);
-            // SET SELECTED properties to given
+            // TODO - SET SELECTED properties to given
             // switch (selectedObject)
             // {
             //     case "City":
@@ -120,63 +135,31 @@ public class GameViewModel : MonoBehaviour
             // }
         }
     }
+    #endregion
 
+    #region Private methods
+    /// <summary>
+    /// Determines whether the mouse is over a UI element or not
+    /// </summary>
+    /// <returns>true == mouse is over UI / false == mouse is not over UI</returns>
     private bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
 
-
     /// <summary>
-    /// Sets GameMenuUI canvas on/off
+    /// Sets the GameScreenUI on/off
     /// </summary>
     /// <param name="state">true == UI is on / false == UI is off</param>
-    public void SetMenuActive(bool state)
-    {
-        IsGameMenuOn = state;
-        GameMenu_cnv.gameObject.SetActive(state);
-        SetGameScreenUIButtonsActive(!state);
-        SetCameraControllerActive(!state);
-
-        if (state)
-            Game.instance.PauseGame();
-        else
-        {
-            Game.instance.ResumeGame();
-            MenuBarHandler.instance.SelectPlayButton();
-        }
-    }
-
-
-    /// <summary>
-    /// Sets the VehicleRouteUI canvas on/off
-    /// </summary>
-    /// <param name="state">true == UI is on / false == UI is off</param>
-    public void SetRouteDisplayActive(bool state)
-    {
-        IsRouteDisplayOn = state;
-        VehicleRoute_cnv.gameObject.SetActive(state);
-        SetGameScreenUIActive(!state);
-        OnRouteDisplayChanged?.Invoke(state);
-
-        if (state)
-            Game.instance.PauseGame();
-        else
-        {
-            Game.instance.ResumeGame();
-            MenuBarHandler.instance.SelectPlayButton();
-        }
-    }
-
     private void SetGameScreenUIActive(bool state)
     {
         MenuBarHandler.instance.gameObject.SetActive(state);
         BuilderSelectorHandler.instance.gameObject.SetActive(state);
 
-        // TODO - Delete
+        // TODO - Delete (When car can be placed down)
         VehicleDataHandler.instance.gameObject.SetActive(state);
 
-        // REACTIVATE THE SELECTED VEHICLE DATA DISPLAY
+        // TODO - REACTIVATE THE SELECTED VEHICLE DATA DISPLAY
         // switch (selectedObject)
         // {
         //     case "City":
@@ -237,11 +220,57 @@ public class GameViewModel : MonoBehaviour
         if (ObjectController.instance != null)
             ObjectController.instance.enabled = state;
     }
+    #endregion
 
+    #region Public methods
+    /// <summary>
+    /// Sets GameMenuUI on/off
+    /// </summary>
+    /// <param name="state">true == UI is on / false == UI is off</param>
+    public void SetMenuActive(bool state)
+    {
+        IsGameMenuOn = state;
+        GameMenu_cnv.gameObject.SetActive(state);
+        SetGameScreenUIButtonsActive(!state);
+        SetCameraControllerActive(!state);
+
+        if (state)
+            Game.instance.PauseGame();
+        else
+        {
+            Game.instance.ResumeGame();
+            MenuBarHandler.instance.SelectPlayButton();
+        }
+    }
+
+
+    /// <summary>
+    /// Sets the VehicleRouteUI on/off
+    /// </summary>
+    /// <param name="state">true == UI is on / false == UI is off</param>
+    public void SetRouteDisplayActive(bool state)
+    {
+        IsRouteDisplayOn = state;
+        VehicleRoute_cnv.gameObject.SetActive(state);
+        SetGameScreenUIActive(!state);
+        OnRouteDisplayChanged?.Invoke(state);
+
+        if (state)
+            Game.instance.PauseGame();
+        else
+        {
+            Game.instance.ResumeGame();
+            MenuBarHandler.instance.SelectPlayButton();
+        }
+    }
+
+    /// <summary>
+    /// Sets the Build mode buttons active
+    /// </summary>
     public void DeselectObject()
     {
         BuilderSelectorHandler.instance.SetBuildButtonsActive(true);
-        // Reset the PROPERTIES
+        // TODO - Reset the PROPERTIES
         // switch (selectedObject)
         // {
         //     case "City":
@@ -261,4 +290,5 @@ public class GameViewModel : MonoBehaviour
         // }
         selectedObject = null;
     }
+    #endregion
 }

@@ -5,35 +5,19 @@ using UnityEngine.EventSystems;
 
 public class SawmillScript : GridObject
 {
+    #region Private variables
     [SerializeField]
     private int ID;
+    #endregion
+
+    #region Public override methods
     public override void OnObjectPlaced()
     {
         Debug.LogWarning("Placed Sawmill");
-
     }
+    #endregion
 
-    private void OnIconClicked()
-    {
-        Debug.Log("Route Icon clicked");
-        try
-        {
-            if (VehicleRouteHandler.instance.IsPlaceSelected(ID))
-            {
-                routeButton.image.sprite = SelectedSprite;
-            }
-            else
-            {
-                routeButton.image.sprite = DefaultSprite;
-            }
-            OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
-        }
-        catch (RouteException e)
-        {
-            RouteErrorHandler.instance.DisplayError(e.Message);
-        }
-    }
-
+    #region Unity calls
     void Awake()
     {
         DefaultSprite = routeButton.image.sprite;
@@ -62,6 +46,29 @@ public class SawmillScript : GridObject
         Quaternion rotation = Camera.main.transform.rotation;
         routeCanvas.transform.LookAt(routeCanvas.transform.position + rotation * Vector3.forward, rotation * Vector3.up);
     }
+    #endregion
+
+    #region Events
+    private void OnIconClicked()
+    {
+        Debug.Log("Route Icon clicked");
+        try
+        {
+            if (VehicleRouteHandler.instance.IsPlaceSelected(ID))
+            {
+                routeButton.image.sprite = SelectedSprite;
+            }
+            else
+            {
+                routeButton.image.sprite = DefaultSprite;
+            }
+            OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
+        }
+        catch (RouteException e)
+        {
+            RouteErrorHandler.instance.DisplayError(e.Message);
+        }
+    }
 
     private void HandleRouteDisplayChanged(bool isOn)
     {
@@ -86,4 +93,5 @@ public class SawmillScript : GridObject
     {
         OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
     }
+    #endregion
 }

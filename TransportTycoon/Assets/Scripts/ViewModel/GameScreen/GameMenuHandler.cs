@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuHandler : MonoBehaviour
+public class GameMenuHandler : MonoBehaviour
 {
+    #region Private variables
     [SerializeField]
     private Button ResumeGame_btn;
     [SerializeField]
@@ -12,6 +13,9 @@ public class MenuHandler : MonoBehaviour
     private Button MainMenu_btn;
     [SerializeField]
     private Button QuitGame_btn;
+    #endregion
+
+    #region Unity calls
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,7 +32,9 @@ public class MenuHandler : MonoBehaviour
     {
         
     }
+    #endregion
 
+    #region Button click events
     private void OnResumeGameClicked()
     {
         GameViewModel.instance.SetMenuActive(false);
@@ -36,16 +42,19 @@ public class MenuHandler : MonoBehaviour
 
     private void OnSaveGameClicked()
     {
-        
+        // TODO - Save Game
     }
 
     private void OnMainMenuClicked()
     {
+        // TODO - Save Game
         SceneManager.LoadScene("MainMenu");
     }
 
     private void OnQuitGameClicked()
     {
+        // TODO - Save Game
         UnityEditor.EditorApplication.isPlaying = false;
     }
+    #endregion
 }
