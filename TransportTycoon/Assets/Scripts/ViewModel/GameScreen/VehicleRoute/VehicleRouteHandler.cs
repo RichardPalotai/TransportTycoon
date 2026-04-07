@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,19 +16,28 @@ public class VehicleRouteHandler : MonoBehaviour
     private Button Ok_btn;
 
     private LinkedList<int> currentRoute = new LinkedList<int>();
-    public bool AddPlace(int ID)
+
+    // TODO - Connect to REAL ID from Model
+    public int TestObjID = 0;
+
+    public event Action OnRouteReset;
+    public event Action OnRouteChanged;
+
+    public bool IsPlaceSelected(int ID)
     {
-        try
-        {    
-            if (IsPlaceNear() && !currentRoute.Contains(ID))
-            {
-                currentRoute.AddLast(ID);
-                return true;
-            }
-        }
-        catch (RouteException e)
+        if (currentRoute.Contains(ID) && IsPlaceAnEnd(ID))
         {
-            RouteErrorHandler.instance.DisplayError(e.Message);
+            currentRoute.Remove(ID);
+            OnRouteChanged?.Invoke();
+            Debug.LogAssertion("[REMOVED] " + ID + " from " + currentRoute.ToList());
+            return false;
+        }
+        else if (!currentRoute.Contains(ID) && IsPlaceNear())
+        {
+            currentRoute.AddLast(ID);
+            OnRouteChanged?.Invoke();
+            Debug.LogAssertion("[ADDED] " + ID + " to " + currentRoute.ToList());
+            return true;
         }
 
         return false;
@@ -37,26 +47,60 @@ public class VehicleRouteHandler : MonoBehaviour
     private bool IsPlaceNear()
     {
         // Chekc if place is one route away from any place in currentRoute - VEHICLE FUNCTIONALITY
+        // Throw exception if place is not near!!!
 
-        throw new RouteException("Buliding is too far from route");
+        //throw new RouteException("Buliding is too far from route");
+
+        return true;
     }
-    
+
+    private bool IsPlaceAnEnd(int ID)
+    {
+        if (currentRoute.First.Value == ID || currentRoute.Last.Value == ID)
+        {
+            return true;
+        }
+        else
+        {
+            throw new RouteException("Places with two or more neighbours cannot be removed from route");
+        }
+    }
+
+    public bool IsPlaceInRoute(int ID)
+    {
+        return currentRoute.Contains(ID);
+    }
+
+    public string GetPlaceOrder(int ID)
+    {
+        var order = currentRoute.ToList().IndexOf(ID);
+        if (currentRoute.Count == 0)
+            return string.Empty;
+        else if (currentRoute.Count > 0 && order != -1)
+            return (order + 1).ToString();
+        else
+            return "N/A";
+    }
+
+    void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        instance = this;
-
         Cancel_btn.onClick.AddListener(OnCancelClicked);
         Reset_btn.onClick.AddListener(OnResetClicked);
         Ok_btn.onClick.AddListener(OnOkClicked);
-        
+
         gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnCancelClicked()
@@ -66,12 +110,14 @@ public class VehicleRouteHandler : MonoBehaviour
 
     private void OnResetClicked()
     {
-        
+        currentRoute = new LinkedList<int>();
+        OnRouteReset?.Invoke();
     }
 
     private void OnOkClicked()
     {
         GameObject vehicle = GameViewModel.instance.SelectedObject;
-        // Vehicle.SetRoute(currentRoute)
+        // TODO - SetRoute to vehicle
+        // vehicle.SetRoute(currentRoute)
     }
 }

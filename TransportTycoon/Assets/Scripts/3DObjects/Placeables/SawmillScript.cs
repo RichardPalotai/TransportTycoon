@@ -1,8 +1,12 @@
+using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SawmillScript : GridObject
 {
+    [SerializeField]
+    private int ID;
     public override void OnObjectPlaced()
     {
         Debug.LogWarning("Placed Sawmill");
@@ -12,25 +16,44 @@ public class SawmillScript : GridObject
     private void OnIconClicked()
     {
         Debug.Log("Route Icon clicked");
-        if (!VehicleRouteHandler.instance.AddPlace(data.ID))
+        try
         {
-            EventSystem.current.SetSelectedGameObject(null);
+            if (VehicleRouteHandler.instance.IsPlaceSelected(ID))
+            {
+                routeButton.image.sprite = SelectedSprite;
+            }
+            else
+            {
+                routeButton.image.sprite = DefaultSprite;
+            }
+            OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
+        }
+        catch (RouteException e)
+        {
+            RouteErrorHandler.instance.DisplayError(e.Message);
         }
     }
 
     void Awake()
     {
+        DefaultSprite = routeButton.image.sprite;
+        SelectedSprite = routeButton.spriteState.highlightedSprite;
         routeCanvas.gameObject.SetActive(false);
     }
 
     void Start()
     {
+        ID = VehicleRouteHandler.instance.TestObjID++;
         routeButton.onClick.AddListener(OnIconClicked);
 
 
         GameViewModel.instance.OnRouteDisplayChanged += HandleRouteDisplayChanged;
+        VehicleRouteHandler.instance.OnRouteReset += HandleRouteReset;
+        VehicleRouteHandler.instance.OnRouteChanged += HandleRouteChanged;
 
         HandleRouteDisplayChanged(GameViewModel.instance.IsRouteDisplayOn);
+        HandleRouteReset();
+        HandleRouteChanged();
     }
 
     // Update is called once per frame
@@ -43,5 +66,24 @@ public class SawmillScript : GridObject
     private void HandleRouteDisplayChanged(bool isOn)
     {
         routeCanvas.gameObject.SetActive(isOn);
+        if (VehicleRouteHandler.instance.IsPlaceInRoute(ID) && isOn)
+        {
+            routeButton.image.sprite = SelectedSprite;
+        }
+        else
+        {
+            routeButton.image.sprite = DefaultSprite;
+        }
+    }
+
+    private void HandleRouteReset()
+    {
+        routeButton.image.sprite = DefaultSprite;
+        OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
+    }
+
+    private void HandleRouteChanged()
+    {
+        OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
     }
 }
