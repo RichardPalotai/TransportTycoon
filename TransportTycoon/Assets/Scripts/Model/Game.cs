@@ -49,9 +49,10 @@ public sealed class Game : IUpdateable
     {
         throw new System.NotImplementedException();
     }
-    public HashSet<Save> GetSaves()
+    public static HashSet<Save> GetSaves()
     {
-        throw new System.NotImplementedException();
+        return new HashSet<Save>();
+        //throw new System.NotImplementedException();
     }
     public HashSet<Save> LoadGame(Save save)
     {

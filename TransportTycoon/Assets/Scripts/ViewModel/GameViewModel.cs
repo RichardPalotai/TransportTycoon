@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -14,7 +16,13 @@ public class GameViewModel : MonoBehaviour
     private Keyboard keyboard;
 
     private bool IsGameMenuOn;
+    public static bool IsGameLoaded = false;
+    public static Save LoadedGame = null;
 
+    // TODO - CHANGES FROM MODEL MUST BE MADE VISIBLE FOR NewGame/SaveGame/LoadGame
+    public void NewGame() => Game.instance.NewGame();
+    public void SaveGame() => Game.instance.SaveGame();
+    public void LoadGame(Save game) => Game.instance.LoadGame(game);
 
     void Awake()
     {
@@ -32,7 +40,14 @@ public class GameViewModel : MonoBehaviour
     void Start()
     {
         GameMenu_cnv.gameObject.SetActive(false);
-        Game.instance.NewGame();
+        if (LoadedGame != null)
+        {
+            Game.instance.LoadGame(LoadedGame);
+        }
+        else
+        {
+            Game.instance.NewGame();
+        }
     }
 
     // Update is called once per frame
