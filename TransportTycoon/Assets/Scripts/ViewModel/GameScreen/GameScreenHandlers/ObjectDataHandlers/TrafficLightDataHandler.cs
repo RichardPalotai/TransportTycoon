@@ -8,9 +8,9 @@ namespace ViewModel.GameScreen.UIHandlers
 {
     public class TrafficLightDataHandler : MonoBehaviour
     {
-        // INSTANCE MUST BE SET ACTIVE WHEN TRAFFIC LIGHT IS CLICKED - (3D modell - Bálint)
         public static TrafficLightDataHandler instance;
 
+        #region Private variables
         [SerializeField]
         private TextMeshProUGUI ID_Text;
         [SerializeField]
@@ -25,10 +25,17 @@ namespace ViewModel.GameScreen.UIHandlers
         private Button Close_btn;
         [SerializeField]
         private Button Sell_btn;
+        #endregion
 
+        #region Public variables
         [SerializeField]
-        private GameObject SelectedTrafficLight;
+        public GameObject SelectedTrafficLight;
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// General object ID
+        /// </summary>
         public int ID
         {
             get { return int.Parse(ID_Text.text); }
@@ -38,6 +45,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The worth of the traffic light, must be non-negative number
+        /// </summary>
         public int Worth
         {
             get { return int.Parse(Worth_Text.text); }
@@ -50,6 +60,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The length of the green light, between 0 and 61 seconds
+        /// </summary>
         public int GreenLight
         {
             get { return int.Parse(GreenLight_Text.text); }
@@ -61,7 +74,9 @@ namespace ViewModel.GameScreen.UIHandlers
                     GreenLight_Text.text = value.ToString();
             }
         }
+        #endregion
 
+        #region Unity calls
         void Awake()
         {
             instance = this;
@@ -86,13 +101,12 @@ namespace ViewModel.GameScreen.UIHandlers
             if (SelectedTrafficLight != null)
             {
                 // TODO - Set properties to the selected car's (3D modell - Bálint)
-            }
-            else
-            {
-                OnEscapePressed();
+                OnkKeyPressed();
             }
         }
+        #endregion
         
+        #region Button click events
         private void OnCloseClicked()
         {
             SetDefaultValues();
@@ -112,10 +126,12 @@ namespace ViewModel.GameScreen.UIHandlers
             Destroy(SelectedTrafficLight);
             SetDefaultValues();
         }
+        #endregion
 
-        private void OnEscapePressed()
+        #region Private methods
+        private void OnkKeyPressed()
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {
                 SetDefaultValues();
                 gameObject.SetActive(false);
@@ -129,7 +145,9 @@ namespace ViewModel.GameScreen.UIHandlers
             Worth = 0;
             GreenLight = 1;
         }
+        #endregion
 
+        #region Public methods
         public void SetButtonsActive(bool state)
         {
             Close_btn.interactable = state;
@@ -137,5 +155,6 @@ namespace ViewModel.GameScreen.UIHandlers
             Minus_btn.interactable = state;
             Sell_btn.interactable = state;
         }
+        #endregion
     }   
 }
