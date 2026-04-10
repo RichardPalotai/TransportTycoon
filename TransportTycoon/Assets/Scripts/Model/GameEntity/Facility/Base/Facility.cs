@@ -20,11 +20,13 @@ public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
     public void Purchase(Player player)
     {
         player.Facilities.Add(this);
+        player.Money -= Cost;
     }
 
     public void Sell(Player player)
     {
         player.Facilities.Remove(this);
+        player.Money += Cost * 0.8;
     }
 
     public virtual void Update(double deltaTime)
