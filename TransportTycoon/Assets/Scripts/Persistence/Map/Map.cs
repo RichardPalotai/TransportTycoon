@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public sealed class Map
+public sealed partial class Map
 {
     private Tile[,] _map;
     public Dictionary<(int, int), Crossroad> Crossroads { get; private set; }
@@ -20,39 +20,6 @@ public sealed class Map
             throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
         }
         return _map[x, y];
-    }
-    public void PlaceObject(int x, int y, GameEntity entity)
-    {
-        int areaSize = GetAreaSize(entity);
-
-
-        if (x < 0 || y < 0 || x >= Size || y >= Size)
-        {
-            throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
-        }
-
-        if (!IsFree(x, y, areaSize))
-            throw new NotEnoughSpaceForObjectException();
-
-
-        if (entity is TrafficLight trafficLight)
-        {
-            AddToCrossRoadIfNeeded(x, y, trafficLight);
-        }
-
-        _map[x, y] = new(x, y, entity);
-        MarkAreaTilesWithId(x, y, areaSize);
-
-        if (entity is Road road)
-        {
-            road.IsCrossRoad = IsCrossRoad(x, y);
-            Crossroads.Add((x, y), new Crossroad());
-        }
-
-        if (entity is City city)
-            MarkCity(x, y, areaSize);
-
-        Logger.ObjectPlacedLog(entity.GetType(), x, y);
     }
 
     private void MarkCity(int x, int y, int areaSize)
@@ -76,104 +43,6 @@ public sealed class Map
             }
         }
     }
-
-    public List<(int x, int y)> GetTilesNeighborRoadsCoords(int x, int y)
-    {
-        (int dx, int dy)[] dirs =
-        {
-            (0, -1),
-            (0, 1),
-            (1, 0),
-            (-1, 0)
-        };
-        List<(int x, int y)> neighborRoads = new();
-        foreach (var (dirX, dirY) in dirs)
-        {
-            if (x + dirX < 0 || x + dirX >= Size || y + dirY < 0 || y + dirY >= Size)
-                continue;
-
-            if (_map[x + dirX, y + dirY].Entity is Road)
-            {
-                neighborRoads.Add((x + dirX, y + dirY));
-
-            }
-        }
-        return neighborRoads;
-    }
-    private void AddToCrossRoadIfNeeded(int x, int y, TrafficLight trafficLight)
-    {
-        var roadCoords = GetTilesNeighborRoadsCoords(x, y);
-
-        foreach (var (dirX, dirY) in roadCoords)
-        {
-            var road = _map[dirX, dirY].Entity as Road;
-
-            if (road is not null && road.IsCrossRoad)
-            {
-                if (!Crossroads.ContainsKey((dirX, dirY)))
-                    Crossroads[(dirX, dirY)] = new Crossroad();
-
-                Crossroads[(dirX, dirY)].TrafficLights.Add(trafficLight);
-                trafficLight.Crossroad = Crossroads[(dirX, dirY)];
-                return;
-            }
-        }
-    }
-    private bool IsCrossRoad(int x, int y)
-    {
-        return (
-            (y - 1 >= 0
-                ? _map[x, y - 1].Entity is Road ? 1 : 0
-                : 0) +
-            (y + 1 < Size
-                ? _map[x, y + 1].Entity is Road ? 1 : 0
-                : 0) +
-            (x - 1 >= 0
-                ? _map[x - 1, y].Entity is Road ? 1 : 0
-                : 0) +
-            (x + 1 < Size
-                ? _map[x + 1, y].Entity is Road ? 1 : 0
-                : 0)
-            ) >= 3;
-    }
-
-    private bool IsFree(int x, int y, int areaSize)
-    {
-        if (x + areaSize > Size || y + areaSize > Size)
-        {
-            return false;
-        }
-        for (int i = x; i < x + areaSize; ++i)
-        {
-            for (int j = y; j < y + areaSize; ++j)
-            {
-                if (!_map[i, j].IsFree)
-                {
-                    UnityEngine.Debug.Log(i + " " + j + " " + _map[i, j].IsFree);
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    private void MarkAreaTilesWithId(int x, int y, int areaSize)
-    {
-        for (int i = x; i < x + areaSize; ++i)
-        {
-            for (int j = y; j < y + areaSize; ++j)
-            {
-                if (x != i || y != j)
-                    _map[i, j] = new(i, j, _map[x, y].Entity.ID);
-            }
-        }
-    }
-    private void PlaceCityRoads(int x, int y)
-    {
-        Road r = new Road(true);
-        _map[x, y] = new(x, y, r);
-        r.IsCrossRoad = IsCrossRoad(x, y);
-        Crossroads.Add((x, y), new Crossroad());
-    }
     public void GenerateMap()
     {
         for (int i = 0; i < Size; i++)
@@ -191,11 +60,6 @@ public sealed class Map
 
         Logger.Log("Map generated successfully");
     }
-    public int GetAreaSize(GameEntity entity)
-    {
-        if (entity is ProdFacility) return 2;
-        else if (entity is City) return 3;
-        return 1;
-    }
+    
 
 }
