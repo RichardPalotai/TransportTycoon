@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 public class City : GameEntity, IUpdateable
 {
-    private const int _max_need = 5000; //TODO
+    private const int _max_need = 5000;
     public Dictionary<Resource, int> Need { get; private set; }
-    public Dictionary<Resource, double> Satisfaction()
+    public const double _inGameDayInSecs = 86400;
+    public double _currentTime;
+    public double Satisfaction()
     {
         var needs = new Dictionary<Resource, double>();
 
@@ -14,7 +17,12 @@ public class City : GameEntity, IUpdateable
             double needPerc = (1.0 - (double)item.Value / _max_need) * 100;
             needs.Add(item.Key, Math.Round(needPerc, 2));
         }
-        return needs;
+        return needs.Average(x => x.Value);
+    }
+    public City()
+    {
+        Need = new();
+        _currentTime = 0;
     }
 
     public void DeliverResource(Resource res, int amount)
@@ -34,8 +42,15 @@ public class City : GameEntity, IUpdateable
 
     public void Update(double deltaTime)
     {
-        //TODO
-        throw new NotImplementedException();
+        _currentTime += deltaTime;
+        if (_currentTime < _inGameDayInSecs) return;
+
+        foreach (var item in Need)
+        {
+            Need[item.Key] = item.Key is Food ? item.Value / 2 : item.Value / 3;
+        }
+
+        _currentTime -= _inGameDayInSecs;
     }
 }
 

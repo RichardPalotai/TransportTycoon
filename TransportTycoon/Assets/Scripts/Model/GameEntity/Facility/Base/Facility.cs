@@ -32,5 +32,4 @@ public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
         
     }
 
-
 }

@@ -34,11 +34,6 @@ public sealed class Map
         if (!IsFree(x, y, areaSize))
             throw new NotEnoughSpaceForObjectException();
 
-        if (entity is Road road)
-        {
-            road.IsCrossRoad = IsCrossRoad(x, y);
-            Crossroads.Add(road, new Crossroad());
-        }
 
         if (entity is TrafficLight trafficLight)
         {
@@ -48,17 +43,48 @@ public sealed class Map
         _map[x, y] = new(x, y, entity);
         MarkAreaTilesWithId(x, y, areaSize);
 
+        if (entity is Road road)
+        {
+            road.IsCrossRoad = IsCrossRoad(x, y);
+            Crossroads.Add(road, new Crossroad());
+        }
+
+        if (entity is City city)
+            MarkCity(x, y, areaSize);
 
         Logger.ObjectPlacedLog(entity.GetType(), x, y);
     }
+
+    private void MarkCity(int x, int y, int areaSize)
+    {
+        (int, int)[] roadCoord =
+        {
+            (x + 1, y),
+            (x, y + 1),
+            (x + 1, y + 1),
+            (x + 2, y + 1),
+            (x + 1,y + 2)
+        };
+        for (int i = x; i < x + areaSize; i++)
+        {
+            for (int j = y; j < y + areaSize; j++)
+            {
+                if (roadCoord.Contains((i, j)))
+                {
+                    PlaceCityRoads(i, j);
+                }
+            }
+        }
+    }
+
     public List<(int x, int y)> GetTilesNeighborRoadsCoords(int x, int y)
     {
         (int dx, int dy)[] dirs =
         {
-            (1, 1),
-            (1, -1),
-            (-1, 1),
-            (-1, -1)
+            (0, -1),
+            (0, 1),
+            (1, 0),
+            (-1, 0)
         };
         List<(int x, int y)> neighborRoads = new();
         foreach (var (dirX, dirY) in dirs)
@@ -132,10 +158,17 @@ public sealed class Map
         {
             for (int j = y; j < y + areaSize; ++j)
             {
-                if (x != i && y != j)
+                if (x != i || y != j)
                     _map[i, j] = new(i, j, _map[x, y].Entity.ID);
             }
         }
+    }
+    private void PlaceCityRoads(int x, int y)
+    {
+        Road r = new Road(true);
+        _map[x, y] = new(x, y, r);
+        r.IsCrossRoad = IsCrossRoad(x, y);
+        Crossroads.Add(r, new Crossroad());
     }
     public void GenerateMap()
     {
@@ -160,5 +193,5 @@ public sealed class Map
         else if (entity is City) return 3;
         return 1;
     }
-    
+
 }
