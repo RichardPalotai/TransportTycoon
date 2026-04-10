@@ -5,7 +5,7 @@ using System.Linq;
 public sealed class Map
 {
     private Tile[,] _map;
-    public Dictionary<Road, Crossroad> Crossroads { get; private set; }
+    public Dictionary<(int, int), Crossroad> Crossroads { get; private set; }
     public int Size => _map.GetLength(0);
     public Map(int size = 100)
     {
@@ -46,7 +46,7 @@ public sealed class Map
         if (entity is Road road)
         {
             road.IsCrossRoad = IsCrossRoad(x, y);
-            Crossroads.Add(road, new Crossroad());
+            Crossroads.Add((x, y), new Crossroad());
         }
 
         if (entity is City city)
@@ -89,7 +89,7 @@ public sealed class Map
         List<(int x, int y)> neighborRoads = new();
         foreach (var (dirX, dirY) in dirs)
         {
-            if (x + dirX < 0 || x + dirX >= Size || y + dirY < 0 || y + dirY > Size)
+            if (x + dirX < 0 || x + dirX >= Size || y + dirY < 0 || y + dirY >= Size)
                 continue;
 
             if (_map[x + dirX, y + dirY].Entity is Road)
@@ -104,13 +104,17 @@ public sealed class Map
     {
         var roadCoords = GetTilesNeighborRoadsCoords(x, y);
 
-        foreach (var (coordX, coordY) in roadCoords)
+        foreach (var (dirX, dirY) in roadCoords)
         {
-            var road = _map[coordX, coordY].Entity as Road;
-            if (road.IsCrossRoad)
+            var road = _map[dirX, dirY].Entity as Road;
+
+            if (road is not null && road.IsCrossRoad)
             {
-                Crossroads[road].TrafficLights.Add(trafficLight);
-                trafficLight.Crossroad = Crossroads[road];
+                if (!Crossroads.ContainsKey((dirX, dirY)))
+                    Crossroads[(dirX, dirY)] = new Crossroad();
+
+                Crossroads[(dirX, dirY)].TrafficLights.Add(trafficLight);
+                trafficLight.Crossroad = Crossroads[(dirX, dirY)];
                 return;
             }
         }
@@ -168,7 +172,7 @@ public sealed class Map
         Road r = new Road(true);
         _map[x, y] = new(x, y, r);
         r.IsCrossRoad = IsCrossRoad(x, y);
-        Crossroads.Add(r, new Crossroad());
+        Crossroads.Add((x, y), new Crossroad());
     }
     public void GenerateMap()
     {
