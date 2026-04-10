@@ -10,14 +10,14 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     /// Brand new price
     /// </summary>
     public int Cost { get; }
-    /// <summary>
-    /// X coord on the map
-    /// </summary>
-    public int? X { get; private set; }
-    /// <summary>
-    /// Y coord on the map
-    /// </summary>
-    public int? Y { get; private set; }
+    ///// <summary>
+    ///// X coord on the map
+    ///// </summary>
+    //public int? X { get; private set; }
+    ///// <summary>
+    ///// Y coord on the map
+    ///// </summary>
+    //public int? Y { get; private set; }
     /// <summary>
     /// Current worth: Cost * Condition * 0.01 * 0.5.
     /// For example: When the condition is 50%, then it'll worth 25% of the brand new price.

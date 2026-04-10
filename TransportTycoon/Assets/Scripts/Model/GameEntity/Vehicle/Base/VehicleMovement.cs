@@ -19,11 +19,11 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 
     private (int x, int y) GetNextStep(Map map, Facility target)
     {
-        if (X is null || Y is null)
-        {
-            throw new NoCoordsSetException();
-        }
-        var neighbors = map.GetTilesNeighborRoadsCoords(X.Value, Y.Value);
+        //if (X is null || Y is null)
+        //{
+        //    throw new NoCoordsSetException();
+        //}
+        var neighbors = map.GetTilesNeighborRoadsCoords(X, Y);
 
         (int x, int y) best = neighbors.First();
         double bestDist = Distance(best.x, best.y, target.X, target.Y);

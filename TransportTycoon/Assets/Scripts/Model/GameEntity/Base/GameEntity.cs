@@ -1,5 +1,7 @@
 ﻿public abstract class GameEntity
 {
+    public int X { get; set; }
+    public int Y { get; set; }
     private static int _idCounter = 0;
     public int ID { get; init; }
     /// <summary>

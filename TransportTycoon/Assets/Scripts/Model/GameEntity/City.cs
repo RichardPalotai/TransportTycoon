@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-public class City : GameEntity, IUpdateable
+public class City : GameEntity, IUpdateable, IBuildable
 {
     private const int _max_need = 5000;
     public Dictionary<Resource, int> Need { get; private set; }
@@ -51,6 +51,13 @@ public class City : GameEntity, IUpdateable
         }
 
         _currentTime -= _inGameDayInSecs;
+    }
+
+    public void Build(Map map, Tile tile)
+    {
+        X = tile.X;
+        Y = tile.Y;
+        map.PlaceObject(tile.X, tile.Y, this);
     }
 }
 

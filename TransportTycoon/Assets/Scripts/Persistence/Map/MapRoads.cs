@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public sealed partial class Map
 {
@@ -24,6 +25,26 @@ public sealed partial class Map
             }
         }
         return neighborRoads;
+    }
+    public List<(int x, int y)> GetFacilityNeighborRoads(Facility facility)
+    {
+        int x = facility.X;
+        int y = facility.Y;
+        int size = GetAreaSize(facility);
+        HashSet<(int, int)> result = new();
+
+        for (int i = x; i < x + size; i++)
+        {
+            for (int j = y; j < y + size; j++)
+            {
+                foreach (var neighbor in GetTilesNeighborRoadsCoords(i, j))
+                {
+                    result.Add(neighbor);
+                }
+            }
+        }
+
+        return result.ToList();
     }
     private void AddToCrossRoadIfNeeded(int x, int y, TrafficLight trafficLight)
     {
