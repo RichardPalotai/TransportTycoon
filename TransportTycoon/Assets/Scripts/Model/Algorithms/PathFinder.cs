@@ -22,7 +22,7 @@ public class PathFinder
         HashSet<(int, int)> visited = new();
         Queue<(int, int)> queue = new();
 
-        if (starts.Count == 0 || starts.Count == 0)
+        if (starts.Count == 0 || ends.Count == 0)
         {
             return false;
         }
