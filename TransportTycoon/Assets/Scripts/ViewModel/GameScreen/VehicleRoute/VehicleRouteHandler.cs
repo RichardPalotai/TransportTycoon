@@ -72,16 +72,6 @@ public class VehicleRouteHandler : MonoBehaviour
     }
 
     // TODO - Implement this
-    private bool IsPlaceNear()
-    {
-        // Chekc if place is one route away from any place in currentRoute - VEHICLE FUNCTIONALITY
-        // Throw exception if place is not near!!!
-
-        //throw new RouteException("Buliding is too far from route");
-
-        return true;
-    }
-
     private bool IsPlaceAnEnd(int ID)
     {
         if (currentRoute.First.Value == ID || currentRoute.Last.Value == ID)
@@ -92,6 +82,23 @@ public class VehicleRouteHandler : MonoBehaviour
         {
             throw new RouteException("Places with two or more neighbours cannot be removed from route");
         }
+    }
+
+    private bool IsPlaceNear(int toID)
+    {
+        // Facility toFacility = Game.instance.Player.Facilities.Find(x => x.ID == toID);
+        // Facility fromFacility = null;
+        // foreach (int fromID in currentRoute)
+        // {
+        //     fromFacility = Game.instance.Player.Facilities.Find(x => x.ID == fromID);
+        //     TODO - IMPLEMENT PathFinder function
+        //     if (!)
+        //     {
+        //         throw new RouteException("The place is too far from the current route");
+        //     }
+        // }
+
+        return true;
     }
     #endregion
 
@@ -105,7 +112,7 @@ public class VehicleRouteHandler : MonoBehaviour
             Debug.Log("[REMOVED] " + ID + " from " + currentRoute.ToList());
             return false;
         }
-        else if (!currentRoute.Contains(ID) && IsPlaceNear())
+        else if (!currentRoute.Contains(ID) && IsPlaceNear(ID))
         {
             currentRoute.AddLast(ID);
             OnRouteChanged?.Invoke();
