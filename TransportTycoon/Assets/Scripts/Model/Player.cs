@@ -2,7 +2,8 @@ using System.Collections.Generic;
 
 public sealed class Player
 {
-    public int Money { get; set; }
+    public static Player instance;
+    public double Money { get; set; }
     public List<Vehicle> Vehicles { get; private set; }
     public List<Facility> Facilities { get; set; }
     public Player()

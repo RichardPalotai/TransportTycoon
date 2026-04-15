@@ -58,6 +58,10 @@ public sealed class Game : IUpdateable
     {
         throw new System.NotImplementedException();
     }
+    /// <summary>
+    /// Updates time, vehicles and facilities in every deltaTime
+    /// </summary>
+    /// <param name="deltaTime"></param>
     public void UpdateGame(double deltaTime)
     {
         if (IsPaused) return;
@@ -73,6 +77,11 @@ public sealed class Game : IUpdateable
         {
             item.Update(deltaTime);
         }
+        foreach (var item in _map.Crossroads)
+        {
+            item.Value.Update(deltaTime);
+        }
+
     }
     public void EndGame()
     {
@@ -89,22 +98,22 @@ public sealed class Game : IUpdateable
         CurrentTime = CurrentTime.AddSeconds(deltaTime * TimeScale);
     }
 
-    public void Loop()
-    {
-        Logger.Log("Game loop started");
-        _stopwatch.Start();
+    //public void Loop()
+    //{
+    //    Logger.Log("Game loop started");
+    //    _stopwatch.Start();
 
-        double lastTime = _stopwatch.Elapsed.TotalSeconds;
+    //    double lastTime = _stopwatch.Elapsed.TotalSeconds;
 
-        while (true)
-        {
-            double currentTime = _stopwatch.Elapsed.TotalSeconds;
-            double deltaTime = currentTime - lastTime;
-            lastTime = currentTime;
+    //    while (true)
+    //    {
+    //        double currentTime = _stopwatch.Elapsed.TotalSeconds;
+    //        double deltaTime = currentTime - lastTime;
+    //        lastTime = currentTime;
 
-            Update(deltaTime);
+    //        Update(deltaTime);
 
-            Thread.Sleep(16);
-        }
-    }
+    //        Thread.Sleep(16);
+    //    }
+    //}
 }
