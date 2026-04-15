@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-public sealed class Game : IUpdateable
+public sealed partial class Game : IUpdateable
 {
     public static Game instance;
     private Map _map;
@@ -53,10 +53,6 @@ public sealed class Game : IUpdateable
     {
         return new HashSet<Save>();
         //throw new System.NotImplementedException();
-    }
-    public HashSet<Save> LoadGame(Save save)
-    {
-        throw new System.NotImplementedException();
     }
     /// <summary>
     /// Updates time, vehicles and facilities in every deltaTime
