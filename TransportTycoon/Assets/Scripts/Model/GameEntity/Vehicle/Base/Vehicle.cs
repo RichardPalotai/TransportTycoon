@@ -6,6 +6,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 {
     private Map _map;
     public Queue<Facility> Route { get; private set; }
+    private Facility Destination { get; set; }
     /// <summary>
     /// Brand new price
     /// </summary>
@@ -55,7 +56,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
             _condition = value;
         }
     }
-
+    public Direction Direction { get; set; }
     protected Vehicle(int cost, double speed, Map map)
     {
         _map = map;

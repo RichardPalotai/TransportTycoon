@@ -12,7 +12,7 @@ public sealed class Game : IUpdateable
         get { return _map; }
     }
     
-    private Player _player;
+    public Player Player;
     public HashSet<Save> Saves { get; private set; }
     public DateTime CurrentTime { get; private set; }
     private double _timeScale = 1.0;
@@ -32,7 +32,7 @@ public sealed class Game : IUpdateable
         Logger.Log("Current time set to today");
         _map = new();
         Logger.Log("Map created");
-        _player = new();
+        Player = new();
         Logger.Log("New player created");
         _stopwatch = new();
         Logger.Log("Stopwatch set");
@@ -67,12 +67,12 @@ public sealed class Game : IUpdateable
 
         CurrentTime = CurrentTime.AddSeconds(deltaTime * TimeScale);
 
-        foreach (var item in _player.Vehicles)
+        foreach (var item in Player.Vehicles)
         {
             item.Update(deltaTime);
         }
 
-        foreach (var item in _player.Facilities)
+        foreach (var item in Player.Facilities)
         {
             item.Update(deltaTime);
         }

@@ -6,7 +6,7 @@ public sealed partial class Map
     {
         int areaSize = GetAreaSize(entity);
 
-
+        
         if (x < 0 || y < 0 || x >= Size || y >= Size)
         {
             throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
