@@ -10,7 +10,7 @@ public class Test
     public void TestSimplePasses()
     {
         // Use the Assert class to test conditions
-        Assert.IsTrue(true);
+        Assert.IsTrue(false);
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
