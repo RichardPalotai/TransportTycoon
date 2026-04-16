@@ -6,15 +6,24 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
 
+    #region Public variables
     public Transform followTransform; // Transform reference for Vehicle object
     public Transform cameraTransform;
+    #endregion
 
-    public float normalSpeed;
-    public float fastSpeed;
-    public float moveSpeed;
-    public float moveTime;
-    public float rotationAmount;
-    public Vector3 zoomAmount;
+    #region Private variables
+    [SerializeField]
+    private float normalSpeed = 0.5f;
+    [SerializeField]
+    private float fastSpeed = 3f;
+    [SerializeField]
+    private float moveSpeed = 1f;
+    [SerializeField]
+    private float moveTime = 5f;
+    [SerializeField]
+    private float rotationAmount = 1f;
+    [SerializeField]
+    private Vector3 zoomAmount = new Vector3(0, -10, 10);
     
     public Vector3 newPosition;
     public Quaternion newRotation;
@@ -24,7 +33,9 @@ public class CameraController : MonoBehaviour
     public Vector3 dragCurrentPosition;
     public Vector3 rotateStartPosition;
     public Vector3 rotateCurrentPosition;
+    #endregion
 
+    #region Unity calls
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,9 +62,12 @@ public class CameraController : MonoBehaviour
         if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
         {
             followTransform = null;
+            //GameViewModel.instance.DeselectObject();
         }
     }
+    #endregion
 
+    #region Private methods
     /// <summary>
     /// Handle mouse inputs and change the new position/rotation/zoom accordingly
     /// </summary>
@@ -179,4 +193,5 @@ public class CameraController : MonoBehaviour
             cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * moveTime); // between vectors
         }
     }
+    #endregion
 }
