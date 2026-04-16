@@ -107,7 +107,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
         if (_timeUntilNextStep >= WaitTime)
         {
             _timeUntilNextStep -= WaitTime;
-            Move(_map); //TODO better solution needed to _map
+            Move(_map, deltaTime);
         }
 
 

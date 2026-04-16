@@ -65,7 +65,7 @@ public sealed partial class Map
             }
         }
     }
-    public int GetAreaSize(GameEntity entity)
+    public static int GetAreaSize(GameEntity entity)
     {
         if (entity is ProdFacility) return 2;
         else if (entity is City) return 3;
