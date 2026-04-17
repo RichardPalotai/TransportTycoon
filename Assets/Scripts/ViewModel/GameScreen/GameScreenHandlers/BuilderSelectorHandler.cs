@@ -1,8 +1,6 @@
 using System;
 using TMPro;
-using Unity.VectorGraphics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace ViewModel.GameScreen.UIHandlers

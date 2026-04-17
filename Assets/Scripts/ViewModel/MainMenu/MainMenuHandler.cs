@@ -28,7 +28,7 @@ public class MainMenuHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     #endregion
 
@@ -44,7 +44,11 @@ public class MainMenuHandler : MonoBehaviour
     }
     private void OnQuitGameClicked()
     {
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
     }
     #endregion
 }
