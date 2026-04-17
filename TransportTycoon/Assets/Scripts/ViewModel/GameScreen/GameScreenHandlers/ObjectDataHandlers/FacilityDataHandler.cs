@@ -8,9 +8,9 @@ namespace ViewModel.GameScreen.UIHandlers
 {
     public class FacilityDataHandler : MonoBehaviour
     {
-        // INSTANCE MUST BE SET ACTIVE WHEN FACILITY IS CLICKED - (3D modell - Bálint)
         public static FacilityDataHandler instance;
 
+        #region Private variables
         [SerializeField]
         private TextMeshProUGUI ID_Text;
         [SerializeField]
@@ -21,10 +21,17 @@ namespace ViewModel.GameScreen.UIHandlers
         private TextMeshProUGUI Product_Text;
         [SerializeField]
         private Button Close_btn;
+        #endregion
 
+        #region Public variables
         [SerializeField]
-        private GameObject SelectedFacility;
+        public GameObject SelectedFacility;
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// General object ID
+        /// </summary>
         public int ID
         {
             get { return int.Parse(ID_Text.text); }
@@ -34,6 +41,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The traffic of the facility in % depending on the vehicles visiting it
+        /// </summary>
         public int Traffic
         {
             get { return int.Parse(Traffic_Text.text); }
@@ -45,7 +55,10 @@ namespace ViewModel.GameScreen.UIHandlers
                     Traffic_Text.text = value.ToString() + "%";
             }
         }
-
+        
+        /// <summary>
+        /// The resource a facility needs 
+        /// </summary>
         public string Consume
         {
             get { return Consume_Text.text; }
@@ -55,6 +68,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The resource a facility produces
+        /// </summary>
         public string Produce
         {
             get { return Product_Text.text; }
@@ -63,7 +79,9 @@ namespace ViewModel.GameScreen.UIHandlers
                 Product_Text.text = value;
             }
         }
+        #endregion
 
+        #region Unity calls
         void Awake()
         {
             instance = this;
@@ -85,22 +103,23 @@ namespace ViewModel.GameScreen.UIHandlers
             if (SelectedFacility != null)
             {
                 // TODO - Set properties to the selected facility's (3D modell - Bálint)
-            }
-            else
-            {
-                OnEscapePressed();
+                OnkKeyPressed();
             }
         }
+        #endregion
         
+        #region Button click events
         private void OnCloseClicked()
         {
             SetDefaultValues();
             gameObject.SetActive(false);
         }
+        #endregion
 
-        private void OnEscapePressed()
+        #region Private methods
+        private void OnkKeyPressed()
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {
                 SetDefaultValues();
                 gameObject.SetActive(false);
@@ -115,10 +134,13 @@ namespace ViewModel.GameScreen.UIHandlers
             Consume = "None";
             Produce = "None";
         }
+        #endregion
 
+        #region Public methods
         public void SetButtonsActive(bool state)
         {
             Close_btn.interactable = state;
         }
+        #endregion
     }   
 }
