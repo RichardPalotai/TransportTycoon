@@ -45,6 +45,7 @@ get-activation-file:
   image: $IMAGE:2021.3.4f1-base-1.0.1
   rules:
     - if: '$UNITY_LICENSE == null'
+      when: echo "<<<<<<<<<<<LICENSE IS NULL>>>>>>>>>>>>"
       when: manual
   stage: build_and_test
   script:
