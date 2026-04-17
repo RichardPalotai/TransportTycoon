@@ -3867,8 +3867,7 @@ MonoBehaviour:
   SetRoute_btn: {fileID: 386713151}
   Repair_btn: {fileID: 2055427450}
   Sell_btn: {fileID: 4059521}
-<<<<<<< HEAD
-  SelectedCar: {fileID: 0}
+  SelectedVehicle: {fileID: 0}
 --- !u!1 &409534291
 GameObject:
   m_ObjectHideFlags: 0
@@ -3919,9 +3918,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinimapHandler
   PlayerLocationIcon_cnv: {fileID: 1967080448}
-=======
-  SelectedVehicle: {fileID: 0}
->>>>>>> origin/28-vehicle-route-ui
 --- !u!1 &413708940
 GameObject:
   m_ObjectHideFlags: 0

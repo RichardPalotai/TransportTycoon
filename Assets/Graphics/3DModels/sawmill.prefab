@@ -1,7 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD
-=======
 --- !u!1 &4048070449988938750
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a6697be41c0d34b128dfd5fe039783df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ded225bde04a8420c94b78bea50ffc52, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -347,7 +345,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: e13389e1b65e54a7f90e84844e4c17bc, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 8db0b3da6e59343d4af8a1aa3eeb01c3, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -362,7 +360,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
->>>>>>> origin/28-vehicle-route-ui
 --- !u!1001 &5890814432409458525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -433,21 +430,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-<<<<<<< HEAD
-    m_AddedGameObjects: []
-=======
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 51ccea2ab694a0f449e6543d4fc652bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3450491558389539131}
->>>>>>> origin/28-vehicle-route-ui
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51ccea2ab694a0f449e6543d4fc652bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4938530914170139138}
-<<<<<<< HEAD
-  m_SourcePrefab: {fileID: 100100000, guid: 51ccea2ab694a0f449e6543d4fc652bd, type: 3}
-=======
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51ccea2ab694a0f449e6543d4fc652bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3919233855978168462}
@@ -460,7 +450,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 51ccea2ab694a0f449e6543d4fc652bd, type: 3}
   m_PrefabInstance: {fileID: 5890814432409458525}
   m_PrefabAsset: {fileID: 0}
->>>>>>> origin/28-vehicle-route-ui
 --- !u!1 &6701647968657713676 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 51ccea2ab694a0f449e6543d4fc652bd, type: 3}
@@ -480,13 +469,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SawmillScript
   data: {fileID: 11400000, guid: 5d70f92415bb84a4784deb229ccdff86, type: 2}
   position: {x: 0, y: 0}
-<<<<<<< HEAD
-=======
   routeCanvas: {fileID: 2569151786275847457}
   routeButton: {fileID: 266302169706914008}
-  DefaultSprite: {fileID: 0}
-  SelectedSprite: {fileID: 0}
+  DefaultSprite: {fileID: 21300000, guid: ded225bde04a8420c94b78bea50ffc52, type: 3}
+  SelectedSprite: {fileID: 21300000, guid: 8db0b3da6e59343d4af8a1aa3eeb01c3, type: 3}
   OrderText: {fileID: 2898579346059576504}
+  ID: 0
 --- !u!114 &3919233855978168462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,4 +508,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 2, z: 0}
->>>>>>> origin/28-vehicle-route-ui
