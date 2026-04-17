@@ -33,6 +33,7 @@
 
 # Visual Studio cache directory
 /.vs/
+/.vscode/
 
 # macOS specific file organizer
 **/.DS_Store
@@ -100,4 +101,4 @@
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
 
 # Auto-generated scenes by play mode tests
-/[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+/Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
