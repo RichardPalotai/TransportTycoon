@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 {
