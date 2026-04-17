@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 571bc2ee89a4f4091ba333092f8c1f7a
+=======
+guid: 7af748b31f62645eda1bf1b246bd1d57
+>>>>>>> origin/28-vehicle-route-ui
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

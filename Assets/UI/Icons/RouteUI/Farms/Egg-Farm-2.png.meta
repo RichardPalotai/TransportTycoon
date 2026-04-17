@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 0e01dcc220e4a406395507be3bbfe051
+=======
+guid: 7f10a4ff84f834c269536a588c6d9075
+>>>>>>> origin/28-vehicle-route-ui
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -11,9 +11,9 @@ namespace ViewModel.GameScreen.UIHandlers
 {
     public class CityDataHandler : MonoBehaviour
     {
-        // INSTANCE MUST BE SET ACTIVE WHEN CITY IS CLICKED - (3D modell - Bálint)
         public static CityDataHandler instance;
 
+        #region Private variables
         [SerializeField]
         private TextMeshProUGUI ID_Text;
         [SerializeField]
@@ -22,10 +22,17 @@ namespace ViewModel.GameScreen.UIHandlers
         private TextMeshProUGUI Needs_Text;
         [SerializeField]
         private Button Close_btn;
+        #endregion
 
+        #region Public variables
         [SerializeField]
         public GameObject SelectedCity;
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// General object ID
+        /// </summary>
         public int ID
         {
             get { return int.Parse(ID_Text.text); }
@@ -35,6 +42,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// The satisfaction of a city in %
+        /// </summary>
         public int Satisfaction
         {
             get { return int.Parse(Satisfaction_Text.text); }
@@ -47,6 +57,9 @@ namespace ViewModel.GameScreen.UIHandlers
             }
         }
 
+        /// <summary>
+        /// A list of Resources that the city is lacking
+        /// </summary>
         public List<string> Needs
         {
             get { return Needs_Text.text.Split(",").ToList(); }
@@ -55,7 +68,9 @@ namespace ViewModel.GameScreen.UIHandlers
                 Needs_Text.text = string.Join(",", value);
             }
         }
+        #endregion
 
+        #region Unity calls
         void Awake()
         {
             instance = this;
@@ -77,22 +92,23 @@ namespace ViewModel.GameScreen.UIHandlers
             if (SelectedCity != null)
             {
                 // TODO - Set properties to the selected city's (3D modell - Bálint)
-            }
-            else
-            {
-                OnEscapePressed();
+                OnkKeyPressed();
             }
         }
+        #endregion
         
+        #region Button click events
         private void OnCloseClicked()
         {
             SetDefaultValues();
             gameObject.SetActive(false);
         }
+        #endregion
 
-        private void OnEscapePressed()
+        #region Private methods
+        private void OnkKeyPressed()
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {
                 SetDefaultValues();
                 gameObject.SetActive(false);
@@ -106,10 +122,13 @@ namespace ViewModel.GameScreen.UIHandlers
             Satisfaction = 0;
             Needs = new List<string> {"N/A", "N/A", "N/A"};
         }
+        #endregion
 
+        #region Public methods
         public void SetButtonsActive(bool state)
         {
             Close_btn.interactable = state;
         }
+        #endregion
     }   
 }
