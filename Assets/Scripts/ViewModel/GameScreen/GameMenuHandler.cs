@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEditor;
 
 public class GameMenuHandler : MonoBehaviour
 {
@@ -31,7 +30,7 @@ public class GameMenuHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     #endregion
 
@@ -55,7 +54,11 @@ public class GameMenuHandler : MonoBehaviour
     private void OnQuitGameClicked()
     {
         // TODO - Save Game
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
     }
     #endregion
 }
