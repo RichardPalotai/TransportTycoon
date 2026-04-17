@@ -129,7 +129,31 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
         _isWaiting = true;
         _waitTimer = 5.0;
 
-        //FacilityInteraction(target); //TODO
+        FacilityInteraction(target);
+    }
+
+    private void FacilityInteraction(Facility target)
+    {
+        if (this is PassengerVehicle passVehi && target is IPassengerInteractable passengerInteractable)
+        {
+            int newPassengersCount = passengerInteractable.Interact() + passVehi.PassengersCount;
+            if (newPassengersCount <= 0)
+            {
+                passVehi.PassengersCount = 0;
+            }
+            else if (newPassengersCount >= passVehi.Seats)
+            {
+                passVehi.PassengersCount = passVehi.Seats;
+            }
+            else
+            {
+                passVehi.PassengersCount = newPassengersCount;
+            }
+        }
+        else if (this is TransportVehicle transVehi && target is IProdInteractable prodInteractable)
+        {
+            transVehi.CurrentCargo = prodInteractable.Interact(transVehi.CargoCapacity - transVehi.CurrentCargo);
+        }
     }
 
     bool IsNextToTarget((int x, int y) pos, Facility target)

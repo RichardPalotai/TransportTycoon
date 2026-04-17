@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-public class City : GameEntity, IUpdateable, IBuildable
+public class City : Facility, IUpdateable, IBuildable
 {
     private const int _max_need = 5000;
     public Dictionary<Resource, int> Need { get; private set; }
@@ -19,7 +19,7 @@ public class City : GameEntity, IUpdateable, IBuildable
         }
         return needs.Average(x => x.Value);
     }
-    public City()
+    public City() : base(0, true)
     {
         Need = new();
         _currentTime = 0;
@@ -40,7 +40,7 @@ public class City : GameEntity, IUpdateable, IBuildable
         }
     }
 
-    public void Update(double deltaTime)
+    public override void Update(double deltaTime)
     {
         _currentTime += deltaTime;
         if (_currentTime < _inGameDayInSecs) return;
@@ -53,7 +53,7 @@ public class City : GameEntity, IUpdateable, IBuildable
         _currentTime -= _inGameDayInSecs;
     }
 
-    public void Build(Map map, Tile tile)
+    public override void Build(Map map, Tile tile)
     {
         X = tile.X;
         Y = tile.Y;

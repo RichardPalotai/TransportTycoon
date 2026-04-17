@@ -1,11 +1,13 @@
 using System;
+using System.Linq;
 
-public abstract class ProdFacility : Facility
+public abstract class ProdFacility : Facility, IProdInteractable
 {
     protected int producedPerSec;
-    protected double producedCount = 0;
+    protected int producedCount = 0;
     protected double _prodBuffer;
-    public int VehiclesWhoAreVisitingThisFacilityCount { get; set; } = 0;
+    public int VehiclesWhoAreVisitingThisFacilityCount(Player player) =>
+        player.Vehicles.Count(x => x.Route.Contains(this));
     protected ProdFacility(int cost, bool isGenerated) : base(cost, isGenerated) { }
     public override void Build(Map map, Tile tile)
     {
@@ -30,7 +32,20 @@ public abstract class ProdFacility : Facility
     }
     public double Traffic(Player player)
     {
-        return Math.Round((double)VehiclesWhoAreVisitingThisFacilityCount /
+        return Math.Round((double)VehiclesWhoAreVisitingThisFacilityCount(player) /
             player.Vehicles.Count * 100.0, 2);
+    }
+
+    public int Interact(int freeCapacity)
+    {
+        if (freeCapacity == 0)
+            return 0;
+        if (freeCapacity < producedCount)
+        {
+            producedCount -= freeCapacity;
+            return freeCapacity;
+        }
+        producedCount = 0;
+        return producedCount;
     }
 }
