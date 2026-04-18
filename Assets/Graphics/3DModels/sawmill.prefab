@@ -306,7 +306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a6697be41c0d34b128dfd5fe039783df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ded225bde04a8420c94b78bea50ffc52, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -345,7 +345,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: e13389e1b65e54a7f90e84844e4c17bc, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 8db0b3da6e59343d4af8a1aa3eeb01c3, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -471,9 +471,10 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   routeCanvas: {fileID: 2569151786275847457}
   routeButton: {fileID: 266302169706914008}
-  DefaultSprite: {fileID: 0}
-  SelectedSprite: {fileID: 0}
+  DefaultSprite: {fileID: 21300000, guid: ded225bde04a8420c94b78bea50ffc52, type: 3}
+  SelectedSprite: {fileID: 21300000, guid: 8db0b3da6e59343d4af8a1aa3eeb01c3, type: 3}
   OrderText: {fileID: 2898579346059576504}
+  ID: 0
 --- !u!114 &3919233855978168462
 MonoBehaviour:
   m_ObjectHideFlags: 0
