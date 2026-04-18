@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class Crossroad : IUpdateable
 {
@@ -50,8 +49,8 @@ public class Crossroad : IUpdateable
             {
                 if (_greens == CurrentGreens.NORTHSOUTH)
                 {
-                    if (light.Direction == TrafficLight.LightDirection.NORTH ||
-                        light.Direction == TrafficLight.LightDirection.SOUTH)
+                    if (light.FacingDirection == Direction.NORTH ||
+                        light.FacingDirection == Direction.SOUTH)
                     {
                         light.Color = TrafficLight.LightColor.GREEN;
                     }
@@ -62,8 +61,8 @@ public class Crossroad : IUpdateable
                 }
                 else
                 {
-                    if (light.Direction == TrafficLight.LightDirection.NORTH ||
-                        light.Direction == TrafficLight.LightDirection.SOUTH)
+                    if (light.FacingDirection == Direction.NORTH ||
+                        light.FacingDirection == Direction.SOUTH)
                     {
                         light.Color = TrafficLight.LightColor.RED;
                     }

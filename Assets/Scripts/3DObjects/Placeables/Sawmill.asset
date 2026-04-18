@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Placeable
   FacilityObj: 3
   objectName: Sawmill
-  tileSize: 2
+  tileSize: 3
   prefab: {fileID: 6701647968657713676, guid: 2cd27fed66d272243851a02bd5805e59, type: 3}
   placementCost: 1000

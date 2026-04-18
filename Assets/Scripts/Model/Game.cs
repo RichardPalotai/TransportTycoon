@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 
 public sealed partial class Game : IUpdateable
 {
@@ -12,9 +11,10 @@ public sealed partial class Game : IUpdateable
         get { return _map; }
     }
     
-    private Player _player;
-    public HashSet<Save> Saves { get; private set; }
+    public Player Player;
+    public HashSet<(string name, DateTime timeOfSave)> Saves { get; private set; }
     public DateTime CurrentTime { get; private set; }
+    public int AccountBalance { get{ return Player.Money; } }
     private double _timeScale = 1.0;
     private Stopwatch _stopwatch;
 
@@ -32,7 +32,7 @@ public sealed partial class Game : IUpdateable
         Logger.Log("Current time set to today");
         _map = new();
         Logger.Log("Map created");
-        _player = new();
+        Player = new();
         Logger.Log("New player created");
         _stopwatch = new();
         Logger.Log("Stopwatch set");
@@ -47,12 +47,18 @@ public sealed partial class Game : IUpdateable
     }
     public void SaveGame()
     {
+        //TODO
         throw new System.NotImplementedException();
     }
-    public static HashSet<Save> GetSaves()
+    public HashSet<(string name, DateTime timeOfSave)> GetSaves()
     {
-        return new HashSet<Save>();
-        //throw new System.NotImplementedException();
+        //TODO
+        throw new System.NotImplementedException();
+    }
+    public HashSet<(string name, DateTime timeOfSave)> LoadGame(string name)
+    {
+        //TODO
+        throw new System.NotImplementedException();
     }
     /// <summary>
     /// Updates time, vehicles and facilities in every deltaTime
@@ -64,12 +70,12 @@ public sealed partial class Game : IUpdateable
 
         CurrentTime = CurrentTime.AddSeconds(deltaTime * TimeScale);
 
-        foreach (var item in _player.Vehicles)
+        foreach (var item in Player.Vehicles)
         {
             item.Update(deltaTime);
         }
 
-        foreach (var item in _player.Facilities)
+        foreach (var item in Player.Facilities)
         {
             item.Update(deltaTime);
         }

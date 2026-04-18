@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 {
     private Map _map;
     public Queue<Facility> Route { get; private set; }
+    private Facility Destination { get; set; }
     /// <summary>
     /// Brand new price
     /// </summary>
@@ -55,7 +55,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
             _condition = value;
         }
     }
-
+    public Direction Direction { get; set; }
     protected Vehicle(int cost, double speed, Map map)
     {
         _map = map;
@@ -81,12 +81,12 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     /// <param name="player"></param>
     public void Sell(Player player)
     {
-        player.Money += Worth;
+        player.Money += Convert.ToInt32(Worth);
         player.Vehicles.Remove(this);
     }
     public void Repair(Player player)
     {
-        player.Money -= RepairCost;
+        player.Money -= Convert.ToInt32(RepairCost);
         Condition = 100;
     }
     /// <summary>
@@ -106,7 +106,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
         if (_timeUntilNextStep >= WaitTime)
         {
             _timeUntilNextStep -= WaitTime;
-            Move(_map); //TODO better solution needed to _map
+            Move(_map, deltaTime);
         }
 
 
