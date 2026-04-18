@@ -1,3 +1,5 @@
+using System;
+
 public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
 {
     public int Cost { get; protected set;  }
@@ -24,7 +26,7 @@ public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
     public void Sell(Player player)
     {
         player.Facilities.Remove(this);
-        player.Money += Cost * 0.8;
+        player.Money += Convert.ToInt32(Cost * 0.8);
     }
 
     public virtual void Update(double deltaTime)

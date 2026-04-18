@@ -81,12 +81,12 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     /// <param name="player"></param>
     public void Sell(Player player)
     {
-        player.Money += Worth;
+        player.Money += Convert.ToInt32(Worth);
         player.Vehicles.Remove(this);
     }
     public void Repair(Player player)
     {
-        player.Money -= RepairCost;
+        player.Money -= Convert.ToInt32(RepairCost);
         Condition = 100;
     }
     /// <summary>
