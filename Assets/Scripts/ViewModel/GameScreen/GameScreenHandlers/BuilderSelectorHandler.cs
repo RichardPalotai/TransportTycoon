@@ -34,8 +34,8 @@ namespace ViewModel.GameScreen.UIHandlers
         [SerializeField]
         private Button SelectedButton = null;
 
-        private enum Building { NONE, ROAD, BUSSTOP, TRAFFICLIGHT, BUS, CAR, TRUCK, MINIVAN}
-        private Building selectedBuilding;
+        public enum Building { NONE, ROAD, BUSSTOP, TRAFFICLIGHT, BUS, CAR, TRUCK, MINIVAN}
+        public Building selectedBuilding { get; private set;}
         #endregion
 
         #region Properties
