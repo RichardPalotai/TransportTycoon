@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 
 public sealed class Game : IUpdateable
 {
@@ -13,7 +12,7 @@ public sealed class Game : IUpdateable
     }
     
     public Player Player;
-    public HashSet<Save> Saves { get; private set; }
+    public HashSet<(string name, DateTime timeOfSave)> Saves { get; private set; }
     public DateTime CurrentTime { get; private set; }
     public int AccountBalance { get{ return Player.Money; } }
     private double _timeScale = 1.0;
@@ -48,16 +47,23 @@ public sealed class Game : IUpdateable
     }
     public void SaveGame()
     {
+        //TODO
         throw new System.NotImplementedException();
     }
-    public HashSet<Save> GetSaves()
+    public HashSet<(string name, DateTime timeOfSave)> GetSaves()
     {
+        //TODO
         throw new System.NotImplementedException();
     }
-    public HashSet<Save> LoadGame(Save save)
+    public HashSet<(string name, DateTime timeOfSave)> LoadGame(string name)
     {
+        //TODO
         throw new System.NotImplementedException();
     }
+    /// <summary>
+    /// Updates time, vehicles and facilities in every deltaTime
+    /// </summary>
+    /// <param name="deltaTime"></param>
     public void UpdateGame(double deltaTime)
     {
         if (IsPaused) return;
@@ -73,6 +79,11 @@ public sealed class Game : IUpdateable
         {
             item.Update(deltaTime);
         }
+        foreach (var item in _map.Crossroads)
+        {
+            item.Value.Update(deltaTime);
+        }
+
     }
     public void EndGame()
     {
@@ -89,22 +100,22 @@ public sealed class Game : IUpdateable
         CurrentTime = CurrentTime.AddSeconds(deltaTime * TimeScale);
     }
 
-    public void Loop()
-    {
-        Logger.Log("Game loop started");
-        _stopwatch.Start();
+    //public void Loop()
+    //{
+    //    Logger.Log("Game loop started");
+    //    _stopwatch.Start();
 
-        double lastTime = _stopwatch.Elapsed.TotalSeconds;
+    //    double lastTime = _stopwatch.Elapsed.TotalSeconds;
 
-        while (true)
-        {
-            double currentTime = _stopwatch.Elapsed.TotalSeconds;
-            double deltaTime = currentTime - lastTime;
-            lastTime = currentTime;
+    //    while (true)
+    //    {
+    //        double currentTime = _stopwatch.Elapsed.TotalSeconds;
+    //        double deltaTime = currentTime - lastTime;
+    //        lastTime = currentTime;
 
-            Update(deltaTime);
+    //        Update(deltaTime);
 
-            Thread.Sleep(16);
-        }
-    }
+    //        Thread.Sleep(16);
+    //    }
+    //}
 }

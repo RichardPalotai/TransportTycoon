@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 public sealed class Player
 {
+    public static Player instance;
     public int Money { get; set; }
     public List<Vehicle> Vehicles { get; private set; }
     public List<Facility> Facilities { get; set; }
