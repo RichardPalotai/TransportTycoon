@@ -1,12 +1,12 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class BuildingPlacer : MonoBehaviour
 {
     public static BuildingPlacer instance;
 
     public MapManager mapManager;
-    public Placeable selectedBuilding;
+    public GridObject gridObject;
+    private Placeable selectedBuilding;
 
     void Awake()
     {
@@ -18,13 +18,9 @@ public class BuildingPlacer : MonoBehaviour
         //PlaceBuilding(2, 2);
     }
 
-    void Update()
-    {
-
-    }
-
     public void AttemptPlacement(Vector2 mousePos)
     {
+        selectedBuilding = gridObject.data;
         if (selectedBuilding == null) return;
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
@@ -74,8 +70,8 @@ public class BuildingPlacer : MonoBehaviour
 
     private void PlaceBuilding(int startX, int startZ)
     {
-        float worldX = (startX - 15 + (selectedBuilding.tileSize / 2)) * 5;
-        float worldZ = (startZ - 15 + (selectedBuilding.tileSize / 2)) * 5;
+        float worldX = (startX - 15 + (selectedBuilding.tileSize / 2.0f)) * 5;
+        float worldZ = (startZ - 15 + (selectedBuilding.tileSize / 2.0f)) * 5;
         Vector3 spawnPosition = new Vector3(worldX, 0, worldZ);
 
         GameObject newBuildingObj = Instantiate(selectedBuilding.prefab, spawnPosition, Quaternion.identity);
@@ -93,24 +89,58 @@ public class BuildingPlacer : MonoBehaviour
                 mapManager.GetTile(startX + x, startZ + z).Type = gridObjScript;
             }
         }
-        switch (selectedBuilding.FacilityObj)
+        if (selectedBuilding is FacilityResource facility)
         {
-            case Placeable.Facility.FARM:
-                Game.instance.Map.PlaceObject(startX + x, startZ + z, new Farm<Milk>());
-                break;
-            case Placeable.Facility.FACTORY:
-                Game.instance.Map.PlaceObject(startX + x, startZ + z, new Factory<Steel>());
-                break;
-            case Placeable.Facility.MINE:
-                Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Iron>());
-                break;
-            case Placeable.Facility.SAWMILL:
-                Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Wood>());
-                break;
-            default:
-                break;
+            switch (facility.FacilityObj)
+            {
+                case FacilityResource.Facility.FARM:
+                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new Farm<Milk>());
+                    break;
+                case FacilityResource.Facility.FACTORY:
+                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new Factory<Steel>());
+                    break;
+                case FacilityResource.Facility.MINE:
+                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Iron>());
+                    break;
+                case FacilityResource.Facility.SAWMILL:
+                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Wood>());
+                    break;
+                default:
+                    break;
+            }
         }
+        
 
         gridObjScript.OnObjectPlaced();
+    }
+
+    public void DemolishBuilding(int x, int y)
+    {
+        bool found = false;
+        GridObject demol;
+        if (mapManager.GetTile(x,y).Type != null)
+        {
+            demol = mapManager.GetTile(x, y).Type;
+        }
+        else
+        {
+            return;
+        }
+
+        for (int i = 0; i < mapManager.Size; ++i)
+        {
+            for (int j = 0; j < mapManager.Size; ++j)
+            {
+                if (mapManager.GetTile(x,y).Type.ID == demol.ID)
+                {
+                    mapManager.GetTile(x, y).Type = null;
+                }
+            }
+        }
+
+        //Delete from game model and add to balance ! ! ! !
+
+
+        Destroy(demol.gameObject);
     }
 }
