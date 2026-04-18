@@ -58,9 +58,15 @@ public class GameMenuHandler : MonoBehaviour
     private void OnQuitGameClicked()
     {
         // TODO - Save Game
+#if UNITY_EDITOR
         GameViewModel.instance.SaveGame();
         GameViewModel.LoadedGame = null;
         UnityEditor.EditorApplication.isPlaying = false;
+#else
+        GameViewModel.instance.SaveGame();
+        GameViewModel.LoadedGame = null;
+        Application.Quit();
+#endif
     }
     #endregion
 }
