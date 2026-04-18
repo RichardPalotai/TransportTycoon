@@ -3,49 +3,49 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-public sealed partial class Game
+public sealed partial class GameSave
 {
-    public SaveData CreateSaveData()
+    public SaveData CreateSaveData(Game game)
     {
         return new SaveData
         {
-            MapSize = _map.Size,
-            Tiles = _map.CreateTileData(),
-            PlayerMoney = _player.Money,
-            CurrentTime = CurrentTime
+            MapSize = game.Map.Size,
+            Tiles = MapSave.CreateTileData(game.Map),
+            PlayerMoney = game.Player.Money,
+            CurrentTime = game.CurrentTime
         };
     }
 
-    public void SaveGame(string path)
+    public void SaveGame(Game game, string path)
     {
-        var data = CreateSaveData();
+        var data = CreateSaveData(game);
 
         var json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
 
         File.WriteAllText(path, json);
     }
 
-    public HashSet<Save> LoadGame(Save save)
+    public HashSet<Save> LoadGame(Save save, Game game)
     {
         string path = save.FilePath;
 
         var json = File.ReadAllText(path);
         var data = JsonConvert.DeserializeObject<SaveData>(json);
 
-        _map = new Map(data.MapSize);
-        _player = new Player();
+        game.Map = new Map(data.MapSize);
+        game.Player = new Player();
 
         foreach (var tile in data.Tiles)
         {
             var entity = EntityFactory.Create(tile.EntityType);
-            _map.PlaceObject(tile.X, tile.Y, entity);
+            game.Map.PlaceObject(tile.X, tile.Y, entity);
 
             if (entity is Facility f)
-                _player.Facilities.Add(f);
+                game.Player.Facilities.Add(f);
         }
 
-        _player.Money = data.PlayerMoney;
-        CurrentTime = data.CurrentTime;
+        game.Player.Money = data.PlayerMoney;
+        game.CurrentTime = data.CurrentTime;
 
         return new HashSet<Save> { save };
     }

@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 
-public sealed partial class Map
+public sealed partial class MapSave
 {
-    public List<TileData> CreateTileData()
+    public static List<TileData> CreateTileData(Map map)
     {
         var tiles = new List<TileData>();
 
-        for (int i = 0; i < Size; i++)
+        for (int i = 0; i < map.Size; i++)
         {
-            for (int j = 0; j < Size; j++)
+            for (int j = 0; j < map.Size; j++)
             {
-                var tile = _map[i, j];
+                var tile = map.GetTile(i, j);
                 if (tile.Entity == null) continue;
 
                 var entity = tile.Entity;
@@ -30,7 +30,7 @@ public sealed partial class Map
 
         return tiles;
     }
-    private string GetGenericTypeName(GameEntity entity)
+    private static string GetGenericTypeName(GameEntity entity)
     {
         var type = entity.GetType();
 

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,11 +24,11 @@ public class MainMenuHandler : MonoBehaviour
     {
         get { return Game.GetSaves().Count > 0; }
     }
-    public List<string> SaveNames => Game.GetSaves().Select(save => save.Name).OrderBy(name => name).ToList();
+    public List<string> SaveNames => Game.GetSaves().Select(save => save.name).OrderBy(name => name).ToList();
     #endregion
 
     #region Public methods    
-    public Save GetSave(string name) => Game.GetSaves().First(save => save.Name == name);
+    public (string name, DateTime timeOfSave) GetSave(string name) => Game.GetSaves().First(save => save.name == name);
     #endregion
 
     #region Unity calls
@@ -59,7 +62,7 @@ public class MainMenuHandler : MonoBehaviour
     }
     private void OnLoadGameClicked()
     {
-        Save save = GetSave(GameSlot_dropdown.options[0].text);
+        (string name, DateTime timeOfSave) save = GetSave(GameSlot_dropdown.options[0].text);
         GameViewModel.LoadedGame = save;
         SceneManager.LoadScene("GameScreen");
 

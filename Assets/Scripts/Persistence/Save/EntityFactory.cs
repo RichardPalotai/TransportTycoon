@@ -7,7 +7,7 @@ public static class EntityFactory
         return type switch
         {
             "Road" => new Road(false),
-            "TrafficLight" => new TrafficLight(false, TrafficLight.LightDirection.NORTH),
+            "TrafficLight" => new TrafficLight(false, Direction.NORTH),
             "BusStop" => new BusStop(false),
             "City" => new City(),
             //TODO

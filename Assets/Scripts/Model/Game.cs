@@ -9,11 +9,12 @@ public sealed partial class Game : IUpdateable
     public Map Map
     {
         get { return _map; }
+        set { _map = value; }
     }
     
     public Player Player;
     public HashSet<(string name, DateTime timeOfSave)> Saves { get; private set; }
-    public DateTime CurrentTime { get; private set; }
+    public DateTime CurrentTime { get; set; }
     public int AccountBalance { get{ return Player.Money; } }
     private double _timeScale = 1.0;
     private Stopwatch _stopwatch;
@@ -50,7 +51,7 @@ public sealed partial class Game : IUpdateable
         //TODO
         throw new System.NotImplementedException();
     }
-    public HashSet<(string name, DateTime timeOfSave)> GetSaves()
+    public static HashSet<(string name, DateTime timeOfSave)> GetSaves()
     {
         //TODO
         throw new System.NotImplementedException();
