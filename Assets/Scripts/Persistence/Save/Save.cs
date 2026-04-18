@@ -5,6 +5,7 @@ public sealed class Save
 {
     public string Name { get; set; }
     public DateTime TimeOfSave { get; init; }
+    public string FilePath { get; set; }
 
     public async Task SaveAsync(string name, DateTime time)
     {

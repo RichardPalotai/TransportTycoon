@@ -22,6 +22,10 @@ public class GameViewModel : MonoBehaviour
     private Keyboard keyboard;
     private bool IsGameMenuOn;
     private bool IsDemolishOn;
+    public static bool IsGameLoaded = false;
+#nullable enable
+    public static (string name, DateTime timeOfSave)? LoadedGame = null;
+#nullable disable
     #endregion
 
     #region Properties
@@ -80,7 +84,14 @@ public class GameViewModel : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Game.instance.NewGame();
+        if (LoadedGame != null)
+        {
+            Game.instance.LoadGame(LoadedGame?.name);
+        }
+        else
+        {
+            Game.instance.NewGame();
+        }
     }
 
     // Update is called once per frame
@@ -290,5 +301,8 @@ public class GameViewModel : MonoBehaviour
         // }
         selectedObject = null;
     }
+    public void NewGame() => Game.instance.NewGame();
+    public void SaveGame() => Game.instance.SaveGame();
+    public void LoadGame((string name, DateTime timeOfSave) game) => Game.instance.LoadGame(game.name);
     #endregion
 }

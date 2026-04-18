@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,7 +32,7 @@ public class GameMenuHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     #endregion
 
@@ -43,11 +45,13 @@ public class GameMenuHandler : MonoBehaviour
     private void OnSaveGameClicked()
     {
         // TODO - Save Game
+        GameViewModel.instance.SaveGame();
     }
 
     private void OnMainMenuClicked()
     {
         // TODO - Save Game
+        GameViewModel.instance.SaveGame();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -55,9 +59,13 @@ public class GameMenuHandler : MonoBehaviour
     {
         // TODO - Save Game
 #if UNITY_EDITOR
+        GameViewModel.instance.SaveGame();
+        GameViewModel.LoadedGame = null;
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-    Application.Quit();
+        GameViewModel.instance.SaveGame();
+        GameViewModel.LoadedGame = null;
+        Application.Quit();
 #endif
     }
     #endregion
