@@ -12,7 +12,7 @@ public sealed class Game : IUpdateable
     }
     
     public Player Player;
-    public HashSet<Save> Saves { get; private set; }
+    public HashSet<(string name, DateTime timeOfSave)> Saves { get; private set; }
     public DateTime CurrentTime { get; private set; }
     private double _timeScale = 1.0;
     private Stopwatch _stopwatch;
@@ -46,14 +46,17 @@ public sealed class Game : IUpdateable
     }
     public void SaveGame()
     {
+        //TODO
         throw new System.NotImplementedException();
     }
-    public HashSet<Save> GetSaves()
+    public HashSet<(string name, DateTime timeOfSave)> GetSaves()
     {
+        //TODO
         throw new System.NotImplementedException();
     }
-    public HashSet<Save> LoadGame(Save save)
+    public HashSet<(string name, DateTime timeOfSave)> LoadGame(string name)
     {
+        //TODO
         throw new System.NotImplementedException();
     }
     /// <summary>

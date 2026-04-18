@@ -1,7 +1,7 @@
 using System.Collections;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
+using Moq;
 
 public class NewTestScript
 {
@@ -9,7 +9,9 @@ public class NewTestScript
     [Test]
     public void NewTestScriptSimplePasses()
     {
-        Assert.IsFalse(false);
+        var mock = new Mock<IPassengerInteractable>();
+        mock.Setup(x => x.InteractFixedSeed(0)).Returns(-100);
+        Assert.AreEqual(-100, mock.Object.InteractFixedSeed(0));
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
