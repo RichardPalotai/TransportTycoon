@@ -79,7 +79,7 @@ get-activation-file:
       coverage_report:
         coverage_format: cobertura
         path: $UNITY_DIR/$TEST_PLATFORM-coverage/TestCoverageResults_*.xml
-  coverage: /<LineCoverage>(.*?)<\/LineCoverage>/
+  coverage: /<Linecoverage>(.*?)<\/Linecoverage>/
 
 test-playmode:
   <<: *test
