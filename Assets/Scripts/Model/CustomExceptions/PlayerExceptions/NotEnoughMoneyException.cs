@@ -3,7 +3,11 @@ using System;
 [Serializable]
 public class NotEnoughMoneyException : Exception
 {
-    public NotEnoughMoneyException () {}
+    public string Tag { get; }
+    public NotEnoughMoneyException ()
+    {
+        Tag = "Not Enough Money Error";
+    }
 
     public NotEnoughMoneyException (string message) 
         : base(message) {}
