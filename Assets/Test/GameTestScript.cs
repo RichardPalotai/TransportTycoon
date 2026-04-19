@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
@@ -61,5 +62,17 @@ public class GameTestScript
         game.UpdateGame(10);
 
         Assert.AreEqual(game.CurrentTime, startTime);
+    }
+    [Test]
+    public void GameSaveTest()
+    {
+        var game = new Game();
+        Assert.Throws<NotImplementedException>(() => game.SaveGame());
+    }
+    [Test]
+    public void GameGetSavesTest()
+    {
+        var game = new Game();
+        Assert.Throws<NotImplementedException>(() => Game.GetSaves());
     }
 }
