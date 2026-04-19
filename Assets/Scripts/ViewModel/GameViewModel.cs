@@ -102,9 +102,20 @@ public class GameViewModel : MonoBehaviour
         {
             if (!IsMouseOverUI() && gameMode == GameMode.BUILD)
             {
-                BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue());
-                // TODO - Specify parameter!!!!! <BINDING> <MODEL>
-                //Game.instance.Player.Purchase(SelectedObject.GetComponent<SawmillScript>().ID);
+                try
+                {
+                    BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue());
+                    // TODO - Specify parameter!!!!! <BINDING> <MODEL>
+                    //Game.instance.Player.Purchase(SelectedObject.GetComponent<SawmillScript>().ID);
+                }
+                catch (NotEnoughSpaceForObjectException e)
+                {
+                    ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+                }
+                catch (FieldOverrideException e)
+                {
+                    ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+                }
             }
             else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject == null)
             {
