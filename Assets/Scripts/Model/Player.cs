@@ -18,7 +18,6 @@ public sealed class Player
         {
             throw new NotEnoughMoneyException($"Player does not have enough money to buy: {item.GetType().Name}");
         }
-        Money -= item.Cost;
         
         item.Purchase(this);
     }
