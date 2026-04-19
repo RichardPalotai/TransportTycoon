@@ -3550,7 +3550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingPlacer
   mapManager: {fileID: 316325891}
-  gridObject: {fileID: 0}
+  gridObject: {fileID: 6701510844398178777, guid: 8e2a7d1e47216124ebc4f2bbb0d74c5b, type: 3}
 --- !u!114 &316325891
 MonoBehaviour:
   m_ObjectHideFlags: 0
