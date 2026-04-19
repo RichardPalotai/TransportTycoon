@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2efc714977013ed488b4256d09af2a91, type: 3}
   m_Name: StraightRoad
   m_EditorClassIdentifier: Assembly-CSharp::Road
-  objectName: 
-  tileSize: 0
-  prefab: {fileID: 0}
-  placementCost: 0
+  objectName: Straight Road
+  tileSize: 1
+  prefab: {fileID: 857457734640839068, guid: 125c06e17ba2c3e4aa11986350ad65dc, type: 3}
+  placementCost: 100
   facing:
   - 
   - 

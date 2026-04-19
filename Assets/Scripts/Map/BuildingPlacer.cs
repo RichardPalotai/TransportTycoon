@@ -74,7 +74,7 @@ public class BuildingPlacer : MonoBehaviour
         float worldZ = (startZ - 15 + (selectedBuilding.tileSize / 2.0f)) * 5;
         Vector3 spawnPosition = new Vector3(worldX, 0, worldZ);
 
-        GameObject newBuildingObj = Instantiate(selectedBuilding.prefab, spawnPosition, Quaternion.identity);
+        GameObject newBuildingObj = Instantiate(selectedBuilding.prefab, spawnPosition, selectedBuilding.prefab.transform.rotation);
 
         GridObject gridObjScript = newBuildingObj.GetComponent<GridObject>();
         gridObjScript.data = selectedBuilding;
@@ -114,33 +114,46 @@ public class BuildingPlacer : MonoBehaviour
         gridObjScript.OnObjectPlaced();
     }
 
-    public void DemolishBuilding(int x, int y)
+    public void DemolishBuilding(Vector2 mousePos)
     {
-        bool found = false;
-        GridObject demol;
-        if (mapManager.GetTile(x,y).Type != null)
-        {
-            demol = mapManager.GetTile(x, y).Type;
-        }
-        else
-        {
-            return;
-        }
 
-        for (int i = 0; i < mapManager.Size; ++i)
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            for (int j = 0; j < mapManager.Size; ++j)
+            Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
+            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
+            int x = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
+            int y = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
+
+            GridObject demol;
+            if (mapManager.GetTile(x, y).Type != null)
             {
-                if (mapManager.GetTile(x,y).Type.ID == demol.ID)
+                demol = mapManager.GetTile(x, y).Type;
+            }
+            else
+            {
+                return;
+            }
+
+            for (int i = 0; i < mapManager.Size; ++i)
+            {
+                for (int j = 0; j < mapManager.Size; ++j)
                 {
-                    mapManager.GetTile(x, y).Type = null;
+                    if (mapManager.GetTile(x, y).Type.ID == demol.ID)
+                    {
+                        mapManager.GetTile(x, y).Type = null;
+                    }
                 }
             }
+            Destroy(demol.gameObject);
         }
+
+        
 
         //Delete from game model and add to balance ! ! ! !
 
 
-        Destroy(demol.gameObject);
+        
     }
 }
