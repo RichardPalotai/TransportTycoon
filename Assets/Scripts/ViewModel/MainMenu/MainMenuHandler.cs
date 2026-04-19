@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 using System;
 using System.Collections.Generic;
 using System.Linq;
-=======
->>>>>>> origin/master
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,10 +8,7 @@ using UnityEngine.UI;
 
 public class MainMenuHandler : MonoBehaviour
 {
-<<<<<<< HEAD
     #region Private variables
-=======
->>>>>>> origin/master
     [SerializeField]
     private Button NewGame_btn;
     [SerializeField]
@@ -23,7 +17,6 @@ public class MainMenuHandler : MonoBehaviour
     private TMP_Dropdown GameSlot_dropdown;
     [SerializeField]
     private Button QuitGame_btn;
-<<<<<<< HEAD
     #endregion
 
     #region Properties
@@ -55,26 +48,20 @@ public class MainMenuHandler : MonoBehaviour
 
     }
 
-=======
->>>>>>> origin/master
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         NewGame_btn.onClick.AddListener(OnNewGameClicked);
         LoadGame_btn.onClick.AddListener(OnLoadGameClicked);
         QuitGame_btn.onClick.AddListener(OnQuitGameClicked);
-<<<<<<< HEAD
 
         LoadGame_btn.interactable = IsThereSave;
         SetSlotsActive(IsThereSave);
-=======
->>>>>>> origin/master
     }
 
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
 
     }
     #endregion
@@ -82,19 +69,10 @@ public class MainMenuHandler : MonoBehaviour
     #region Button click events
     private void OnNewGameClicked()
     {
-=======
-        
-    }
-
-    private void OnNewGameClicked()
-    {
-        // TODO - Connect to model
->>>>>>> origin/master
         SceneManager.LoadScene("GameScreen");
     }
     private void OnLoadGameClicked()
     {
-<<<<<<< HEAD
         (string name, DateTime timeOfSave) save = GetSave(GameSlot_dropdown.options[0].text);
         GameViewModel.LoadedGame = save;
         SceneManager.LoadScene("GameScreen");
@@ -144,12 +122,4 @@ public class MainMenuHandler : MonoBehaviour
         }
     }
     #endregion
-=======
-        // TODO - Milestone III.
-    }
-    private void OnQuitGameClicked()
-    {
-        UnityEditor.EditorApplication.isPlaying = false;
-    }
->>>>>>> origin/master
 }

@@ -84,17 +84,18 @@ public class VehicleRouteHandler : MonoBehaviour
 
     private bool IsPlaceNear(int toID)
     {
-        Facility toFacility = Game.instance.Player.Facilities.Find(x => x.ID == toID);
-        Facility fromFacility = null;
-        foreach (int fromID in currentRoute)
-        {
-            fromFacility = Game.instance.Player.Facilities.Find(x => x.ID == fromID);
-            if (PathFinder.HasPathBetweenFacilities(Game.instance.Map, fromFacility, toFacility))
-            {
-                return true;
-            }
-        }
-        throw new RouteException("The place is too far from the current route");
+        // Facility toFacility = Game.instance.Player.Facilities.Find(x => x.ID == toID);
+        // Facility fromFacility = null;
+        // foreach (int fromID in currentRoute)
+        // {
+        //     fromFacility = Game.instance.Player.Facilities.Find(x => x.ID == fromID);
+        //     if (PathFinder.HasPathBetweenFacilities(Game.instance.Map, fromFacility, toFacility))
+        //     {
+        //         return true;
+        //     }
+        // }
+        // throw new RouteException("The place is too far from the current route");
+        return true;
     }
     #endregion
 
