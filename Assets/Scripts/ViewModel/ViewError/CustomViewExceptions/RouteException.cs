@@ -10,9 +10,15 @@ public class RouteException : Exception
         Tag = "Route Error";
     }
 
-    public RouteException(string message)
-        : base(message) {}
+    public RouteException(string message, string tag = "Route Error")
+        : base(message)
+    {
+        Tag = tag;
+    }
 
     public RouteException(string message, Exception innerException)
-        : base(message, innerException) {}
+        : base(message, innerException)
+    {
+        Tag = "Route Error";
+    }
 }

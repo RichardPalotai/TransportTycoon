@@ -56,6 +56,7 @@ public class ErrorHandler : MonoBehaviour
     #region Private methods
     private void OnCloseClicked()
     {
+        ErrorTag = "Error";
         ErrorText = "Some error message";
         gameObject.SetActive(false);
     }
