@@ -102,8 +102,9 @@ namespace ViewModel.GameScreen.UIHandlers
         {
             if (SelectedFacility != null)
             {
-                // TODO - Set properties to the selected facility's (3D modell - Bálint)
-                OnkKeyPressed();
+                // TODO - Set properties to the selected facility's (3D modell - Bálint) <BINDING>
+
+                CheckDeselectKey();
             }
         }
         #endregion
@@ -117,7 +118,10 @@ namespace ViewModel.GameScreen.UIHandlers
         #endregion
 
         #region Private methods
-        private void OnkKeyPressed()
+        /// <summary>
+        /// On k key pressed sets the Data Display off and to default values
+        /// </summary>
+        private void CheckDeselectKey()
         {
             if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {

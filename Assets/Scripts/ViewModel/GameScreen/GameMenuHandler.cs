@@ -30,7 +30,7 @@ public class GameMenuHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     #endregion
 
@@ -42,22 +42,33 @@ public class GameMenuHandler : MonoBehaviour
 
     private void OnSaveGameClicked()
     {
-        // TODO - Save Game
+        try
+        {
+            GameViewModel.instance.SaveGame();
+        }
+        catch (System.Exception e)
+        {
+            ErrorHandler.instance.DisplayError("Error", e.Message);
+        }
     }
 
     private void OnMainMenuClicked()
     {
-        // TODO - Save Game
+        GameViewModel.LoadedGame = null;
+        GameViewModel.IsGameLoaded = false;
         SceneManager.LoadScene("MainMenu");
     }
 
     private void OnQuitGameClicked()
     {
-        // TODO - Save Game
 #if UNITY_EDITOR
+        GameViewModel.LoadedGame = null;
+        GameViewModel.IsGameLoaded = false;
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-    Application.Quit();
+        GameViewModel.IsGameLoaded = false;
+        GameViewModel.LoadedGame = null;
+        Application.Quit();
 #endif
     }
     #endregion

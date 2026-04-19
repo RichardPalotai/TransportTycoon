@@ -100,8 +100,9 @@ namespace ViewModel.GameScreen.UIHandlers
         {
             if (SelectedTrafficLight != null)
             {
-                // TODO - Set properties to the selected car's (3D modell - Bálint)
-                OnkKeyPressed();
+                // TODO - Set properties to the selected car's (3D modell - Bálint) <BINDING>
+                
+                CheckDeselectKey();
             }
         }
         #endregion
@@ -114,22 +115,28 @@ namespace ViewModel.GameScreen.UIHandlers
         }
         private void OnMinusClicked()
         {
-            // TODO - Connect to Model
+            // TODO - Connect to Model <MODEL>
+            //Game.instance.Player.TrafficLights.
         }
         private void OnPlusClicked()
         {
-            // TODO - Connect to Model
+            // TODO - Connect to Model <MODEL>
+            //Game.instance.Player.TrafficLights.
         }
         private void OnSellClicked()
         {
-            // TODO - Connect to model
+            // TODO - Connect to model <BINDING> <MODEL>
+            //Game.instance.Player.SellItem();
             Destroy(SelectedTrafficLight);
             SetDefaultValues();
         }
         #endregion
 
         #region Private methods
-        private void OnkKeyPressed()
+        /// <summary>
+        /// On k key pressed sets the Data Display off and to default values
+        /// </summary>
+        private void CheckDeselectKey()
         {
             if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {

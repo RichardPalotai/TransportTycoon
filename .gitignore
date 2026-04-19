@@ -47,6 +47,7 @@
 /*.csproj
 /*.unityproj
 /*.sln
+/*.slnx
 /*.suo
 /*.tmp
 /*.user
@@ -102,3 +103,6 @@
 
 # Auto-generated scenes by play mode tests
 /Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Code coverage
+/CodeCoverage

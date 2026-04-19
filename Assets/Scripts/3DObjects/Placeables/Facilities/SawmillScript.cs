@@ -3,8 +3,9 @@ using UnityEngine;
 public class SawmillScript : GridObject
 {
     #region Private variables
+    // TODO - Connect to REAL ID from Model (delete dummy data) <BINDING>
     [SerializeField]
-    private int ID;
+    public int ID;
     #endregion
 
     #region Public override methods
@@ -63,7 +64,7 @@ public class SawmillScript : GridObject
         }
         catch (RouteException e)
         {
-            RouteErrorHandler.instance.DisplayError(e.Message);
+            ErrorHandler.instance.DisplayError(e.Tag, e.Message);
         }
     }
 
@@ -73,10 +74,12 @@ public class SawmillScript : GridObject
         if (VehicleRouteHandler.instance.IsPlaceInRoute(ID) && isOn)
         {
             routeButton.image.sprite = SelectedSprite;
+            OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
         }
         else
         {
             routeButton.image.sprite = DefaultSprite;
+            OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
         }
     }
 

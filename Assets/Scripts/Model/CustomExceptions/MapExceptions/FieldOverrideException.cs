@@ -3,8 +3,11 @@ using System;
 [Serializable]
 public class FieldOverrideException : Exception
 {
-    public FieldOverrideException () {}
-
+    public string Tag { get; }
+    public FieldOverrideException()
+	{
+        Tag = "Field Override Error";
+    }
     public FieldOverrideException (string message) 
         : base(message) {}
 
