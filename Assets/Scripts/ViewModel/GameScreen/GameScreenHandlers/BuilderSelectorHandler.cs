@@ -11,9 +11,9 @@ namespace ViewModel.GameScreen.UIHandlers
 
         #region Private variables
         [SerializeField]
-        private TextMeshProUGUI Price_Text;
+        private TextMeshProUGUI PriceTag_Text;
         [SerializeField]
-        private GameObject PriceTag;
+        private GameObject Price;
 
         [SerializeField]
         private Button Mouse_btn;
@@ -39,15 +39,15 @@ namespace ViewModel.GameScreen.UIHandlers
         #endregion
 
         #region Properties
-        private int Price
+        private int PriceAmount
         {
-            get { return int.Parse(Price_Text.text); }
+            get { return int.Parse(PriceTag_Text.text); }
             set
             {
                 if (value <= 0)
                     throw new Exception("Price is not positive");
                 else
-                    Price_Text.text = value.ToString();
+                    PriceTag_Text.text = value.ToString();
             }
         }
         public bool IsMouseSelected
@@ -183,8 +183,8 @@ namespace ViewModel.GameScreen.UIHandlers
             RectTransform rt = transform as RectTransform;
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -139);
             rt.sizeDelta = new Vector2(rt.sizeDelta.x, 258);
-            PriceTag.gameObject.SetActive(false);
-            Price = 1;
+            Price.gameObject.SetActive(false);
+            PriceAmount = 1;
         }
 
         /// <summary>
@@ -195,35 +195,34 @@ namespace ViewModel.GameScreen.UIHandlers
             RectTransform rt = transform as RectTransform;
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -172);
             rt.sizeDelta = new Vector2(rt.sizeDelta.x, 322);
-            PriceTag.gameObject.SetActive(true);
+            Price.gameObject.SetActive(true);
             
-            // TODO - Connect to Model (Set prices)
             switch (selectedBuilding)
             {
                 case Building.ROAD:
-                    Price = 10;
+                    PriceAmount = (int)Prices.ROAD;
                     break;
                 case Building.BUSSTOP:
-                    Price = 30;
+                    PriceAmount = (int)Prices.BUSSTOP;
                     break;
                 case Building.TRAFFICLIGHT:
-                    Price = 50;
+                    PriceAmount = (int)Prices.TRAFFICLIGHT;
                     break;
                 case Building.BUS:
-                    Price = 150;
+                    PriceAmount = (int)Prices.BUS;
                     break;
                 case Building.CAR:
-                    Price = 100;
+                    PriceAmount = (int)Prices.CAR;
                     break;
                 case Building.TRUCK:
-                    Price = 200;
+                    PriceAmount = (int)Prices.TRUCK;
                     break;
                 case Building.MINIVAN:
-                    Price = 150;
+                    PriceAmount = (int)Prices.MINIVAN;
                     break;
                 
                 default:
-                    Price = 1;
+                    PriceAmount = 1;
                     break;
             }
         }

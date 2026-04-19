@@ -44,26 +44,24 @@ public class GameMenuHandler : MonoBehaviour
 
     private void OnSaveGameClicked()
     {
-        // TODO - Save Game
         GameViewModel.instance.SaveGame();
     }
 
     private void OnMainMenuClicked()
     {
-        // TODO - Save Game
-        GameViewModel.instance.SaveGame();
+        GameViewModel.LoadedGame = null;
+        GameViewModel.IsGameLoaded = false;
         SceneManager.LoadScene("MainMenu");
     }
 
     private void OnQuitGameClicked()
     {
-        // TODO - Save Game
 #if UNITY_EDITOR
-        GameViewModel.instance.SaveGame();
         GameViewModel.LoadedGame = null;
+        GameViewModel.IsGameLoaded = false;
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        GameViewModel.instance.SaveGame();
+        GameViewModel.IsGameLoaded = false;
         GameViewModel.LoadedGame = null;
         Application.Quit();
 #endif

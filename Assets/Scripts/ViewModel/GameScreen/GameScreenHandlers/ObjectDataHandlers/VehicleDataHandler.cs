@@ -137,7 +137,7 @@ namespace ViewModel.GameScreen.UIHandlers
             Repair_btn.onClick.AddListener(OnRepairClicked);
             Sell_btn.onClick.AddListener(OnSellClicked);
             
-            // TODO - Set to false!!!!!
+            // TODO - Set to false!!!!! <FRONTEND> - WHEN <CAR CAN BE PLACED> AND <SELECTION ON CLICK SHOWS DATA>
             gameObject.SetActive(true);
         }
 
@@ -146,8 +146,9 @@ namespace ViewModel.GameScreen.UIHandlers
         {
             if (SelectedVehicle != null)
             {
-                // TODO - Set properties to the selected car's (3D modell - Bálint)
-                OnkKeyPressed();
+                // TODO - Set properties to the selected car's (3D modell - Bálint) <BINDING>
+                
+                CheckDeselectKey();
             }
         }
         #endregion
@@ -164,18 +165,23 @@ namespace ViewModel.GameScreen.UIHandlers
         }
         private void OnRepairClicked()
         {
-            // TODO - Connect to Model
+            // TODO - Connect to REAL DATA <BINDING>
+            Game.instance.Player.Vehicles.Find(v => v.ID == SelectedVehicle.GetComponent<SawmillScript>().ID).Repair(Game.instance.Player);
         }
         private void OnSellClicked()
         {
-            // TODO - Connect to model
+            // TODO - Connect to model <BINDING> <MODEL>
+            //Game.instance.Player.SellItem();
             Destroy(SelectedVehicle);
             SetDefaultValues();
         }
         #endregion
 
         #region Private methods
-        private void OnkKeyPressed()
+        /// <summary>
+        /// On k key pressed sets the Data Display off and to default values
+        /// </summary>
+        private void CheckDeselectKey()
         {
             if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
             {
