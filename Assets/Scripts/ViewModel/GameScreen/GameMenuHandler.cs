@@ -42,7 +42,14 @@ public class GameMenuHandler : MonoBehaviour
 
     private void OnSaveGameClicked()
     {
-        GameViewModel.instance.SaveGame();
+        try
+        {
+            GameViewModel.instance.SaveGame();
+        }
+        catch (System.Exception e)
+        {
+            ErrorHandler.instance.DisplayError("Error", e.Message);
+        }
     }
 
     private void OnMainMenuClicked()

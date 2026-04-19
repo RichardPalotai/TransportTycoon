@@ -22,7 +22,18 @@ public class MainMenuHandler : MonoBehaviour
     #region Properties
     public bool IsThereSave
     {
-        get { return Game.GetSaves().Count > 0; }
+        get
+        {
+            try
+            {
+                return Game.GetSaves().Count > 0;
+            }
+            catch (System.Exception e)
+            {
+                ErrorHandler.instance.DisplayError("Error", e.Message);
+                return false;
+            }
+        }
     }
     public List<string> SaveNames => Game.GetSaves().Select(save => save.name).OrderBy(name => name).ToList();
     #endregion

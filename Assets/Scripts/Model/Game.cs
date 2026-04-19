@@ -86,10 +86,6 @@ public sealed partial class Game : IUpdateable
         }
 
     }
-    public void EndGame()
-    {
-        throw new System.NotImplementedException();
-    }
     public void PauseGame()
     {
         IsPaused = true;

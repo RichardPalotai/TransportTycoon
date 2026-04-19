@@ -36,7 +36,8 @@ public class ErrorHandler : MonoBehaviour
     void Awake()
     {
         instance = this;
-
+        ErrorTag = "Error";
+        ErrorText = "Some error message";
         gameObject.SetActive(false);
     }
 
