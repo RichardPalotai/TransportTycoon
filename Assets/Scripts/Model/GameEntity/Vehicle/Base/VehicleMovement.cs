@@ -6,11 +6,19 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 {
     private double _waitTimer = 0;
     private bool _isWaiting = false;
-    public void SetRoute(List<Facility> stops)
+    public void SetRoute(LinkedList<int> ids, List<Facility> facilities)
     {
         Route.Clear();
-        Destination = stops.FirstOrDefault();
-        stops.ForEach(Route.Enqueue);
+
+        var facilityMap = facilities.ToDictionary(f => f.ID);
+
+        foreach (int id in ids)
+        {
+            if (facilityMap.TryGetValue(id, out var facility))
+            {
+                Route.Enqueue(facility);
+            }
+        }
     }
     public void SetToNextStop()
     {

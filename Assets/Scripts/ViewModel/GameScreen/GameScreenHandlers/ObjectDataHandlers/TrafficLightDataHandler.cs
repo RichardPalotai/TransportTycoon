@@ -102,6 +102,7 @@ namespace ViewModel.GameScreen.UIHandlers
             {
                 // TODO - Set properties to the selected car's (3D modell - Bálint) <BINDING>
                 
+                gameObject.SetActive(true);
                 CheckDeselectKey();
             }
         }
@@ -125,9 +126,8 @@ namespace ViewModel.GameScreen.UIHandlers
         }
         private void OnSellClicked()
         {
-            // TODO - Connect to model <BINDING> <MODEL>
-            //Game.instance.Player.SellItem();
-            Destroy(SelectedTrafficLight);
+            // TODO - Connect to model <BINDING>
+            BuildingPlacer.instance.DemolishBuilding(new Vector2(SelectedTrafficLight.transform.position.x, SelectedTrafficLight.transform.position.y));
             SetDefaultValues();
         }
         #endregion

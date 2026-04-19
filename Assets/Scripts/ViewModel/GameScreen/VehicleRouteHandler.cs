@@ -155,8 +155,7 @@ public class VehicleRouteHandler : MonoBehaviour
     private void SaveRoute()
     {
         // TODO - connect REAL DATA!!! <BINDING>
-        // TODO - Specify parameter <MODEL>
-        //Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.GetComponent<SawmillScript>().ID).SetRoute(currentRoute);
+        //Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.GetComponent<SawmillScript>().ID).SetRoute(currentRoute, Game.instance.Player.Facilities);
     }
 
     /// <summary>

@@ -120,6 +120,7 @@ public class GameViewModel : MonoBehaviour
             else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject == null)
             {
                 // TODO - Destror building from  -- BuildingPlacer -- <BINDING>
+                BuildingPlacer.instance.DemolishBuilding(mouse.position.ReadValue());
             }
         }
 

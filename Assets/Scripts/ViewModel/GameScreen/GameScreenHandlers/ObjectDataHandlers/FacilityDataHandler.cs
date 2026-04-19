@@ -103,7 +103,8 @@ namespace ViewModel.GameScreen.UIHandlers
             if (SelectedFacility != null)
             {
                 // TODO - Set properties to the selected facility's (3D modell - Bálint) <BINDING>
-
+                
+                gameObject.SetActive(true);
                 CheckDeselectKey();
             }
         }

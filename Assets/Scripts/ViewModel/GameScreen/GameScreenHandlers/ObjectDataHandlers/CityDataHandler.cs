@@ -92,6 +92,7 @@ namespace ViewModel.GameScreen.UIHandlers
             {
                 // TODO - Set properties to the selected city's (3D modell - Bálint) <BINDING>
                 
+                gameObject.SetActive(true);
                 CheckDeselectKey();
             }
         }
