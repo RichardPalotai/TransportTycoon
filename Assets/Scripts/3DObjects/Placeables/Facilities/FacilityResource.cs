@@ -1,0 +1,9 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Facility", menuName = "Placeable objects")]
+public class FacilityResource : Placeable
+{
+    public enum Facility { FARM, FACTORY, MINE, SAWMILL }
+
+    public Facility FacilityObj;
+}

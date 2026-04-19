@@ -27,6 +27,10 @@ public class TileResource
         {
             _type = value;
         }
+        get
+        {
+            return _type;
+        }
     }
     #nullable disable
 
