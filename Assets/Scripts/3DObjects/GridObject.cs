@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,4 +31,14 @@ public abstract class GridObject : MonoBehaviour
         _id = _globalCounter;
         _globalCounter++;
     }
+=======
+using UnityEngine;
+
+public abstract class GridObject : MonoBehaviour
+{
+    public Placeable data;
+    public Vector2Int position;
+
+    public abstract void OnObjectPlaced();
+>>>>>>> origin/master
 }

@@ -47,7 +47,10 @@
 /*.csproj
 /*.unityproj
 /*.sln
+<<<<<<< HEAD
 /*.slnx
+=======
+>>>>>>> origin/master
 /*.suo
 /*.tmp
 /*.user
@@ -102,7 +105,11 @@
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
 
 # Auto-generated scenes by play mode tests
+<<<<<<< HEAD
 /Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
 # Code coverage
 /CodeCoverage
+=======
+/Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+>>>>>>> origin/master
