@@ -3551,6 +3551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingPlacer
   mapManager: {fileID: 316325891}
   gridObject: {fileID: -3678095070051331957, guid: eac057d16dd0f2a47b0cb204287f3d43, type: 3}
+  Road: {fileID: -3678095070051331957, guid: eac057d16dd0f2a47b0cb204287f3d43, type: 3}
   SawMill: {fileID: 5632702034466025198, guid: 4bc137e9c4d793d40ae0f93fea5e3a00, type: 3}
   Mine: {fileID: 5030626575209159399, guid: 159051c761f20ef43b5edddedee17cfb, type: 3}
   Farm: {fileID: 1176928122029860186, guid: 5f6fd46794243794da639f6520aa5d65, type: 3}

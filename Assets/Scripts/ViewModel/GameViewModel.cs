@@ -104,7 +104,7 @@ public class GameViewModel : MonoBehaviour
             {
                 try
                 {
-                    BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue());
+                    BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue(), BuilderSelectorHandler.instance.selectedBuilding);
                     // TODO - Specify parameter!!!!! <BINDING> <MODEL>
                     //Game.instance.Player.Purchase(SelectedObject.GetComponent<SawmillScript>().ID);
                 }

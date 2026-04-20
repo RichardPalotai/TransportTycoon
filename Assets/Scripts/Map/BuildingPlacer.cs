@@ -1,4 +1,5 @@
 using UnityEngine;
+using ViewModel.GameScreen.UIHandlers;
 
 public class BuildingPlacer : MonoBehaviour
 {
@@ -8,39 +9,71 @@ public class BuildingPlacer : MonoBehaviour
     public GridObject gridObject;
     private Placeable selectedBuilding;
 
+    public GridObject Road;
     public GridObject SawMill;
     public GridObject Mine;
     public GridObject Farm;
     public GridObject Factory;
 
+    private GridObject[] objects = new GridObject[4];
+    private int num;
+
     void Awake()
     {
         instance = this;
+
     }
 
     private void Start()
     {
-        gridObject = SawMill;
-        selectedBuilding = gridObject.data;
-        PlaceBuilding(10, 10);
-
-        gridObject = Mine;
-        selectedBuilding = gridObject.data;
-        PlaceBuilding(13, 10);
-
-        gridObject = Farm;
-        selectedBuilding = gridObject.data;
-        PlaceBuilding(10, 13);
-
-        gridObject = Factory;
-        selectedBuilding = gridObject.data;
-        PlaceBuilding(13, 13);
+        objects[0] = SawMill;
+        objects[1] = Mine;
+        objects[2] = Farm;
+        objects[3] = Factory;
+        num = 0;
+        
 
     }
 
     public void AttemptPlacement(Vector2 mousePos)
     {
         selectedBuilding = gridObject.data;
+        if (selectedBuilding == null) return;
+
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
+            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
+            int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
+            int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
+
+            if (IsFootprintValid(originX, originZ, selectedBuilding.tileSize))
+            {
+                PlaceBuilding(originX, originZ);
+            }
+            else
+            {
+                Debug.LogWarning("Cannot build here! Area is blocked or out of bounds." + originX + " " + originZ);
+            }
+        }
+    }
+
+    public void AttemptPlacement(Vector2 mousePos, BuilderSelectorHandler.Building build)
+    {
+        if (build == BuilderSelectorHandler.Building.ROAD) {
+            gridObject = Road;
+        }
+        else
+        {
+            gridObject = objects[num%4];
+            ++num;
+
+        }
+
+
+            selectedBuilding = gridObject.data;
         if (selectedBuilding == null) return;
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
