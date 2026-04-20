@@ -14,6 +14,7 @@ public abstract class GridObject : MonoBehaviour
     public Sprite SelectedSprite;
     public TMP_Text OrderText;
     private int _id;
+    public GameObject selfObject;
 
     public int ID
     {

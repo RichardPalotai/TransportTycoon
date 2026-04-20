@@ -129,9 +129,11 @@ public class BuildingPlacer : MonoBehaviour
 
         GameObject newBuildingObj = Instantiate(selectedBuilding.prefab, spawnPosition, selectedBuilding.prefab.transform.rotation);
 
+
         GridObject gridObjScript = newBuildingObj.GetComponent<GridObject>();
         gridObjScript.data = selectedBuilding;
         gridObjScript.position = new Vector2Int(startX, startZ);
+        gridObjScript.selfObject = newBuildingObj;
         
         int x = 0;
         int z = 0;
@@ -219,13 +221,13 @@ public class BuildingPlacer : MonoBehaviour
             {
                 for (int j = 0; j < mapManager.Size; ++j)
                 {
-                    if (mapManager.GetTile(x, y).Type.ID == demol.ID)
+                    if (mapManager.GetTile(x,y).Type != null &&mapManager.GetTile(x, y).Type.ID == demol.ID)
                     {
                         mapManager.GetTile(x, y).Type = null;
                     }
                 }
             }
-            Destroy(demol.gameObject);
+            Destroy(demol.selfObject);
         }
 
         
