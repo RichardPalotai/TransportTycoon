@@ -8,7 +8,10 @@ public class BuildingPlacer : MonoBehaviour
     public GridObject gridObject;
     private Placeable selectedBuilding;
 
-    public GridObject[] objects;
+    public GridObject SawMill;
+    public GridObject Mine;
+    public GridObject Farm;
+    public GridObject Factory;
 
     void Awake()
     {
@@ -17,7 +20,22 @@ public class BuildingPlacer : MonoBehaviour
 
     private void Start()
     {
-        //PlaceBuilding(2, 2);
+        gridObject = SawMill;
+        selectedBuilding = gridObject.data;
+        PlaceBuilding(10, 10);
+
+        gridObject = Mine;
+        selectedBuilding = gridObject.data;
+        PlaceBuilding(13, 10);
+
+        gridObject = Farm;
+        selectedBuilding = gridObject.data;
+        PlaceBuilding(10, 13);
+
+        gridObject = Factory;
+        selectedBuilding = gridObject.data;
+        PlaceBuilding(13, 13);
+
     }
 
     public void AttemptPlacement(Vector2 mousePos)
@@ -139,7 +157,7 @@ public class BuildingPlacer : MonoBehaviour
         }
 
 
-            gridObjScript.OnObjectPlaced();
+        gridObjScript.OnObjectPlaced();
     }
 
     public void DemolishBuilding(Vector2 mousePos)

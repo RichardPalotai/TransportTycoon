@@ -41,7 +41,12 @@ public class StraightRoadScript : GridObject
 
         GridObject? obj = map.GetTile(x, z).Type;
 
-        if (obj is StraightRoadScript) return true;
+        if (obj != null)
+        {
+            if (obj is StraightRoadScript) return true;
+        }
+
+        
 
         return false;
     }
