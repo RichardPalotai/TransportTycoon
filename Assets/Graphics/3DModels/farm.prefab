@@ -70,10 +70,38 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 127d56ccb09f5d148bdb70df013e8072, type: 2}
     - target: {fileID: 919132149155446097, guid: 9cf6f0f320ce75148b14310294d0aed2, type: 3}
       propertyPath: m_Name
-      value: barn
+      value: farm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cf6f0f320ce75148b14310294d0aed2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1176928122029860186}
   m_SourcePrefab: {fileID: 100100000, guid: 9cf6f0f320ce75148b14310294d0aed2, type: 3}
+--- !u!1 &6836251681542043125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cf6f0f320ce75148b14310294d0aed2, type: 3}
+  m_PrefabInstance: {fileID: 5917263162670303396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1176928122029860186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6836251681542043125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 095c4d4d098b8fd49b732ec8458aae77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarmScript
+  data: {fileID: 11400000, guid: 47c96d15c0e436e40845e99bedf022ac, type: 2}
+  position: {x: 0, y: 0}
+  routeCanvas: {fileID: 0}
+  routeButton: {fileID: 0}
+  DefaultSprite: {fileID: 0}
+  SelectedSprite: {fileID: 0}
+  OrderText: {fileID: 0}
+  ID: 0

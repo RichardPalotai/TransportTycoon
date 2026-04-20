@@ -71,5 +71,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 570a048dcda18c142b30f9e982404094, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5030626575209159399}
   m_SourcePrefab: {fileID: 100100000, guid: 570a048dcda18c142b30f9e982404094, type: 3}
+--- !u!1 &1798591931480815184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 570a048dcda18c142b30f9e982404094, type: 3}
+  m_PrefabInstance: {fileID: 1455938134465383169}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5030626575209159399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798591931480815184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125f6c79f30384945b0d813f90550352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MineScript
+  data: {fileID: 11400000, guid: bf41636d7f6be2b49866c465bf14d5d2, type: 2}
+  position: {x: 0, y: 0}
+  routeCanvas: {fileID: 0}
+  routeButton: {fileID: 0}
+  DefaultSprite: {fileID: 0}
+  SelectedSprite: {fileID: 0}
+  OrderText: {fileID: 0}
+  ID: 0

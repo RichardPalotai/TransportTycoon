@@ -8,6 +8,8 @@ public class BuildingPlacer : MonoBehaviour
     public GridObject gridObject;
     private Placeable selectedBuilding;
 
+    public GridObject[] objects;
+
     void Awake()
     {
         instance = this;
@@ -86,9 +88,10 @@ public class BuildingPlacer : MonoBehaviour
         {
             for (z = 0; z < selectedBuilding.tileSize; z++)
             {
-                mapManager.GetTile(startX + x, startZ + z).Type = gridObjScript;
+                mapManager.SetTile(startX + x, startZ + z, gridObjScript);
             }
         }
+        
         if (selectedBuilding is FacilityResource facility)
         {
             switch (facility.FacilityObj)
@@ -109,9 +112,34 @@ public class BuildingPlacer : MonoBehaviour
                     break;
             }
         }
-        
 
-        gridObjScript.OnObjectPlaced();
+        ///             +1
+        ///         -1  X   +1
+        ///             -1
+
+        else if(selectedBuilding is RoadResource road)
+        {
+            if (gridObject is StraightRoadScript stroad)
+            {
+                stroad.map = mapManager;
+
+                for (int i = -1; i < 2; i += 2)
+                {
+                    if (mapManager.GetTile(startX + i, startZ).Type is StraightRoadScript neighbourX)
+                    {
+                        neighbourX.UpdateRoadShape();
+                    }
+
+                    if (mapManager.GetTile(startX, startZ + i).Type is StraightRoadScript neighbourZ)
+                    {
+                        neighbourZ.UpdateRoadShape();
+                    }
+                }
+            }
+        }
+
+
+            gridObjScript.OnObjectPlaced();
     }
 
     public void DemolishBuilding(Vector2 mousePos)

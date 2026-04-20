@@ -14,8 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Road
   objectName: Straight Road
   tileSize: 1
-  prefab: {fileID: 857457734640839068, guid: 125c06e17ba2c3e4aa11986350ad65dc, type: 3}
+  prefab: {fileID: 6258294733478815116, guid: eac057d16dd0f2a47b0cb204287f3d43, type: 3}
   placementCost: 100
-  facing:
-  - 
-  - 

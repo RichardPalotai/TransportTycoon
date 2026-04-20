@@ -17,9 +17,9 @@ public class MapManager : MonoBehaviour
         return _map[x, y];
     }
 
-    public void SetTile(int x, int y, TileResource tile)
+    public void SetTile(int x, int y, GridObject? tile)
     {
-        _map[x, y] =tile;
+        _map[x, y].Type = tile;
     }
 
     private void Start()
