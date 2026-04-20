@@ -278,6 +278,15 @@ namespace ViewModel.GameScreen.UIHandlers
             Truck_btn.interactable = state;
             Minivan_btn.interactable = state;
         }
+
+        /// <summary>
+        /// Sets Mouse/Selection mode buttons on/off
+        /// </summary>
+        /// <param name="state">true == select buttons on / false == select buttons off</param>
+        public void SetSelectButtonsActive(bool state)
+        {
+            Mouse_btn.interactable = state;
+        }
         #endregion
     }
 }

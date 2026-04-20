@@ -211,7 +211,10 @@ public class GameViewModel : MonoBehaviour
     private void SetGameScreenUIButtonsActive(bool state)
     {
         MenuBarHandler.instance.SetButtonsActive(state);
-        BuilderSelectorHandler.instance.SetButtonsActive(state);
+        if (gameMode == GameMode.DEMOLISH)
+            BuilderSelectorHandler.instance.SetSelectButtonsActive(state);
+        else
+            BuilderSelectorHandler.instance.SetButtonsActive(state);
 
         if (CityDataHandler.instance != null)
         {
