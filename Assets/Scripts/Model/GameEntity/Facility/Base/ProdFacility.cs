@@ -22,7 +22,9 @@ public abstract class ProdFacility : Facility, IProdInteractable
         {
             _prodBuffer -= produced;
             producedCount += produced;
+#if DEBUG
             Logger.ProductionLog(this.GetType(), produced);
+#endif
         }
     }
     public override void Update(double deltaTime)

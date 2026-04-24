@@ -102,7 +102,7 @@ public class MapTestScript
         }
 
         Assert.Throws<IndexOutOfRangeException>(() => game.Map.PlaceObject(game.Map.Size, game.Map.Size, new LumberMill<Wood>()));
-        Assert.Throws<NotEnoughSpaceForObjectException>(() => game.Map.PlaceObject(game.Map.Size-1, game.Map.Size-1, new LumberMill<Wood>()));
+        Assert.Throws<NotEnoughSpaceForObjectException>(() => game.Map.PlaceObject(game.Map.Size - 1, game.Map.Size - 1, new LumberMill<Wood>()));
     }
 
     [Test]
@@ -115,5 +115,40 @@ public class MapTestScript
         Assert.AreEqual(2, Map.GetAreaSize(mine));
         Assert.AreEqual(3, Map.GetAreaSize(city));
         Assert.AreEqual(1, Map.GetAreaSize(trafficLight));
+    }
+
+    [Test]
+    public void CityPlacementTest()
+    {
+        var game = new Game();
+        game.NewGame();
+        game.Map.PlaceObject(0, 0, new Factory<Steel>());
+        game.Map.PlaceObject(game.Map.Size - 3, 0, new Mine<Iron>());
+        game.Map.PlaceObject(0, game.Map.Size - 3, new Farm<Milk>());
+        game.Map.PlaceObject(game.Map.Size - 3, game.Map.Size - 3, new LumberMill<Wood>());
+
+        var city = new City();
+        game.Map.PlaceObject(25, 25, city);
+
+
+        Assert.IsInstanceOf<City>(game.Map.GetTile(25, 25).Entity);
+        Assert.AreEqual(city.ID, game.Map.GetTile(25, 25).ObjectId);
+
+        for (int i = 25; i < 25 + Map.GetAreaSize(game.Map.GetTile(25, 25).Entity); ++i)
+        {
+            for (int j = 25; j < 25 + Map.GetAreaSize(game.Map.GetTile(25, 25).Entity); ++j)
+            {
+                Logger.Log($"x={i},y={j} helyen {game.Map.GetTile(i, j).ObjectId} volt.");
+                if (i == 25 && j == 25)
+                    continue;
+
+                if ((i == 25 && j == 27) || (i == 27 && j == 27) || (i == 27 && j == 25))
+                    Assert.AreEqual(city.ID, game.Map.GetTile(i, j).ObjectId);
+                else
+                    Assert.IsInstanceOf<Road>(game.Map.GetTile(i, j).Entity);
+            }
+        }
+
+
     }
 }

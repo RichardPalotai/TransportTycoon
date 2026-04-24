@@ -42,6 +42,9 @@ public sealed partial class Map
                 }
             }
         }
+#if DEBUG
+        Logger.LogMap(this, y: 25);
+#endif
     }
     public void GenerateMap()
     {
@@ -57,9 +60,10 @@ public sealed partial class Map
         // PlaceObject(Size - 3, 0, new Mine<Iron>());
         // PlaceObject(0, Size - 3, new Farm<Milk>());
         // PlaceObject(Size - 3, Size - 3, new LumberMill<Wood>());
-
+#if DEBUG
         Logger.Log("Map generated successfully");
+#endif
     }
-    
+
 
 }
