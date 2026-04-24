@@ -1,6 +1,7 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using static NUnit.Framework.Assert;
@@ -236,5 +237,94 @@ public class MapTestScript
 
 
 
+    }
+
+    [Test]
+    public void GetFacilityNeighborRoadsWithSingleRoadTest()
+    {
+        var game = new Game();
+        game.NewGame();
+
+        game.Map.PlaceObject(0, 0, new Factory<Steel>());
+        game.Map.PlaceObject(2, 0, new Road(false));
+
+        var res = game.Map.GetFacilityNeighborRoads(game.Map.GetTile(0, 0).Entity as Facility);
+        AreEqual(1, res.Count);
+        AreEqual((2, 0), res.First());
+    }
+
+    [Test]
+    public void GetFacilityNeighborRoadsWithMultipleRoads2x2Test()
+    {
+        var game = new Game();
+        game.NewGame();
+
+        game.Map.PlaceObject(0, 0, new Factory<Steel>());
+        game.Map.PlaceObject(2, 0, new Road(false));
+
+        var res = game.Map.GetFacilityNeighborRoads(game.Map.GetTile(0, 0).Entity as Facility);
+        AreEqual(1, res.Count);
+        AreEqual((2, 0), res.First());
+
+        game.Map.PlaceObject(0, 2, new Road(false));
+        game.Map.PlaceObject(2, 1, new Road(false));
+        res = game.Map.GetFacilityNeighborRoads(game.Map.GetTile(0, 0).Entity as Facility);
+
+        AreEqual(3, res.Count);
+        That(res, Is.EquivalentTo(new List<(int x, int y)>() { (2, 0), (0, 2), (2, 1) }));
+
+        game.Map.PlaceObject(2, 2, new Road(false));
+
+        res = game.Map.GetFacilityNeighborRoads(game.Map.GetTile(0, 0).Entity as Facility);
+
+        AreEqual(3, res.Count);
+        That(res, Is.EquivalentTo(new List<(int x, int y)>() { (2, 0), (0, 2), (2, 1) }));
+    }
+    [Test]
+    public void GetFacilityNeighborRoads3x3Test()
+    {
+        var game = new Game();
+        game.NewGame();
+        game.Map.PlaceObject(0, 0, new City());
+        game.Map.PlaceObject(3, 0, new Road(false));
+
+
+        var res = game.Map.GetFacilityNeighborRoads(game.Map.GetTile(0, 0).Entity as Facility);
+
+        AreEqual(6, res.Count);
+        That(res, Is.EquivalentTo(new List<(int x, int y)>() { (0, 1), (1, 0), (1, 1), (1, 2), (2, 1), (3, 0) }));
+
+        game.Map.PlaceObject(0, 3, new Road(false));
+        game.Map.PlaceObject(3, 1, new Road(false));
+
+        res = game.Map.GetFacilityNeighborRoads(game.Map.GetTile(0, 0).Entity as Facility);
+
+        AreEqual(8, res.Count);
+        That(res, Is.EquivalentTo(new List<(int x, int y)>() { (0, 1), (1, 0), (1, 1), (0, 3), (1, 2), (2, 1), (3, 0), (3, 1) }));
+
+        game.Map.PlaceObject(3, 2, new Road(false));
+
+        res = game.Map.GetFacilityNeighborRoads(game.Map.GetTile(0, 0).Entity as Facility);
+
+        AreEqual(9, res.Count);
+        That(res, Is.EquivalentTo(new List<(int x, int y)>() { (0, 1), (1, 0), (1, 1), (0, 3), (1, 2), (2, 1), (3, 0), (3, 1), (3, 2) }));
+    }
+
+    [Test]
+    public void IsCrossRoadTest()
+    {
+        var game = new Game();
+        game.NewGame();
+        game.Map.PlaceObject(0, 0, new City());
+
+        False(game.Map.IsCrossRoad(0, 0));
+        False(game.Map.IsCrossRoad(1, 0));
+        False(game.Map.IsCrossRoad(2, 0));
+        False(game.Map.IsCrossRoad(0, 1));
+        True(game.Map.IsCrossRoad(1, 1));
+        False(game.Map.IsCrossRoad(2, 1));
+        False(game.Map.IsCrossRoad(0, 2));
+        False(game.Map.IsCrossRoad(1, 2));
+        False(game.Map.IsCrossRoad(2, 2));
     }
 }

@@ -65,7 +65,7 @@ public sealed partial class Map
             }
         }
     }
-    private bool IsCrossRoad(int x, int y)
+    public bool IsCrossRoad(int x, int y)
     {
         return (
             (y - 1 >= 0
