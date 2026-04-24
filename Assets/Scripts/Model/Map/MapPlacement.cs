@@ -33,7 +33,7 @@ public sealed partial class Map
         if (entity is City city)
             MarkCity(x, y, areaSize);
 #if DEBUG
-         Logger.ObjectPlacedLog(entity.GetType(), x, y);
+         //Logger.ObjectPlacedLog(entity.GetType(), x, y);
 #endif
     }
     private bool IsFree(int x, int y, int areaSize)

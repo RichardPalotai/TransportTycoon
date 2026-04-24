@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-
+using static NUnit.Framework.Assert;
 public class MapTestScript
 {
     [Test]
@@ -11,15 +11,15 @@ public class MapTestScript
     {
         var game = new Game();
         game.NewGame();
-        Assert.AreEqual(100, game.Map.Size);
+        AreEqual(100, game.Map.Size);
 
         for (int i = 0; i < 100; i++)
         {
             for (int j = 0; j < 100; j++)
             {
-                Assert.IsNotNull(game.Map.GetTile(i, j));
-                Assert.AreEqual(i, game.Map.GetTile(i, j).X);
-                Assert.AreEqual(j, game.Map.GetTile(i, j).Y);
+                IsNotNull(game.Map.GetTile(i, j));
+                AreEqual(i, game.Map.GetTile(i, j).X);
+                AreEqual(j, game.Map.GetTile(i, j).Y);
             }
         }
 
@@ -30,14 +30,14 @@ public class MapTestScript
         var game = new Game();
         game.NewGame();
 
-        Assert.Throws<IndexOutOfRangeException>(() => game.Map.GetTile(-1, -1));
-        Assert.Throws<IndexOutOfRangeException>(() => game.Map.GetTile(101, 101));
-        Assert.Throws<IndexOutOfRangeException>(() => game.Map.GetTile(0, 101));
-        Assert.Throws<IndexOutOfRangeException>(() => game.Map.GetTile(101, 0));
-        Assert.DoesNotThrow(() => game.Map.GetTile(0, 0));
-        Assert.DoesNotThrow(() => game.Map.GetTile(99, 0));
-        Assert.DoesNotThrow(() => game.Map.GetTile(99, 99));
-        Assert.DoesNotThrow(() => game.Map.GetTile(0, 99));
+        Throws<IndexOutOfRangeException>(() => game.Map.GetTile(-1, -1));
+        Throws<IndexOutOfRangeException>(() => game.Map.GetTile(101, 101));
+        Throws<IndexOutOfRangeException>(() => game.Map.GetTile(0, 101));
+        Throws<IndexOutOfRangeException>(() => game.Map.GetTile(101, 0));
+        DoesNotThrow(() => game.Map.GetTile(0, 0));
+        DoesNotThrow(() => game.Map.GetTile(99, 0));
+        DoesNotThrow(() => game.Map.GetTile(99, 99));
+        DoesNotThrow(() => game.Map.GetTile(0, 99));
     }
 
     [Test]
@@ -46,63 +46,63 @@ public class MapTestScript
         var game = new Game();
         game.NewGame();
         game.Map.PlaceObject(0, 0, new Factory<Steel>());
-        game.Map.PlaceObject(game.Map.Size - 3, 0, new Mine<Iron>());
-        game.Map.PlaceObject(0, game.Map.Size - 3, new Farm<Milk>());
-        game.Map.PlaceObject(game.Map.Size - 3, game.Map.Size - 3, new LumberMill<Wood>());
+        game.Map.PlaceObject(game.Map.Size - 2, 0, new Mine<Iron>());
+        game.Map.PlaceObject(0, game.Map.Size - 2, new Farm<Milk>());
+        game.Map.PlaceObject(game.Map.Size - 2, game.Map.Size - 2, new LumberMill<Wood>());
 
 
-        Assert.IsInstanceOf<Factory<Steel>>(game.Map.GetTile(0, 0).Entity);
+        IsInstanceOf<Factory<Steel>>(game.Map.GetTile(0, 0).Entity);
         for (int i = 0; i < Map.GetAreaSize(game.Map.GetTile(0, 0).Entity); ++i)
         {
             for (int j = 0; j < Map.GetAreaSize(game.Map.GetTile(0, 0).Entity); ++j)
             {
                 if (i == 0 && j == 0)
                     continue;
-                Assert.AreEqual(game.Map.GetTile(i, j).ObjectId, game.Map.GetTile(0, 0).Entity.ID);
-                Assert.IsNull(game.Map.GetTile(i, j).Entity);
+                AreEqual(game.Map.GetTile(i, j).ObjectId, game.Map.GetTile(0, 0).Entity.ID);
+                IsNull(game.Map.GetTile(i, j).Entity);
             }
         }
 
 
-        Assert.IsInstanceOf<Mine<Iron>>(game.Map.GetTile(game.Map.Size - 3, 0).Entity);
-        for (int i = game.Map.Size - 3; i < Map.GetAreaSize(game.Map.GetTile(game.Map.Size - 3, 0).Entity); ++i)
+        IsInstanceOf<Mine<Iron>>(game.Map.GetTile(game.Map.Size - 2, 0).Entity);
+        for (int i = game.Map.Size - 2; i < Map.GetAreaSize(game.Map.GetTile(game.Map.Size - 2, 0).Entity); ++i)
         {
-            for (int j = 0; j < Map.GetAreaSize(game.Map.GetTile(game.Map.Size - 3, 0).Entity); ++j)
+            for (int j = 0; j < Map.GetAreaSize(game.Map.GetTile(game.Map.Size - 2, 0).Entity); ++j)
             {
-                if (i == game.Map.Size - 3 && j == 0)
+                if (i == game.Map.Size - 2 && j == 0)
                     continue;
-                Assert.AreEqual(game.Map.GetTile(i, j).ObjectId, game.Map.GetTile(game.Map.Size - 3, 0).Entity.ID);
-                Assert.IsNull(game.Map.GetTile(i, j).Entity);
+                AreEqual(game.Map.GetTile(i, j).ObjectId, game.Map.GetTile(game.Map.Size - 2, 0).Entity.ID);
+                IsNull(game.Map.GetTile(i, j).Entity);
             }
         }
 
 
-        Assert.IsInstanceOf<Farm<Milk>>(game.Map.GetTile(0, game.Map.Size - 3).Entity);
-        for (int i = 0; i < Map.GetAreaSize(game.Map.GetTile(0, game.Map.Size - 3).Entity); ++i)
+        IsInstanceOf<Farm<Milk>>(game.Map.GetTile(0, game.Map.Size - 2).Entity);
+        for (int i = 0; i < Map.GetAreaSize(game.Map.GetTile(0, game.Map.Size - 2).Entity); ++i)
         {
-            for (int j = game.Map.Size - 3; j < Map.GetAreaSize(game.Map.GetTile(0, game.Map.Size - 3).Entity); ++j)
+            for (int j = game.Map.Size - 2; j < Map.GetAreaSize(game.Map.GetTile(0, game.Map.Size - 2).Entity); ++j)
             {
-                if (i == 0 && j == game.Map.Size - 3)
+                if (i == 0 && j == game.Map.Size - 2)
                     continue;
-                Assert.AreEqual(game.Map.GetTile(i, j).ObjectId, game.Map.GetTile(0, game.Map.Size - 3).Entity.ID);
-                Assert.IsNull(game.Map.GetTile(i, j).Entity);
+                AreEqual(game.Map.GetTile(i, j).ObjectId, game.Map.GetTile(0, game.Map.Size - 2).Entity.ID);
+                IsNull(game.Map.GetTile(i, j).Entity);
             }
         }
 
-        Assert.IsInstanceOf<LumberMill<Wood>>(game.Map.GetTile(game.Map.Size - 3, game.Map.Size - 3).Entity);
-        for (int i = game.Map.Size - 3; i < Map.GetAreaSize(game.Map.GetTile(game.Map.Size - 3, game.Map.Size - 3).Entity); ++i)
+        IsInstanceOf<LumberMill<Wood>>(game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 2).Entity);
+        for (int i = game.Map.Size - 2; i < Map.GetAreaSize(game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 2).Entity); ++i)
         {
-            for (int j = game.Map.Size - 3; j < Map.GetAreaSize(game.Map.GetTile(game.Map.Size - 3, game.Map.Size - 3).Entity); ++j)
+            for (int j = game.Map.Size - 2; j < Map.GetAreaSize(game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 2).Entity); ++j)
             {
-                if (i == game.Map.Size - 3 && j == game.Map.Size - 3)
+                if (i == game.Map.Size - 2 && j == game.Map.Size - 2)
                     continue;
-                Assert.AreEqual(game.Map.GetTile(i, j).ObjectId, game.Map.GetTile(game.Map.Size - 3, game.Map.Size - 3).Entity.ID);
-                Assert.IsNull(game.Map.GetTile(i, j).Entity);
+                AreEqual(game.Map.GetTile(i, j).ObjectId, game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 2).Entity.ID);
+                IsNull(game.Map.GetTile(i, j).Entity);
             }
         }
 
-        Assert.Throws<IndexOutOfRangeException>(() => game.Map.PlaceObject(game.Map.Size, game.Map.Size, new LumberMill<Wood>()));
-        Assert.Throws<NotEnoughSpaceForObjectException>(() => game.Map.PlaceObject(game.Map.Size - 1, game.Map.Size - 1, new LumberMill<Wood>()));
+        Throws<IndexOutOfRangeException>(() => game.Map.PlaceObject(game.Map.Size, game.Map.Size, new LumberMill<Wood>()));
+        Throws<NotEnoughSpaceForObjectException>(() => game.Map.PlaceObject(game.Map.Size - 1, game.Map.Size - 1, new LumberMill<Wood>()));
     }
 
     [Test]
@@ -112,9 +112,9 @@ public class MapTestScript
         City city = new();
         TrafficLight trafficLight = new(true, Direction.NORTH);
 
-        Assert.AreEqual(2, Map.GetAreaSize(mine));
-        Assert.AreEqual(3, Map.GetAreaSize(city));
-        Assert.AreEqual(1, Map.GetAreaSize(trafficLight));
+        AreEqual(2, Map.GetAreaSize(mine));
+        AreEqual(3, Map.GetAreaSize(city));
+        AreEqual(1, Map.GetAreaSize(trafficLight));
     }
 
     [Test]
@@ -123,31 +123,117 @@ public class MapTestScript
         var game = new Game();
         game.NewGame();
         game.Map.PlaceObject(0, 0, new Factory<Steel>());
-        game.Map.PlaceObject(game.Map.Size - 3, 0, new Mine<Iron>());
-        game.Map.PlaceObject(0, game.Map.Size - 3, new Farm<Milk>());
-        game.Map.PlaceObject(game.Map.Size - 3, game.Map.Size - 3, new LumberMill<Wood>());
+        game.Map.PlaceObject(game.Map.Size - 2, 0, new Mine<Iron>());
+        game.Map.PlaceObject(0, game.Map.Size - 2, new Farm<Milk>());
+        game.Map.PlaceObject(game.Map.Size - 2, game.Map.Size - 2, new LumberMill<Wood>());
 
         var city = new City();
-        game.Map.PlaceObject(25, 25, city);
+        DoesNotThrow(() => game.Map.PlaceObject(25, 25, city));
+        Throws<NotEnoughSpaceForObjectException>(() => game.Map.PlaceObject(25, 25, city));
 
 
-        Assert.IsInstanceOf<City>(game.Map.GetTile(25, 25).Entity);
-        Assert.AreEqual(city.ID, game.Map.GetTile(25, 25).ObjectId);
+        IsInstanceOf<City>(game.Map.GetTile(25, 25).Entity);
+        AreEqual(city.ID, game.Map.GetTile(25, 25).ObjectId);
 
         for (int i = 25; i < 25 + Map.GetAreaSize(game.Map.GetTile(25, 25).Entity); ++i)
         {
             for (int j = 25; j < 25 + Map.GetAreaSize(game.Map.GetTile(25, 25).Entity); ++j)
             {
-                Logger.Log($"x={i},y={j} helyen {game.Map.GetTile(i, j).ObjectId} volt.");
+                //Logger.Log($"x={i},y={j} helyen {game.Map.GetTile(i, j).ObjectId} volt.");
                 if (i == 25 && j == 25)
                     continue;
 
                 if ((i == 25 && j == 27) || (i == 27 && j == 27) || (i == 27 && j == 25))
-                    Assert.AreEqual(city.ID, game.Map.GetTile(i, j).ObjectId);
+                    AreEqual(city.ID, game.Map.GetTile(i, j).ObjectId);
                 else
-                    Assert.IsInstanceOf<Road>(game.Map.GetTile(i, j).Entity);
+                    IsInstanceOf<Road>(game.Map.GetTile(i, j).Entity);
             }
         }
+
+        DoesNotThrow(() => game.Map.PlaceObject(94, 94, city));
+        Throws<NotEnoughSpaceForObjectException>(() => game.Map.PlaceObject(95, 95, city));
+    }
+    [Test]
+    public void IsFreeTest()
+    {
+        var game = new Game();
+        game.NewGame();
+        game.Map.PlaceObject(0, 0, new Factory<Steel>()); //2x2
+        game.Map.PlaceObject(game.Map.Size - 2, 0, new Mine<Iron>()); //2x2
+        game.Map.PlaceObject(0, game.Map.Size - 2, new Farm<Milk>()); //2x2
+        game.Map.PlaceObject(game.Map.Size - 2, game.Map.Size - 2, new LumberMill<Wood>()); //2x2
+        var city = new City();
+        game.Map.PlaceObject(25, 25, city);//3x3
+        game.Map.PlaceObject(50, 50, city);//3x3
+
+        int notFreeTilesCount = 0;
+        for (int i = 0; i < game.Map.Size; i++)
+        {
+            for (int j = 0; j < game.Map.Size; j++)
+            {
+                if (!game.Map.GetTile(i, j).IsFree)
+                    notFreeTilesCount++;
+            }
+        }
+        AreEqual(34, notFreeTilesCount);
+
+        //Logger.FreeMap(game.Map);
+    }
+
+    [Test]
+    public void MarkAreaTilesWithIdTest()
+    {
+        var game = new Game();
+        game.NewGame();
+        var fact = new Factory<Steel>();
+        var mine = new Mine<Iron>();
+        var farm = new Farm<Milk>();
+        var mill = new LumberMill<Wood>();
+        game.Map.PlaceObject(0, 0, fact); //2x2
+        game.Map.PlaceObject(game.Map.Size - 2, 0, mine); //2x2
+        game.Map.PlaceObject(0, game.Map.Size - 2, farm); //2x2
+        game.Map.PlaceObject(game.Map.Size - 2, game.Map.Size - 2, mill); //2x2
+
+        IsInstanceOf<Factory<Steel>>(game.Map.GetTile(0, 0).Entity);
+        AreEqual(fact.ID, game.Map.GetTile(0, 0).ObjectId);
+        IsNotNull(game.Map.GetTile(0, 0).Entity);
+        AreEqual(fact.ID, game.Map.GetTile(0, 1).ObjectId);
+        IsNull(game.Map.GetTile(0, 1).Entity);
+        AreEqual(fact.ID, game.Map.GetTile(1, 0).ObjectId);
+        IsNull(game.Map.GetTile(1, 0).Entity);
+        AreEqual(fact.ID, game.Map.GetTile(1, 1).ObjectId);
+        IsNull(game.Map.GetTile(1, 1).Entity);
+
+        IsInstanceOf<Mine<Iron>>(game.Map.GetTile(game.Map.Size - 2, 0).Entity);
+        AreEqual(mine.ID, game.Map.GetTile(game.Map.Size - 2, 0).ObjectId);
+        IsNotNull(game.Map.GetTile(game.Map.Size - 2, 0).Entity);
+        AreEqual(mine.ID, game.Map.GetTile(game.Map.Size - 2, 1).ObjectId);
+        IsNull(game.Map.GetTile(game.Map.Size - 2, 1).Entity);
+        AreEqual(mine.ID, game.Map.GetTile(game.Map.Size - 1, 0).ObjectId);
+        IsNull(game.Map.GetTile(game.Map.Size - 1, 0).Entity);
+        AreEqual(mine.ID, game.Map.GetTile(game.Map.Size - 1, 1).ObjectId);
+        IsNull(game.Map.GetTile(game.Map.Size - 1, 1).Entity);
+
+        IsInstanceOf<Farm<Milk>>(game.Map.GetTile(0, game.Map.Size - 2).Entity);
+        AreEqual(farm.ID, game.Map.GetTile(0, game.Map.Size - 2).ObjectId);
+        IsNotNull(game.Map.GetTile(0, game.Map.Size - 2).Entity);
+        AreEqual(farm.ID, game.Map.GetTile(0, game.Map.Size - 1).ObjectId);
+        IsNull(game.Map.GetTile(0, game.Map.Size - 1).Entity);
+        AreEqual(farm.ID, game.Map.GetTile(1, game.Map.Size - 2).ObjectId);
+        IsNull(game.Map.GetTile(1, game.Map.Size - 2).Entity);
+        AreEqual(farm.ID, game.Map.GetTile(1, game.Map.Size - 1).ObjectId);
+        IsNull(game.Map.GetTile(1, game.Map.Size - 1).Entity);
+
+        IsInstanceOf<LumberMill<Wood>>(game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 2).Entity);
+        AreEqual(mill.ID, game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 2).ObjectId);
+        IsNotNull(game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 2).Entity);
+        AreEqual(mill.ID, game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 1).ObjectId);
+        IsNull(game.Map.GetTile(game.Map.Size - 2, game.Map.Size - 1).Entity);
+        AreEqual(mill.ID, game.Map.GetTile(game.Map.Size - 1, game.Map.Size - 2).ObjectId);
+        IsNull(game.Map.GetTile(game.Map.Size - 1, game.Map.Size - 2).Entity);
+        AreEqual(mill.ID, game.Map.GetTile(game.Map.Size - 1, game.Map.Size - 1).ObjectId);
+        IsNull(game.Map.GetTile(game.Map.Size - 1, game.Map.Size - 1).Entity);
+
 
 
     }

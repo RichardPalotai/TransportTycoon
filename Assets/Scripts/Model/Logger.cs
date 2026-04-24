@@ -1,7 +1,6 @@
-﻿using Castle.Components.DictionaryAdapter.Xml;
-using System;
+﻿using System;
+using System.Text;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public static class Logger
 {
@@ -23,7 +22,23 @@ public static class Logger
     {
         Debug.Log($"[TIME] {currentTime:dddd, yyyy MMMM dd HH:mm:ss}");
     }
-
+    /// <summary>
+    /// 'X' means occupied field, 'o' means free.
+    /// </summary>
+    /// <param name="map"></param>
+    public static void FreeMap(Map map)
+    {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < map.Size; i++)
+        {
+            for (int j = 0; j < map.Size; j++)
+            {
+                sb.Append(map.GetTile(i, j).IsFree ? 'o' : 'X');
+            }
+            Debug.Log(sb.ToString());
+            sb.Clear();
+        }
+    }
     public static void LogMap(Map map, bool? onlyFrees = null, int? x = null, int? y = null)
     {
         for (int i = 0; i < map.Size; i++)
