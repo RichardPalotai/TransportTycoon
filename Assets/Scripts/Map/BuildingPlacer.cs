@@ -8,6 +8,7 @@ public class BuildingPlacer : MonoBehaviour
     public MapManager mapManager;
     public GridObject gridObject;
     private Placeable selectedBuilding;
+    public LayerMask groundLayer;
 
     public GridObject Road;
     public GridObject SawMill;
@@ -42,7 +43,7 @@ public class BuildingPlacer : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, groundLayer))
         {
             Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
             Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
@@ -200,7 +201,7 @@ public class BuildingPlacer : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, groundLayer))
         {
             Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
             Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
