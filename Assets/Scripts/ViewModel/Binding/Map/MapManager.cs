@@ -14,6 +14,7 @@ public class MapManager : MonoBehaviour
     }
     public TileResource GetTile(int x, int y)
     {
+        Debug.LogWarning("Getting Tile: " + x + " " + y);
         return _map[x, y];
     }
 

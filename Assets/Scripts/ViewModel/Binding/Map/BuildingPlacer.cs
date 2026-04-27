@@ -105,6 +105,8 @@ public class BuildingPlacer : MonoBehaviour
             {
                 int checkX = startX + x;
                 int checkZ = startZ + z;
+                Debug.LogWarning("Checking footprint x: " + x);
+                Debug.LogWarning("Checking footprint y: " + z);
                 Debug.LogWarning("Hit Tile: " + checkX + " " + checkZ);
 
                 if (checkX < 0 || checkX >= mapManager.Size ||
@@ -179,12 +181,13 @@ public class BuildingPlacer : MonoBehaviour
 
                 for (int i = -1; i < 2; i += 2)
                 {
-                    if (mapManager.GetTile(startX + i, startZ).Type is StraightRoadScript neighbourX)
+
+                    if ( (startX + i < mapManager.Size ) && (startX + i >= 0) && mapManager.GetTile(startX + i, startZ).Type is StraightRoadScript neighbourX)
                     {
                         neighbourX.UpdateRoadShape();
                     }
 
-                    if (mapManager.GetTile(startX, startZ + i).Type is StraightRoadScript neighbourZ)
+                    if ((startZ + i < mapManager.Size) && (startZ + i >= 0) && mapManager.GetTile(startX, startZ + i).Type is StraightRoadScript neighbourZ)
                     {
                         neighbourZ.UpdateRoadShape();
                     }
