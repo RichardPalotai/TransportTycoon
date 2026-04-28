@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 public sealed partial class Map
 {
@@ -26,6 +27,10 @@ public sealed partial class Map
         }
         return neighborRoads;
     }
+    public int GetTilesNeighborRoadsCount(int x, int y)
+    {
+        return GetTilesNeighborRoadsCoords(x, y).Count;
+    }
     public List<(int x, int y)> GetFacilityNeighborRoads(Facility facility)
     {
         int x = facility.X;
@@ -49,20 +54,28 @@ public sealed partial class Map
     private void AddToCrossRoadIfNeeded(int x, int y, TrafficLight trafficLight)
     {
         var roadCoords = GetTilesNeighborRoadsCoords(x, y);
+        if (roadCoords.Count < 3) //Not a crossroad, or no coords
+            return;
 
-        foreach (var (dirX, dirY) in roadCoords)
+        var maxNeighborCount = roadCoords.Max(x => GetTilesNeighborRoadsCount(x.x, x.y));
+        
+        var (middleX, middleY) = roadCoords.Where(x => GetTilesNeighborRoadsCount(x.x, x.y)
+                                                == maxNeighborCount)
+                                            .OrderBy(x => x.x)
+                                            .ThenBy(x => x.y)
+                                            .First(); //To make the first element deterministic
+
+
+
+        var road = _map[middleX, middleY].Entity as Road;
+        if (road is not null && road.IsCrossRoad)
         {
-            var road = _map[dirX, dirY].Entity as Road;
+            if (!Crossroads.ContainsKey((middleX, middleY)))
+                Crossroads[(middleX, middleY)] = new Crossroad();
 
-            if (road is not null && road.IsCrossRoad)
-            {
-                if (!Crossroads.ContainsKey((dirX, dirY)))
-                    Crossroads[(dirX, dirY)] = new Crossroad();
-
-                Crossroads[(dirX, dirY)].TrafficLights.Add(trafficLight);
-                trafficLight.Crossroad = Crossroads[(dirX, dirY)];
-                return;
-            }
+            Crossroads[(middleX, middleY)].TrafficLights.Add(trafficLight);
+            trafficLight.Crossroad = Crossroads[(middleX, middleY)];
+            return;
         }
     }
     public bool IsCrossRoad(int x, int y)
