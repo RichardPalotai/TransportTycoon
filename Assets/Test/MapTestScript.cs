@@ -327,4 +327,37 @@ public class MapTestScript
         False(game.Map.IsCrossRoad(1, 2));
         False(game.Map.IsCrossRoad(2, 2));
     }
+
+    [Test]
+    public void PlaceCityRoadsTest()
+    {
+        var game = new Game();
+        game.NewGame();
+        game.Map.PlaceObject(0, 0, new City());
+        var objCoordX = 0;
+        var objCoordY = 0;
+        for (int i = objCoordX + 0; i < 3; i++)
+        {
+            for (int j = objCoordY + 0; j < 3; j++)
+            {
+                if (i == objCoordX && j == objCoordY || i == objCoordX + 2 && j == objCoordY ||
+                    i == objCoordX && j == objCoordY + 2 || i == objCoordX + 2 && j == objCoordY + 2)
+                {
+                    IsNotInstanceOf<Road>(game.Map.GetTile(i, j).Entity);
+                }
+                else
+                {
+                    IsInstanceOf<Road>(game.Map.GetTile(i, j).Entity);
+                }
+            }
+        }
+    }
+
+    [Test]
+    public void AddToCrossRoadIfNeededTest()
+    {
+        var game = new Game();
+        game.NewGame();
+
+    }
 }
