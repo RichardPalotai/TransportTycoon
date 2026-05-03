@@ -317,15 +317,37 @@ public class MapTestScript
         game.NewGame();
         game.Map.PlaceObject(0, 0, new City());
 
-        False(game.Map.IsCrossRoad(0, 0));
-        False(game.Map.IsCrossRoad(1, 0));
-        False(game.Map.IsCrossRoad(2, 0));
-        False(game.Map.IsCrossRoad(0, 1));
+        //Middle of a city
+        True(game.Map.IsCrossRoad(0, 0));
+        True(game.Map.IsCrossRoad(1, 0));
+        True(game.Map.IsCrossRoad(2, 0));
+        True(game.Map.IsCrossRoad(0, 1));
         True(game.Map.IsCrossRoad(1, 1));
-        False(game.Map.IsCrossRoad(2, 1));
-        False(game.Map.IsCrossRoad(0, 2));
-        False(game.Map.IsCrossRoad(1, 2));
-        False(game.Map.IsCrossRoad(2, 2));
+        True(game.Map.IsCrossRoad(2, 1));
+        True(game.Map.IsCrossRoad(0, 2));
+        True(game.Map.IsCrossRoad(1, 2));
+        True(game.Map.IsCrossRoad(2, 2));
+
+        //Three roads -> ===
+        game.Map.PlaceObject(10, 10, new Road(false));
+        game.Map.PlaceObject(11, 10, new Road(false));
+        game.Map.PlaceObject(12, 10, new Road(false));
+        False(game.Map.IsCrossRoad(10, 10));
+        False(game.Map.IsCrossRoad(11, 10));
+        False(game.Map.IsCrossRoad(12, 10));
+        False(game.Map.IsCrossRoad(11, 9));
+        False(game.Map.IsCrossRoad(11, 11));
+
+        //Now the road is T shaped
+        game.Map.PlaceObject(11, 11, new Road(false));
+        True(game.Map.IsCrossRoad(10, 10));
+        True(game.Map.IsCrossRoad(11, 10));
+        True(game.Map.IsCrossRoad(12, 10));
+        True(game.Map.IsCrossRoad(11, 9));
+        True(game.Map.IsCrossRoad(10, 9));
+        True(game.Map.IsCrossRoad(12, 9));
+        True(game.Map.IsCrossRoad(11, 11));
+
     }
 
     [Test]
@@ -354,10 +376,40 @@ public class MapTestScript
     }
 
     [Test]
-    public void AddToCrossRoadIfNeededTest()
+    public void AddToCrossRoadIfNeededWithPlusShapedCrossroadTest()
     {
         var game = new Game();
         game.NewGame();
 
+        game.Map.PlaceObject(10, 10, new Road(false));
+        game.Map.PlaceObject(11, 10, new Road(false));
+        game.Map.PlaceObject(12, 10, new Road(false));
+        game.Map.PlaceObject(11, 9, new Road(false));
+        game.Map.PlaceObject(11, 11, new Road(false));
+
+        game.Map.PlaceObject(12, 9, new TrafficLight(false, Direction.EAST));
+
+        AreEqual(1, game.Map.Crossroads.Count);
+        AreEqual(1, game.Map.Crossroads[(11, 10)].TrafficLights.Count);
+    }
+    public void AddToCrossRoadIfNeededWithTShapedCrossroadTest()
+    {
+        var game = new Game();
+        game.NewGame();
+
+        game.Map.PlaceObject(10, 10, new Road(false));
+        game.Map.PlaceObject(11, 10, new Road(false));
+        game.Map.PlaceObject(12, 10, new Road(false));
+        game.Map.PlaceObject(11, 11, new Road(false));
+
+        game.Map.PlaceObject(12, 9, new TrafficLight(false, Direction.EAST));
+
+        AreEqual(1, game.Map.Crossroads.Count);
+        AreEqual(1, game.Map.Crossroads[(11, 10)].TrafficLights.Count);
+
+        game.Map.PlaceObject(12, 11, new TrafficLight(false, Direction.SOUTH));
+
+        AreEqual(1, game.Map.Crossroads.Count);
+        AreEqual(2, game.Map.Crossroads[(11, 10)].TrafficLights.Count);
     }
 }

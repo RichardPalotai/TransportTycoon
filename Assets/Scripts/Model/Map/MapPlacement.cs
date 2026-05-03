@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 public sealed partial class Map
 {
@@ -6,7 +7,7 @@ public sealed partial class Map
     {
         int areaSize = GetAreaSize(entity);
 
-        
+
         if (x < 0 || y < 0 || x >= Size || y >= Size)
         {
             throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
@@ -27,13 +28,21 @@ public sealed partial class Map
         if (entity is Road road)
         {
             road.IsCrossRoad = IsCrossRoad(x, y);
-            Crossroads.Add((x, y), new Crossroad());
+            if (road.IsCrossRoad)
+            {
+                var maxNeighborRoadsCoords = GetTheMiddleOfTheCrossroad(x, y);
+
+                if (!Crossroads.ContainsKey(maxNeighborRoadsCoords))
+                {
+                    Crossroads.Add(maxNeighborRoadsCoords, new Crossroad());
+                }
+            }
         }
 
         if (entity is City city)
             MarkCity(x, y, areaSize);
 #if DEBUG
-         //Logger.ObjectPlacedLog(entity.GetType(), x, y);
+        //Logger.ObjectPlacedLog(entity.GetType(), x, y);
 #endif
     }
     private bool IsFree(int x, int y, int areaSize)

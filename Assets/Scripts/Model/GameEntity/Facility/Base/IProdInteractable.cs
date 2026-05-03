@@ -1,4 +1,4 @@
 ﻿public interface IProdInteractable
 {
-    int Interact(int freeCapacity);
+    int ProdInteract(int freeCapacity);
 }

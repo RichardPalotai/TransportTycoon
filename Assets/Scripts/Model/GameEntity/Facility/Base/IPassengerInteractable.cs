@@ -1,5 +1,5 @@
 ﻿public interface IPassengerInteractable
 {
-    int Interact();
-    int InteractFixedSeed(int seed);
+    int PassInteract();
+    int PassInteractFixedSeed(int seed);
 }

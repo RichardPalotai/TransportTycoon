@@ -38,7 +38,7 @@ public abstract class ProdFacility : Facility, IProdInteractable
             player.Vehicles.Count * 100.0, 2);
     }
 
-    public int Interact(int freeCapacity)
+    public int ProdInteract(int freeCapacity)
     {
         if (freeCapacity == 0)
             return 0;
