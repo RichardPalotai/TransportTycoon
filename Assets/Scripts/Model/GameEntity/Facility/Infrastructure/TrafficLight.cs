@@ -13,6 +13,11 @@ public sealed class TrafficLight : Facility
         Crossroad = null;
         FacingDirection = dir;
     }
+    public TrafficLight(bool isGenerated) : base((int)Prices.TRAFFICLIGHT, isGenerated)
+    {
+        _elapsedTime = 0.0;
+        Crossroad = null;
+    }
     /// <summary>
     /// GreenInterval increased by one
     /// </summary>
