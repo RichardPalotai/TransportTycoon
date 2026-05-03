@@ -59,6 +59,8 @@ public class StraightRoadScript : GridObject
         Tri.SetActive(false);
         Quad.SetActive(false);
 
+        Debug.LogWarning("Road applied score:" +  score);
+
         switch (score)
         {
 
