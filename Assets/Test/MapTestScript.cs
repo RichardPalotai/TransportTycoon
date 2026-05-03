@@ -392,6 +392,7 @@ public class MapTestScript
         AreEqual(1, game.Map.Crossroads.Count);
         AreEqual(1, game.Map.Crossroads[(11, 10)].TrafficLights.Count);
     }
+    [Test]
     public void AddToCrossRoadIfNeededWithTShapedCrossroadTest()
     {
         var game = new Game();
@@ -411,5 +412,43 @@ public class MapTestScript
 
         AreEqual(1, game.Map.Crossroads.Count);
         AreEqual(2, game.Map.Crossroads[(11, 10)].TrafficLights.Count);
+    }
+
+    [Test]
+    public void SetLightDirectionPlusShapedCrossroadTest()
+    {
+        var game = new Game();
+        game.NewGame();
+
+        game.Map.PlaceObject(10, 10, new Road(false));
+        game.Map.PlaceObject(11, 10, new Road(false));
+        game.Map.PlaceObject(12, 10, new Road(false));
+        game.Map.PlaceObject(11, 9, new Road(false));
+        game.Map.PlaceObject(11, 11, new Road(false));
+
+        game.Map.PlaceObject(10, 9, new TrafficLight(false)); //NORTH
+        game.Map.PlaceObject(12, 9, new TrafficLight(false)); //EAST
+        game.Map.PlaceObject(10, 11, new TrafficLight(false));//WEST
+        game.Map.PlaceObject(12, 11, new TrafficLight(false));//SOUTH
+
+        AreEqual(Direction.NORTH, (game.Map.GetTile(10, 9).Entity as TrafficLight).FacingDirection);
+        AreEqual(Direction.EAST, (game.Map.GetTile(12, 9).Entity as TrafficLight).FacingDirection);
+        AreEqual(Direction.WEST, (game.Map.GetTile(10, 11).Entity as TrafficLight).FacingDirection);
+        AreEqual(Direction.SOUTH, (game.Map.GetTile(12, 11).Entity as TrafficLight).FacingDirection);
+    }
+    [Test]
+    public void SetLightDirectionTShapedCrossroadTest()
+    {
+        var game = new Game();
+        game.NewGame();
+
+        game.Map.PlaceObject(10, 10, new Road(false));
+        game.Map.PlaceObject(11, 10, new Road(false));
+        game.Map.PlaceObject(12, 10, new Road(false));
+        game.Map.PlaceObject(11, 11, new Road(false));
+        
+        game.Map.PlaceObject(11, 9, new TrafficLight(false)); //EAST
+        AreEqual(Direction.EAST, (game.Map.GetTile(11, 9).Entity as TrafficLight).FacingDirection);
+
     }
 }

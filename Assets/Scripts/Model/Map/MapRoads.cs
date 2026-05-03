@@ -84,7 +84,10 @@ public sealed partial class Map
 
         var middle = GetTheMiddleOfTheCrossroad(x, y);
 
+        trafficLight.FacingDirection = SetLightDirection(x, y, middle);
+
         Crossroads[middle].TrafficLights.Add(trafficLight);
+
 
     }
     /// <summary>

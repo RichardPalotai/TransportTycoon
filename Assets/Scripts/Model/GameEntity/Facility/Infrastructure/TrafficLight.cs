@@ -5,7 +5,7 @@ public sealed class TrafficLight : Facility
     /// </summary>
     public LightColor Color { get; set; }
     private double _elapsedTime;
-    public Direction FacingDirection { get; private set; }
+    public Direction FacingDirection { get; set; } = Direction.SOUTH;
     public Crossroad Crossroad { get;  set; }
     public TrafficLight(bool isGenerated, Direction dir) : base((int)Prices.TRAFFICLIGHT, isGenerated)
     {
