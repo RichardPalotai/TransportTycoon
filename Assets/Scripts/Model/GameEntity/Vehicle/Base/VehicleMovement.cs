@@ -144,7 +144,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     {
         if (this is PassengerVehicle passVehi && target is IPassengerInteractable passengerInteractable)
         {
-            int newPassengersCount = passengerInteractable.Interact() + passVehi.PassengersCount;
+            int newPassengersCount = passengerInteractable.PassInteract() + passVehi.PassengersCount;
             if (newPassengersCount <= 0)
             {
                 passVehi.PassengersCount = 0;
@@ -160,7 +160,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
         }
         else if (this is TransportVehicle transVehi && target is IProdInteractable prodInteractable)
         {
-            transVehi.CurrentCargo = prodInteractable.Interact(transVehi.CargoCapacity - transVehi.CurrentCargo);
+            transVehi.CurrentCargo = prodInteractable.ProdInteract(transVehi.CargoCapacity - transVehi.CurrentCargo);
         }
     }
 
