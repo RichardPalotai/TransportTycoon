@@ -15,6 +15,8 @@ public class BuildingPlacer : MonoBehaviour
     public GridObject Farm;
     public GridObject Factory;
 
+    public GridObject MiniVan;
+
     private GridObject[] objects = new GridObject[4];
     private int num;
 
@@ -31,8 +33,17 @@ public class BuildingPlacer : MonoBehaviour
         objects[2] = Farm;
         objects[3] = Factory;
         num = 0;
-        
 
+        gridObject = SawMill;
+        AttemptPlacement(new Vector2(-15, -15));
+        gridObject = Mine;
+        AttemptPlacement(new Vector2(-10, -15));
+        gridObject = Farm;
+        AttemptPlacement(new Vector2(-15, -10));
+        gridObject = Factory;
+        AttemptPlacement(new Vector2(-10, -10));
+
+        Debug.LogWarning("Placed starters");
     }
 
     public void AttemptPlacement(Vector2 mousePos)
@@ -72,8 +83,7 @@ public class BuildingPlacer : MonoBehaviour
 
         }
 
-
-            selectedBuilding = gridObject.data;
+        selectedBuilding = gridObject.data;
         if (selectedBuilding == null) return;
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
@@ -85,14 +95,33 @@ public class BuildingPlacer : MonoBehaviour
             int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
             int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
 
-            if (IsFootprintValid(originX, originZ, selectedBuilding.tileSize))
+            if (build == BuilderSelectorHandler.Building.MINIVAN)
             {
-                PlaceBuilding(originX, originZ);
+                if (mapManager.GetTile(originX, originZ).Type is StraightRoadScript road)
+                {
+                    if (MiniVan is VehicleScript car)
+                    {
+                        road.AddCar(car);
+                    }
+                    
+                }
+                else
+                {
+                    Debug.LogWarning("Cannot place car here, tile is not road!");
+                }
             }
             else
             {
-                Debug.LogWarning("Cannot build here! Area is blocked or out of bounds." + originX + " " + originZ);
+                if (IsFootprintValid(originX, originZ, selectedBuilding.tileSize))
+                {
+                    PlaceBuilding(originX, originZ);
+                }
+                else
+                {
+                    Debug.LogWarning("Cannot build here! Area is blocked or out of bounds." + originX + " " + originZ);
+                }
             }
+            
         }
     }
 

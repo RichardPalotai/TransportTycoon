@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleResource
   objectName: MiniVan
   tileSize: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 5227655314091009399, guid: f5b7d23ab98123848a4de03042f5e31d, type: 3}
   placementCost: 400
   Capacity: 50
   Speed: 25

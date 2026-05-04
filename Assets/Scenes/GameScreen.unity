@@ -3553,12 +3553,13 @@ MonoBehaviour:
   gridObject: {fileID: -3678095070051331957, guid: eac057d16dd0f2a47b0cb204287f3d43, type: 3}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   Road: {fileID: -3678095070051331957, guid: eac057d16dd0f2a47b0cb204287f3d43, type: 3}
   SawMill: {fileID: 5632702034466025198, guid: 4bc137e9c4d793d40ae0f93fea5e3a00, type: 3}
   Mine: {fileID: 5030626575209159399, guid: 159051c761f20ef43b5edddedee17cfb, type: 3}
   Farm: {fileID: 1176928122029860186, guid: 5f6fd46794243794da639f6520aa5d65, type: 3}
   Factory: {fileID: -2923609552621757463, guid: b39360d7162cb294f8ad9f6995afaca8, type: 3}
+  MiniVan: {fileID: -6538178328319618751, guid: f5b7d23ab98123848a4de03042f5e31d, type: 3}
 --- !u!114 &316325891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16546,7 +16547,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 12.5}
+  m_AnchoredPosition: {x: 0, y: 50.5}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1987278024

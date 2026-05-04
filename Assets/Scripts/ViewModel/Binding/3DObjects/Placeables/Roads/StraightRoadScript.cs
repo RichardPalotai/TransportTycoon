@@ -10,6 +10,19 @@ public class StraightRoadScript : GridObject
     public GameObject Tri;
     public GameObject Quad;
 
+    public Transform SlotRight;
+    public Transform SlotLeft;
+
+    private GridObject RightOccupied = null;
+    private GridObject LeftOccupied = null;
+
+    private int score;
+
+    public int Score
+    {
+        get { return score; }
+    }
+
     public MapManager map;
     public override void OnObjectPlaced()
     {
@@ -21,7 +34,7 @@ public class StraightRoadScript : GridObject
 
     public void UpdateRoadShape()
     {
-        int score= 0;
+        score= 0;
 
         if (IsRoadAt(position.x, position.y + 1)) score += 1;
         
@@ -141,6 +154,19 @@ public class StraightRoadScript : GridObject
         }
     }
 
+    public void AddCar(VehicleScript car)
+    {
+        if (RightOccupied == null)
+        {
+            RightOccupied = car;
+            Instantiate(car.data.prefab, SlotRight.position, SlotRight.rotation);
+        }
+        else if (LeftOccupied == null)
+        {
+            LeftOccupied = car;
+            Instantiate(car.data.prefab, SlotLeft.position, SlotLeft.rotation);
+        }
+    }
     void Start()
     {
 
