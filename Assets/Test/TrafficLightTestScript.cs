@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using static NUnit.Framework.Assert;
 
-public class TrafficLightTest
+public class TrafficLightTestScript
 {
     [Test]
     public void TrafficLightGreenLightIncrementTest()
