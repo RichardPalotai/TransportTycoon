@@ -6,6 +6,7 @@ public abstract class ProdFacility : Facility, IProdInteractable
     protected int producedPerSec;
     protected int producedCount = 0;
     protected double _prodBuffer;
+    public int ProducedCount => producedCount;
     public int VehiclesWhoAreVisitingThisFacilityCount(Player player) =>
         player.Vehicles.Count(x => x.Route.Contains(this));
     protected ProdFacility(int cost, bool isGenerated) : base(cost, isGenerated) { }
