@@ -59,7 +59,7 @@ public class MenuBarHandler : MonoBehaviour
     /// </summary>
     public DateTime Time
     {
-        get { return DateTime.Parse(CalendarTime_text.text); }
+        get { return DateTime.Parse(Time_text.text); }
         set
         {
             Time_text.text = value.ToString("HH:mm:ss");
@@ -135,6 +135,16 @@ public class MenuBarHandler : MonoBehaviour
 
         Game.instance.TimeScale = 512.0f;
         SelectButton(FastForward_btn);
+
+    }
+    private void SelectButton(Button btn)
+    {
+        if (SelectedButton != null)
+            SelectedButton.image.color = Color.white;
+
+        btn.image.color = Color.lightGray;
+
+        SelectedButton = btn;
     }
     #endregion
 
@@ -145,16 +155,6 @@ public class MenuBarHandler : MonoBehaviour
         Play_btn.interactable = status;
         Forward_btn.interactable = status;
         FastForward_btn.interactable = status;
-    }
-
-    private void SelectButton(Button btn)
-    {
-        if (SelectedButton != null)
-            SelectedButton.image.color = Color.white;
-
-        btn.image.color = Color.lightGray;
-
-        SelectedButton = btn;
     }
 
     public void SelectPlayButton()
