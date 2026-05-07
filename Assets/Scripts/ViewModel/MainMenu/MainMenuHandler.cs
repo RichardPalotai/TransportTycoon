@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,6 +18,11 @@ public class MainMenuHandler : MonoBehaviour
     private TMP_Dropdown GameSlot_dropdown;
     [SerializeField]
     private Button QuitGame_btn;
+    [SerializeField]
+    private Button HelpMenu_btn;
+    private Sprite DefaultHelpIcon;
+    [SerializeField]
+    private GameObject ScrollView_scrl;
     #endregion
 
     #region Properties
@@ -45,12 +51,15 @@ public class MainMenuHandler : MonoBehaviour
     #region Unity calls
     void Awake()
     {
-
+        DefaultHelpIcon = HelpMenu_btn.image.sprite;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        ScrollView_scrl.SetActive(false);
+        HelpMenu_btn.onClick.AddListener(OnHelpMenuClicked);
+
         NewGame_btn.onClick.AddListener(OnNewGameClicked);
         LoadGame_btn.onClick.AddListener(OnLoadGameClicked);
         QuitGame_btn.onClick.AddListener(OnQuitGameClicked);
@@ -67,6 +76,20 @@ public class MainMenuHandler : MonoBehaviour
     #endregion
 
     #region Button click events
+    private void OnHelpMenuClicked()
+    {
+        if (ScrollView_scrl.activeSelf)
+        {
+            HelpMenu_btn.image.sprite = DefaultHelpIcon;
+            EventSystem.current.SetSelectedGameObject(null);
+            ScrollView_scrl.SetActive(false);
+        }
+        else
+        {
+            HelpMenu_btn.image.sprite = HelpMenu_btn.spriteState.highlightedSprite;
+            ScrollView_scrl.SetActive(true);
+        }
+    }
     private void OnNewGameClicked()
     {
         SceneManager.LoadScene("GameScreen");
