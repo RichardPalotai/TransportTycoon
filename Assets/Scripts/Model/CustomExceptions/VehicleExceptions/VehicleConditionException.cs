@@ -3,7 +3,11 @@
 [Serializable]
 public class VehicleConditionException : Exception
 {
-    public VehicleConditionException() { }
+    public string Tag { get; }
+    public VehicleConditionException()
+    {
+        Tag = "Vehicle Condition Error";
+    }
 
     public VehicleConditionException(string message)
         : base(message) { }

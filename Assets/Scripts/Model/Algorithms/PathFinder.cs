@@ -2,22 +2,17 @@
 
 public class PathFinder
 {
-    private readonly Map _map;
-
-    public PathFinder(Map map)
-    {
-        _map = map;
-    }
     /// <summary>
     /// Determines whether there is contiguous path (road) between 'from' and 'to' coordinates.
     /// </summary>
+    /// <param name="map"></param>
     /// <param name="from"></param>
     /// <param name="to"></param>
     /// <returns></returns>
-    public bool HasPathBetweenFacilities(Facility from, Facility to)
+    public static bool HasPathBetweenFacilities(Map map, Facility from, Facility to)
     {
-        var starts = _map.GetFacilityNeighborRoads(from);
-        var ends = _map.GetFacilityNeighborRoads(to);
+        var starts = map.GetFacilityNeighborRoads(from);
+        var ends = map.GetFacilityNeighborRoads(to);
         HashSet<(int, int)> endSet = new(ends);
         HashSet<(int, int)> visited = new();
         Queue<(int, int)> queue = new();
@@ -40,7 +35,7 @@ public class PathFinder
             if (endSet.Contains(current))
                 return true;
 
-            foreach (var neighbor in _map.GetTilesNeighborRoadsCoords(current.x, current.y))
+            foreach (var neighbor in map.GetTilesNeighborRoadsCoords(current.x, current.y))
             {
                 if (!visited.Contains(neighbor))
                 {

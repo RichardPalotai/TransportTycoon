@@ -10,8 +10,8 @@ public class NewTestScript
     public void NewTestScriptSimplePasses()
     {
         var mock = new Mock<IPassengerInteractable>();
-        mock.Setup(x => x.InteractFixedSeed(0)).Returns(-100);
-        Assert.AreEqual(-100, mock.Object.InteractFixedSeed(0));
+        mock.Setup(x => x.PassInteractFixedSeed(0)).Returns(-100);
+        Assert.AreEqual(-100, mock.Object.PassInteractFixedSeed(0));
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

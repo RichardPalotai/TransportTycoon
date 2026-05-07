@@ -4,13 +4,13 @@ public sealed class BusStop : Facility, IPassengerInteractable
     {
     }
 
-    public int Interact()
+    public int PassInteract()
     {
         System.Random rnd = new();
         return rnd.Next(-10, 10);
     }
     
-    public int InteractFixedSeed(int seed)
+    public int PassInteractFixedSeed(int seed)
     {
         System.Random rnd = new(seed);
         return rnd.Next(-10, 10);

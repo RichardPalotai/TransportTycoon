@@ -6,6 +6,7 @@ public abstract class ProdFacility : Facility, IProdInteractable
     protected int producedPerSec;
     protected int producedCount = 0;
     protected double _prodBuffer;
+    public int ProducedCount => producedCount;
     public int VehiclesWhoAreVisitingThisFacilityCount(Player player) =>
         player.Vehicles.Count(x => x.Route.Contains(this));
     protected ProdFacility(int cost, bool isGenerated) : base(cost, isGenerated) { }
@@ -22,7 +23,9 @@ public abstract class ProdFacility : Facility, IProdInteractable
         {
             _prodBuffer -= produced;
             producedCount += produced;
+#if DEBUG
             Logger.ProductionLog(this.GetType(), produced);
+#endif
         }
     }
     public override void Update(double deltaTime)
@@ -36,7 +39,7 @@ public abstract class ProdFacility : Facility, IProdInteractable
             player.Vehicles.Count * 100.0, 2);
     }
 
-    public int Interact(int freeCapacity)
+    public int ProdInteract(int freeCapacity)
     {
         if (freeCapacity == 0)
             return 0;

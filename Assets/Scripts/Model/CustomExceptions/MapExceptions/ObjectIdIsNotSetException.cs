@@ -3,7 +3,11 @@ using System;
 [Serializable]
 public class ObjectIdIsNotSetException : Exception
 {
-    public ObjectIdIsNotSetException () {}
+    public string Tag { get; }
+    public ObjectIdIsNotSetException ()
+    {
+        Tag = "Object Id Is Not Set Error";
+    }
 
     public ObjectIdIsNotSetException (string message) 
         : base(message) {}

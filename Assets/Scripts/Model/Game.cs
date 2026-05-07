@@ -30,20 +30,29 @@ public sealed partial class Game : IUpdateable
     public void NewGame()
     {
         CurrentTime = DateTime.Today;
+#if DEBUG
         Logger.Log("Current time set to today");
+#endif
         _map = new();
+#if DEBUG
         Logger.Log("Map created");
+#endif
         Player = new();
+#if DEBUG
         Logger.Log("New player created");
+#endif
         _stopwatch = new();
+#if DEBUG
         Logger.Log("Stopwatch set");
-
+#endif
     }
     public void ResumeGame()
     {
         IsPaused = false;
         TimeScale = 1.0f;
+#if DEBUG
         Logger.Log("Resumed");
+#endif
 
     }
     public void SaveGame()
@@ -86,14 +95,12 @@ public sealed partial class Game : IUpdateable
         }
 
     }
-    public void EndGame()
-    {
-        throw new System.NotImplementedException();
-    }
     public void PauseGame()
     {
         IsPaused = true;
+#if DEBUG
         Logger.Log("Paused");
+#endif
     }
 
     public void Update(double deltaTime)

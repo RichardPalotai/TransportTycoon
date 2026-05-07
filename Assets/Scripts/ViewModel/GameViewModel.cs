@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using ViewModel.GameScreen.UIHandlers;
 
 public class GameViewModel : MonoBehaviour
 {
@@ -102,11 +101,25 @@ public class GameViewModel : MonoBehaviour
         {
             if (!IsMouseOverUI() && gameMode == GameMode.BUILD)
             {
-                BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue());
+                try
+                {
+                    BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue(), BuilderSelectorHandler.instance.selectedBuilding);
+                    // TODO - Specify parameter!!!!! <BINDING> <MODEL>
+                    //Game.instance.Player.Purchase(SelectedObject.GetComponent<SawmillScript>().ID);
+                }
+                catch (NotEnoughSpaceForObjectException e)
+                {
+                    ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+                }
+                catch (FieldOverrideException e)
+                {
+                    ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+                }
             }
             else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject == null)
             {
-                // TODO - Destror building from  -- BuildingPlacer --
+                // TODO - Destror building from  -- BuildingPlacer -- <BINDING>
+                BuildingPlacer.instance.DemolishBuilding(mouse.position.ReadValue());
             }
         }
 
@@ -126,7 +139,7 @@ public class GameViewModel : MonoBehaviour
         if (selectedObject != null)
         {
             BuilderSelectorHandler.instance.SetBuildButtonsActive(false);
-            // TODO - SET SELECTED properties to given
+            // TODO - SET SELECTED properties to given <BINDING>
             // switch (selectedObject)
             // {
             //     case "City":
@@ -170,7 +183,7 @@ public class GameViewModel : MonoBehaviour
         // TODO - Delete (When car can be placed down)
         VehicleDataHandler.instance.gameObject.SetActive(state);
 
-        // TODO - REACTIVATE THE SELECTED VEHICLE DATA DISPLAY
+        // TODO - REACTIVATE THE SELECTED VEHICLE DATA DISPLAY <BINDING>
         // switch (selectedObject)
         // {
         //     case "City":
@@ -264,15 +277,19 @@ public class GameViewModel : MonoBehaviour
         IsRouteDisplayOn = state;
         VehicleRoute_cnv.gameObject.SetActive(state);
         SetGameScreenUIActive(!state);
-        OnRouteDisplayChanged?.Invoke(state);
 
         if (state)
+        {
             Game.instance.PauseGame();
+            VehicleRouteHandler.instance.LoadRoute();
+        }
         else
         {
             Game.instance.ResumeGame();
             MenuBarHandler.instance.SelectPlayButton();
         }
+        
+        OnRouteDisplayChanged?.Invoke(state);
     }
 
     /// <summary>
@@ -281,7 +298,7 @@ public class GameViewModel : MonoBehaviour
     public void DeselectObject()
     {
         BuilderSelectorHandler.instance.SetBuildButtonsActive(true);
-        // TODO - Reset the PROPERTIES
+        // TODO - Reset the PROPERTIES <BINDING>
         // switch (selectedObject)
         // {
         //     case "City":
