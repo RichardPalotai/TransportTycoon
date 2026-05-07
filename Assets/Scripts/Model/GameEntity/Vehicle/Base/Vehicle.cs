@@ -5,7 +5,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 {
     private Map _map;
     public Queue<Facility> Route { get; private set; }
-    private Facility Destination { get; set; }
+    public Facility Destination { get; set; }
     /// <summary>
     /// Brand new price
     /// </summary>
