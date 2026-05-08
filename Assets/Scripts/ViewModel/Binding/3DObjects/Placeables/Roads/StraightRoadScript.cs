@@ -1,20 +1,21 @@
-using Moq;
 using UnityEngine;
+#nullable enable
+
 
 public class StraightRoadScript : GridObject
 {
     public VehicleScript[] occupyingVehicles = new VehicleScript[2];
 
-    public GameObject Straight;
-    public GameObject Turn;
-    public GameObject Tri;
-    public GameObject Quad;
+    public GameObject? Straight;
+    public GameObject? Turn;
+    public GameObject? Tri;
+    public GameObject? Quad;
 
-    public Transform SlotRight;
-    public Transform SlotLeft;
+    public Transform? SlotRight;
+    public Transform? SlotLeft;
 
-    private GridObject RightOccupied = null;
-    private GridObject LeftOccupied = null;
+    private GridObject? RightOccupied = null;
+    private GridObject? LeftOccupied = null;
 
     private int score;
 
@@ -23,7 +24,7 @@ public class StraightRoadScript : GridObject
         get { return score; }
     }
 
-    public MapManager map;
+    public MapManager? map;
     public override void OnObjectPlaced()
     {
         Debug.LogWarning("Placed Road");

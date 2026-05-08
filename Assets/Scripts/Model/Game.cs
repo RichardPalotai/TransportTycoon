@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine.UIElements;
 
 public sealed partial class Game : IUpdateable
 {
@@ -11,14 +12,15 @@ public sealed partial class Game : IUpdateable
         get { return _map; }
         set { _map = value; }
     }
-    
+
     public Player Player;
     public HashSet<(string name, DateTime timeOfSave)> Saves { get; private set; }
     public DateTime CurrentTime { get; set; }
-    public int AccountBalance { get{ return Player.Money; } }
+    public int AccountBalance { get { return Player.Money; } }
     private double _timeScale = 1.0;
     private Stopwatch _stopwatch;
 
+    public event Action OnGameOver;
 
     public double TimeScale
     {
@@ -106,6 +108,25 @@ public sealed partial class Game : IUpdateable
     public void Update(double deltaTime)
     {
         CurrentTime = CurrentTime.AddSeconds(deltaTime * TimeScale);
+    }
+
+    public bool IsGameOver()
+    {
+        if (Player.Money <= 0)
+            return true;
+
+        foreach (var item in Enum.GetValues(typeof(Prices)))
+        {
+            if ((int)item <= Player.Money)
+                return false;
+        }
+
+        return true;
+    }
+
+    public void GameOver()
+    {
+        OnGameOver?.Invoke();
     }
 
     //public void Loop()

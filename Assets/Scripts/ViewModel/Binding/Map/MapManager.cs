@@ -1,8 +1,9 @@
 using UnityEngine;
+#nullable enable
 
 public class MapManager : MonoBehaviour
 {
-    private TileResource[,] _map;
+    private TileResource[,]? _map = null;
     private int _size = 30;
 
     public int Size
@@ -17,7 +18,6 @@ public class MapManager : MonoBehaviour
         Debug.LogWarning("Getting Tile: " + x + " " + y);
         return _map[x, y];
     }
-
     public void SetTile(int x, int y, GridObject? tile)
     {
         _map[x, y].Type = tile;

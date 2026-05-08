@@ -88,6 +88,9 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     {
         player.Money -= Convert.ToInt32(RepairCost);
         Condition = 100;
+
+        if (Game.instance.IsGameOver())
+            Game.instance.GameOver();
     }
     /// <summary>
     /// Update runs in every _updateCondInterval (10) seconds
@@ -112,5 +115,5 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 
     }
 
-    
+
 }

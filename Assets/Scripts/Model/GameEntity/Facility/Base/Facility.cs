@@ -2,7 +2,7 @@ using System;
 
 public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
 {
-    public int Cost { get; protected set;  }
+    public int Cost { get; protected set; }
     public bool IsGenerated { get; init; }
     protected Facility(int cost, bool isGenerated)
     {
@@ -31,7 +31,7 @@ public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
 
     public virtual void Update(double deltaTime)
     {
-        
+
     }
 
 }

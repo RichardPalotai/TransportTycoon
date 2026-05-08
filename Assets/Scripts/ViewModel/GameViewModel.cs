@@ -83,6 +83,7 @@ public class GameViewModel : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Game.instance.OnGameOver += HandleGameOver;
         if (LoadedGame != null)
         {
             Game.instance.LoadGame(LoadedGame?.name);
@@ -243,6 +244,14 @@ public class GameViewModel : MonoBehaviour
         CameraController.instance.enabled = state;
         if (ObjectController.instance != null)
             ObjectController.instance.enabled = state;
+    }
+
+    /// <summary>
+    /// Turns on GameOver screen
+    /// </summary>
+    private void HandleGameOver()
+    {
+        GameOverHandler.instance.ToggleGameOverScreen();
     }
     #endregion
 
