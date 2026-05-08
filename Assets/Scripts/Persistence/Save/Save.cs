@@ -12,7 +12,7 @@ public sealed class Save
     {
         DateTime time = DateTime.Now;
         string saveName = time.ToString("yyyy.MM.dd - HH.mm.ss");
-        
+
         string saveFolder = Path.Combine(Application.persistentDataPath, "saves");
 
         if (!Directory.Exists(saveFolder))
@@ -31,9 +31,6 @@ public sealed class Save
         await writer.WriteLineAsync(game.IsPaused.ToString());
 
         // FACILITIES
-
-        await writer.WriteLineAsync(game.Player.Facilities.Count.ToString());
-
         foreach (var facility in game.Player.Facilities)
         {
             string line =
@@ -66,8 +63,6 @@ public sealed class Save
         }
 
         // VEHICLES
-        await writer.WriteLineAsync(game.Player.Vehicles.Count.ToString());
-
         foreach (var vehicle in game.Player.Vehicles)
         {
             string destination =
@@ -79,7 +74,7 @@ public sealed class Save
                 string.Join(',', vehicle.Route.Select(x => x.ID));
 
             string cargo = vehicle is TransportVehicle transport
-                            ? transport.CargoType.ToString()
+                            ? transport.CargoType.NameString
                             : "null";
 
             string line =
@@ -97,15 +92,8 @@ public sealed class Save
 
 
         // CROSSROADS
-        await writer.WriteLineAsync(game.Map.Crossroads.Count.ToString());
-
-        foreach (var item in game.Map.Crossroads)
+        foreach (var ((x, y), crossroad) in game.Map.Crossroads)
         {
-            int x = item.Key.Item1;
-            int y = item.Key.Item2;
-
-            Crossroad crossroad = item.Value;
-
             string lights =
                 string.Join(',', crossroad.TrafficLights.Select(l => l.ID));
 
@@ -114,8 +102,6 @@ public sealed class Save
 
             await writer.WriteLineAsync(line);
         }
-
-        game.Saves.Add((saveName, time));
     }
     public static async Task<HashSet<(string name, DateTime timeOfSave)>> GetSaves()
     {

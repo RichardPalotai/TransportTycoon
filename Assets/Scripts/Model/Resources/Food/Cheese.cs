@@ -2,6 +2,9 @@ public sealed class Cheese : Food
 {
     public readonly int NeedValue = 3;
     public static Cheese Instance { get; } = new();
+
+    public override string NameString => "Cheese";
+
     private Cheese() {}
 
 }

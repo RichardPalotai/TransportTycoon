@@ -5,6 +5,7 @@ using System.Diagnostics;
 public sealed partial class Game : IUpdateable
 {
     public static Game instance;
+    public static IDataAccess _dataAccess;
     private Map _map;
     public Map Map
     {
@@ -13,7 +14,7 @@ public sealed partial class Game : IUpdateable
     }
     
     public Player Player;
-    public HashSet<(string name, DateTime timeOfSave)> Saves { get; private set; }
+    public HashSet<(string name, DateTime timeOfSave)> Saves => _dataAccess.GetSaves().Result;
     public DateTime CurrentTime { get; set; }
     public int AccountBalance { get { return Player.Money; } set { Player.Money = value; } }
     private double _timeScale = 1.0;
@@ -27,8 +28,9 @@ public sealed partial class Game : IUpdateable
     }
     public bool IsPaused { get; set; }
 
-    public void NewGame()
+    public void NewGame(IDataAccess dataAccess)
     {
+        _dataAccess = dataAccess;
         CurrentTime = DateTime.Today;
 #if DEBUG
         Logger.Log("Current time set to today");

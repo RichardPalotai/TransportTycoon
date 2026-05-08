@@ -11,7 +11,7 @@ public class MapTestScript
     public void GenerateMapTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         AreEqual(100, game.Map.Size);
 
         for (int i = 0; i < 100; i++)
@@ -29,7 +29,7 @@ public class MapTestScript
     public void GetTileTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
 
         Throws<IndexOutOfRangeException>(() => game.Map.GetTile(-1, -1));
         Throws<IndexOutOfRangeException>(() => game.Map.GetTile(101, 101));
@@ -45,7 +45,7 @@ public class MapTestScript
     public void PlaceObjectTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         game.Map.PlaceObject(0, 0, new Factory<Steel>());
         game.Map.PlaceObject(game.Map.Size - 2, 0, new Mine<Iron>());
         game.Map.PlaceObject(0, game.Map.Size - 2, new Farm<Milk>());
@@ -122,7 +122,7 @@ public class MapTestScript
     public void CityPlacementTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         game.Map.PlaceObject(0, 0, new Factory<Steel>());
         game.Map.PlaceObject(game.Map.Size - 2, 0, new Mine<Iron>());
         game.Map.PlaceObject(0, game.Map.Size - 2, new Farm<Milk>());
@@ -158,7 +158,7 @@ public class MapTestScript
     public void IsFreeTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         game.Map.PlaceObject(0, 0, new Factory<Steel>()); //2x2
         game.Map.PlaceObject(game.Map.Size - 2, 0, new Mine<Iron>()); //2x2
         game.Map.PlaceObject(0, game.Map.Size - 2, new Farm<Milk>()); //2x2
@@ -185,7 +185,7 @@ public class MapTestScript
     public void MarkAreaTilesWithIdTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         var fact = new Factory<Steel>();
         var mine = new Mine<Iron>();
         var farm = new Farm<Milk>();
@@ -243,7 +243,7 @@ public class MapTestScript
     public void GetFacilityNeighborRoadsWithSingleRoadTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
 
         game.Map.PlaceObject(0, 0, new Factory<Steel>());
         game.Map.PlaceObject(2, 0, new Road(false));
@@ -257,7 +257,7 @@ public class MapTestScript
     public void GetFacilityNeighborRoadsWithMultipleRoads2x2Test()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
 
         game.Map.PlaceObject(0, 0, new Factory<Steel>());
         game.Map.PlaceObject(2, 0, new Road(false));
@@ -284,7 +284,7 @@ public class MapTestScript
     public void GetFacilityNeighborRoads3x3Test()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         game.Map.PlaceObject(0, 0, new City());
         game.Map.PlaceObject(3, 0, new Road(false));
 
@@ -314,7 +314,7 @@ public class MapTestScript
     public void IsCrossRoadTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         game.Map.PlaceObject(0, 0, new City());
 
         //Middle of a city
@@ -354,7 +354,7 @@ public class MapTestScript
     public void PlaceCityRoadsTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         game.Map.PlaceObject(0, 0, new City());
         var objCoordX = 0;
         var objCoordY = 0;
@@ -379,7 +379,7 @@ public class MapTestScript
     public void AddToCrossRoadIfNeededWithPlusShapedCrossroadTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
 
         game.Map.PlaceObject(10, 10, new Road(false));
         game.Map.PlaceObject(11, 10, new Road(false));
@@ -396,7 +396,7 @@ public class MapTestScript
     public void AddToCrossRoadIfNeededWithTShapedCrossroadTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
 
         game.Map.PlaceObject(10, 10, new Road(false));
         game.Map.PlaceObject(11, 10, new Road(false));
@@ -418,7 +418,7 @@ public class MapTestScript
     public void SetLightDirectionPlusShapedCrossroadTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
 
         game.Map.PlaceObject(10, 10, new Road(false));
         game.Map.PlaceObject(11, 10, new Road(false));
@@ -440,7 +440,7 @@ public class MapTestScript
     public void SetLightDirectionTShapedCrossroadTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
 
         game.Map.PlaceObject(10, 10, new Road(false));
         game.Map.PlaceObject(11, 10, new Road(false));

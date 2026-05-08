@@ -89,7 +89,7 @@ public class GameViewModel : MonoBehaviour
         }
         else
         {
-            Game.instance.NewGame();
+            Game.instance.NewGame(new DataAccess());
         }
     }
 
@@ -318,7 +318,7 @@ public class GameViewModel : MonoBehaviour
         // }
         selectedObject = null;
     }
-    public void NewGame() => Game.instance.NewGame();
+    public void NewGame() => Game.instance.NewGame(new DataAccess());
     public void SaveGame() => Game.instance.SaveGame();
     public void LoadGame((string name, DateTime timeOfSave) game) => Game.instance.LoadGame(game.name);
     #endregion
