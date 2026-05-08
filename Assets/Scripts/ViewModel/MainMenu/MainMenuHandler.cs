@@ -26,7 +26,7 @@ public class MainMenuHandler : MonoBehaviour
         {
             try
             {
-                return Game.GetSaves().Count > 0;
+                return Game.GetSaves(new DataAccess()).Count > 0;
             }
             catch (System.Exception e)
             {
@@ -35,11 +35,11 @@ public class MainMenuHandler : MonoBehaviour
             }
         }
     }
-    public List<string> SaveNames => Game.GetSaves().Select(save => save.name).OrderBy(name => name).ToList();
+    public List<string> SaveNames => Game.GetSaves(new DataAccess()).Select(save => save.name).OrderBy(name => name).ToList();
     #endregion
 
     #region Public methods    
-    public (string name, DateTime timeOfSave) GetSave(string name) => Game.GetSaves().First(save => save.name == name);
+    public (string name, DateTime timeOfSave) GetSave(string name) => Game.GetSaves(new DataAccess()).First(save => save.name == name);
     #endregion
 
     #region Unity calls

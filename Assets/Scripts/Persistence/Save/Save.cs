@@ -15,6 +15,10 @@ public sealed class Save
 
         string saveFolder = Path.Combine(Application.persistentDataPath, "saves");
 
+        //Logger.Log("==================================================================");
+        //Logger.Log(Application.persistentDataPath);
+        //Logger.Log("==================================================================");
+
         if (!Directory.Exists(saveFolder))
         {
             Directory.CreateDirectory(saveFolder);
@@ -31,13 +35,16 @@ public sealed class Save
         await writer.WriteLineAsync(game.IsPaused.ToString());
 
         // FACILITIES
+        await writer.WriteLineAsync(game.Player.Facilities.Count.ToString());
         foreach (var facility in game.Player.Facilities)
         {
+            string dir = facility is TrafficLight tl ? tl.FacingDirection.ToString() : "null";
             string line =
                 $"{facility.ID};" +
                 $"{(facility.IsGenerated ? 1 : 0)};" +
                 $"{facility.X};" +
                 $"{facility.Y};" +
+                $"{dir}" +
                 $"{EntityFactory.CreateFacilityTypeStringForSave(facility)}";
 
             await writer.WriteLineAsync(line);
@@ -63,6 +70,7 @@ public sealed class Save
         }
 
         // VEHICLES
+        await writer.WriteLineAsync(game.Player.Vehicles.Count.ToString());
         foreach (var vehicle in game.Player.Vehicles)
         {
             string destination =
@@ -92,6 +100,7 @@ public sealed class Save
 
 
         // CROSSROADS
+        await writer.WriteLineAsync(game.Map.Crossroads.Count.ToString());
         foreach (var ((x, y), crossroad) in game.Map.Crossroads)
         {
             string lights =
@@ -103,25 +112,22 @@ public sealed class Save
             await writer.WriteLineAsync(line);
         }
     }
-    public static async Task<HashSet<(string name, DateTime timeOfSave)>> GetSaves()
+    public static HashSet<(string name, DateTime timeOfSave)> GetSaves()
     {
-        return await Task.Run(() =>
+        string path = Path.Combine(Application.persistentDataPath, "saves");
+        var saveFileNames = Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly);
+        HashSet<(string name, DateTime timeOfSave)> saves = new();
+        foreach (var item in saveFileNames)
         {
-            string path = Path.Combine(Application.persistentDataPath, "saves");
-            var saveFileNames = Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly);
-            HashSet<(string name, DateTime timeOfSave)> saves = new();
-            foreach (var item in saveFileNames)
-            {
-                string fileName = Path.GetFileNameWithoutExtension(item);
-                saves.Add((fileName,
-                            DateTime.ParseExact(
-                                fileName,
-                                "yyyy.MM.dd - HH.mm.ss",
-                                System.Globalization.CultureInfo.InvariantCulture)
-                            ));
-            }
+            string fileName = Path.GetFileNameWithoutExtension(item);
+            saves.Add((fileName,
+                        DateTime.ParseExact(
+                            fileName,
+                            "yyyy.MM.dd - HH.mm.ss",
+                            System.Globalization.CultureInfo.InvariantCulture)
+                        ));
+        }
 
-            return saves;
-        });
+        return saves;
     }
 }

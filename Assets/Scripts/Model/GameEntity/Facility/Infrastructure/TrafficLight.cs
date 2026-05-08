@@ -15,6 +15,14 @@ public sealed class TrafficLight : Facility
     {
         Crossroad = null;
     }
+    public TrafficLight(bool isGenerated, int id, int x, int y, Direction dir) : base((int)Prices.TRAFFICLIGHT, isGenerated)
+    {
+        Crossroad = null;
+        FacingDirection = dir;
+        ID = id;
+        X = x;
+        Y = y;
+    }
     /// <summary>
     /// GreenInterval increased by one
     /// </summary>

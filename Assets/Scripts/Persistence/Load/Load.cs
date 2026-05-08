@@ -8,7 +8,7 @@ using UnityEngine;
 
 public sealed class Load
 {
-    public async Task<Game> LoadAsync(string name)
+    public static Game LoadAsync(string name)
     {
         string path = Path.Combine(
             Application.persistentDataPath,
@@ -18,16 +18,16 @@ public sealed class Load
         using StreamReader reader = new(path, Encoding.UTF8);
 
         // GAME
-        DateTime currentTime = DateTime.Parse(await reader.ReadLineAsync());
+        DateTime currentTime = DateTime.Parse(reader.ReadLine());
 
-        int accountBalance = int.Parse(await reader.ReadLineAsync() ?? "0");
+        int accountBalance = int.Parse(reader.ReadLine() ?? "0");
 
-        double timeScale = double.Parse(await reader.ReadLineAsync() ?? "1");
+        double timeScale = double.Parse(reader.ReadLine() ?? "1");
 
-        bool isPaused = bool.Parse(await reader.ReadLineAsync() ?? "false");
+        bool isPaused = bool.Parse(reader.ReadLine() ?? "false");
 
         // FACILITIES
-        int facilityCount = int.Parse(await reader.ReadLineAsync() ?? "0");
+        int facilityCount = int.Parse(reader.ReadLine() ?? "0");
 
         Dictionary<int, GameEntity> entities = new();
 
@@ -35,7 +35,7 @@ public sealed class Load
 
         for (int i = 0; i < facilityCount; i++)
         {
-            string line = await reader.ReadLineAsync()
+            string line = reader.ReadLine()
                 ?? throw new Exception("Unexpected EOF");
 
             string[] parts = line.Split(';');
@@ -44,7 +44,8 @@ public sealed class Load
             bool isGenerated = parts[1] == "1";
             int x = int.Parse(parts[2]);
             int y = int.Parse(parts[3]);
-            string type = parts[4];
+            string dir = parts[4];
+            string type = parts[5];
 
             Facility facility =
                 EntityFactory.CreateFacilityFromSave(
@@ -52,6 +53,7 @@ public sealed class Load
                     id,
                     x,
                     y,
+                    dir,
                     isGenerated);
 
             facilities.Add(facility);
@@ -61,7 +63,7 @@ public sealed class Load
         
 
         // MAP
-        int mapSize = int.Parse(await reader.ReadLineAsync() ?? "0");
+        int mapSize = int.Parse(reader.ReadLine() ?? "0");
 
         if (mapSize == 0)
             throw new Exception("Maps size is 0. Something went wrong!");
@@ -70,7 +72,7 @@ public sealed class Load
 
         for (int i = 0; i < mapSize * mapSize; i++)
         {
-            string line = await reader.ReadLineAsync()
+            string line = reader.ReadLine()
                 ?? throw new Exception("Unexpected EOF");
 
             string[] parts = line.Split(';');
@@ -96,13 +98,13 @@ public sealed class Load
 
         // VEHICLES
         int vehicleCount =
-            int.Parse(await reader.ReadLineAsync() ?? "0");
+            int.Parse(reader.ReadLine() ?? "0");
 
         List<Vehicle> vehicles = new();
 
         for (int i = 0; i < vehicleCount; i++)
         {
-            string line = await reader.ReadLineAsync()
+            string line = reader.ReadLine()
                 ?? throw new Exception("Unexpected EOF");
 
             string[] parts = line.Split(';');
@@ -158,11 +160,11 @@ public sealed class Load
         }
 
         // CROSSROADS
-        int crossroadCount = int.Parse(await reader.ReadLineAsync() ?? "0");
+        int crossroadCount = int.Parse(reader.ReadLine() ?? "0");
 
         for (int i = 0; i < crossroadCount; i++)
         {
-            string line = await reader.ReadLineAsync()
+            string line = reader.ReadLine()
                 ?? throw new Exception("Unexpected EOF");
 
             string[] parts = line.Split(';');
@@ -194,6 +196,7 @@ public sealed class Load
 
         // SET EVERYTING
         Game game = new();
+        game.Player = new();
         game.Map = map;
 
         game.CurrentTime = currentTime;

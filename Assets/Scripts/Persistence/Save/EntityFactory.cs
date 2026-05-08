@@ -5,7 +5,6 @@ public static class EntityFactory
 {
     public static string CreateFacilityTypeStringForSave(Facility facility)
     {
-        //TODO Debug!
         Type type = facility.GetType();
 
         if (!type.IsGenericType)
@@ -63,9 +62,51 @@ public static class EntityFactory
         }
     }
 
-    public static Facility CreateFacilityFromSave(string type, int id, int x, int y, bool isGenerated)
+    public static Facility CreateFacilityFromSave(string type, int id, int x, int y, string dir, bool isGenerated)
     {
-        //TODO
-        throw new NotImplementedException();
+        if (!type.Contains(':'))
+        {
+            switch (type)
+            {
+                case "Road":
+                    return new Road(isGenerated, id, x, y);
+                case "TrafficLight":
+                    return new TrafficLight(isGenerated, id, x, y, Enum.Parse<Direction>(dir));
+                case "BusStop":
+                    return new BusStop(isGenerated, id, x, y);
+            }
+        }
+        else //TODO
+        {
+            string typeName = type.Split(':')[0];
+            string genType = type.Split(':')[1];
+
+            switch (genType)
+            {
+                case "Iron":
+                    return typeName == "Factory" ?
+                        new Factory<Iron>() : typeName == "Mine" ?
+                        new Mine<Iron>() : new LumberMill<Iron>();
+                case "Paper":
+                    return typeName == "Factory" ?
+                        new Factory<Paper>() : typeName == "Mine" ?
+                        new Mine<Paper>() : new LumberMill<Paper>();
+                case "Steel":
+                    return typeName == "Factory" ?
+                        new Factory<Steel>() : typeName == "Mine" ?
+                        new Mine<Steel>() : new LumberMill<Steel>();
+                case "Wood":
+                    return typeName == "Factory" ?
+                    new Factory<Wood>() : typeName == "Mine" ?
+                    new Mine<Wood>() : new LumberMill<Wood>();
+                case "Egg":
+                    return new Farm<Egg>();
+                case "Cheese":
+                    return new Farm<Cheese>();
+                case "Milk":
+                    return new Farm<Milk>();
+            }
+        }
+        throw new Exception("Something went wrong!");
     }
 }

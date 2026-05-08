@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 
 public class DataAccess : IDataAccess
 {
-    public async Task<HashSet<(string name, DateTime timeOfSave)>> GetSaves()
+    public HashSet<(string name, DateTime timeOfSave)> GetSaves()
     {
-        return await Save.GetSaves();
+        return Save.GetSaves();
     }
 
-    public Task<(Map, List<GameEntity>)> LoadGameAsync(string name)
+    public Game LoadGameAsync(string name)
     {
-        throw new NotImplementedException();
+        return Load.LoadAsync(name);
     }
 
     public async Task SaveGameAsync(Game game)

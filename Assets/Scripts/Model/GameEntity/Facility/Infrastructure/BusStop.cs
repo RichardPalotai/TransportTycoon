@@ -3,6 +3,10 @@ public sealed class BusStop : Facility, IPassengerInteractable
     public BusStop(bool isGenerated) : base((int)Prices.BUSSTOP, isGenerated)
     {
     }
+    public BusStop(bool isGenerated, int id, int x, int y) : base((int)Prices.BUSSTOP, isGenerated, id, x, y)
+    {
+
+    }
 
     public int PassInteract()
     {

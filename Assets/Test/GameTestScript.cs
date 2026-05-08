@@ -73,6 +73,6 @@ public class GameTestScript
     public void GameGetSavesTest()
     {
         var game = new Game();
-        Assert.Throws<NotImplementedException>(() => Game.GetSaves());
+        Assert.Throws<NotImplementedException>(() => Game.GetSaves(new DataAccess()));
     }
 }

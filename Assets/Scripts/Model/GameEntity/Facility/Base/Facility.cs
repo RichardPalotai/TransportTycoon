@@ -9,6 +9,14 @@ public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
         Cost = cost;
         IsGenerated = isGenerated;
     }
+    protected Facility(int cost, bool isGenerated, int id, int x, int y)
+    {
+        Cost = cost;
+        IsGenerated = isGenerated;
+        ID = id;
+        X = x;
+        Y = y;
+    }
 
     public virtual void Build(Map map, Tile tile)
     {
