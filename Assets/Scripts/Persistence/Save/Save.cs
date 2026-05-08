@@ -8,10 +8,11 @@ using UnityEngine;
 
 public sealed class Save
 {
-    public static async Task SaveAsync(DateTime time, Map map, Game game)
+    public static async Task SaveAsync(Game game)
     {
+        DateTime time = DateTime.Now;
         string saveName = time.ToString("yyyy.MM.dd - HH.mm.ss");
-
+        
         string saveFolder = Path.Combine(Application.persistentDataPath, "saves");
 
         if (!Directory.Exists(saveFolder))
@@ -46,13 +47,13 @@ public sealed class Save
         }
 
         // MAP
-        await writer.WriteLineAsync(map.Size.ToString());
+        await writer.WriteLineAsync(game.Map.Size.ToString());
 
-        for (int x = 0; x < map.Size; x++)
+        for (int x = 0; x < game.Map.Size; x++)
         {
-            for (int y = 0; y < map.Size; y++)
+            for (int y = 0; y < game.Map.Size; y++)
             {
-                Tile tile = map.GetTile(x, y);
+                Tile tile = game.Map.GetTile(x, y);
 
                 string line =
                     $"{tile.X};" +

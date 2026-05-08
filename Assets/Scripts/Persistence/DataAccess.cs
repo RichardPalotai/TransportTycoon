@@ -14,8 +14,8 @@ public class DataAccess : IDataAccess
         throw new NotImplementedException();
     }
 
-    public async Task SaveGameAsync(DateTime time, Map map, Game game)
+    public async Task SaveGameAsync(Game game)
     {
-        await Save.SaveAsync(time, map, game);
+        await Save.SaveAsync(game);
     }
 }
