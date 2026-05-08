@@ -26,7 +26,9 @@ public class PlayerTestScript
     public void PlayerPurchaseTest()
     {
         var game = new Game();
-        var player = new Player();
+        Game.instance = game;
+        game.NewGame();
+        var player = game.Player;
         int initialMoney = player.Money;
         player.Purchase(new Bus(40, game.Map));
 
@@ -50,7 +52,9 @@ public class PlayerTestScript
     public void PlayerSellTest()
     {
         var game = new Game();
-        var player = new Player();
+        Game.instance = game;
+        game.NewGame();
+        var player = game.Player;
         int initialMoney = player.Money;
         for (int i = 0; i < 12; ++i)
         {

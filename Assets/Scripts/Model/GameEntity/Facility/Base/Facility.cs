@@ -21,9 +21,6 @@ public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
     {
         player.Facilities.Add(this);
         player.Money -= Cost;
-
-        if (Game.instance.IsGameOver())
-            Game.instance.GameOver();
     }
 
     public void Sell(Player player)

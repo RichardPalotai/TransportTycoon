@@ -74,9 +74,6 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     {
         player.Money -= Cost;
         player.Vehicles.Add(this);
-
-        if (Game.instance.IsGameOver())
-            Game.instance.GameOver();
     }
     /// <summary>
     /// Removes vehicle from the vehicles list
