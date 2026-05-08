@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -72,10 +73,10 @@ public sealed class Save
         foreach (var facility in game.Player.Facilities)
         {
             string line =
-                $"{facility.ID};" + 
-                $"{(facility.IsGenerated ? 1 : 0)};" + 
-                $"{facility.X};" + 
-                $"{facility.Y};" + 
+                $"{facility.ID};" +
+                $"{(facility.IsGenerated ? 1 : 0)};" +
+                $"{facility.X};" +
+                $"{facility.Y};" +
                 $"{EntityFactory.CreateFacilityTypeStringForSave(facility)}";
 
             await writer.WriteLineAsync(line);
@@ -102,5 +103,26 @@ public sealed class Save
         }
 
         game.Saves.Add((saveName, time));
+    }
+    public static async Task<HashSet<(string name, DateTime timeOfSave)>> GetSaves()
+    {
+        return await Task.Run(() =>
+        {
+            string path = Path.Combine(Application.persistentDataPath, "saves");
+            var saveFileNames = Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly);
+            HashSet<(string name, DateTime timeOfSave)> saves = new();
+            foreach (var item in saveFileNames)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(item);
+                saves.Add((fileName,
+                            DateTime.ParseExact(
+                                fileName,
+                                "yyyy.MM.dd - HH.mm.ss",
+                                System.Globalization.CultureInfo.InvariantCulture)
+                            ));
+            }
+
+            return saves;
+        });
     }
 }
