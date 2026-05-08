@@ -74,6 +74,9 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     {
         player.Money -= Cost;
         player.Vehicles.Add(this);
+
+        if (Game.instance.IsGameOver())
+            Game.instance.GameOver();
     }
     /// <summary>
     /// Removes vehicle from the vehicles list
@@ -88,6 +91,9 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     {
         player.Money -= Convert.ToInt32(RepairCost);
         Condition = 100;
+
+        if (Game.instance.IsGameOver())
+            Game.instance.GameOver();
     }
     /// <summary>
     /// Update runs in every _updateCondInterval (10) seconds
@@ -112,5 +118,5 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 
     }
 
-    
+
 }
