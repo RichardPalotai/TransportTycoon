@@ -18,8 +18,11 @@ public sealed class Player
         {
             throw new NotEnoughMoneyException($"Player does not have enough money to buy: {item.GetType().Name}");
         }
-        
+
         item.Purchase(this);
+
+        if (Game.instance.IsGameOver())
+            Game.instance.GameOver();
     }
     public void SellItem(ITradeable item)
     {
