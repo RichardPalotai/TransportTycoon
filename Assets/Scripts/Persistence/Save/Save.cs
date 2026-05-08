@@ -7,7 +7,7 @@ using UnityEngine;
 
 public sealed class Save
 {
-    public async Task SaveAsync(DateTime time, Map map, Game game)
+    public static async Task SaveAsync(DateTime time, Map map, Game game)
     {
         //MAP
         string saveName = time.ToString("yyyy.MM.dd - HH.mm.ss");
