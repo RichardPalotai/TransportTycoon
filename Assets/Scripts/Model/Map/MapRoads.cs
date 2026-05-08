@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 public sealed partial class Map
 {

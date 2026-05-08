@@ -1,4 +1,3 @@
-
 public sealed class Tile
 {
     public bool IsFree { get; set; }
