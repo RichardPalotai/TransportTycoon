@@ -10,8 +10,8 @@ public sealed class Save
 {
     public static async Task SaveAsync(DateTime time, Map map, Game game)
     {
-        //MAP
         string saveName = time.ToString("yyyy.MM.dd - HH.mm.ss");
+
         string saveFolder = Path.Combine(Application.persistentDataPath, "saves");
 
         if (!Directory.Exists(saveFolder))
@@ -23,6 +23,29 @@ public sealed class Save
 
         await using StreamWriter writer = new(path, false, Encoding.UTF8);
 
+        // GAME
+        await writer.WriteLineAsync(game.CurrentTime.ToString());
+        await writer.WriteLineAsync(game.AccountBalance.ToString());
+        await writer.WriteLineAsync(game.TimeScale.ToString());
+        await writer.WriteLineAsync(game.IsPaused.ToString());
+
+        // FACILITIES
+
+        await writer.WriteLineAsync(game.Player.Facilities.Count.ToString());
+
+        foreach (var facility in game.Player.Facilities)
+        {
+            string line =
+                $"{facility.ID};" +
+                $"{(facility.IsGenerated ? 1 : 0)};" +
+                $"{facility.X};" +
+                $"{facility.Y};" +
+                $"{EntityFactory.CreateFacilityTypeStringForSave(facility)}";
+
+            await writer.WriteLineAsync(line);
+        }
+
+        // MAP
         await writer.WriteLineAsync(map.Size.ToString());
 
         for (int x = 0; x < map.Size; x++)
@@ -35,15 +58,46 @@ public sealed class Save
                     $"{tile.X};" +
                     $"{tile.Y};" +
                     $"{tile.IsFree};" +
-                    $"{tile.ObjectId}"; //Entity's ID
+                    $"{tile.ObjectId}";
 
                 await writer.WriteLineAsync(line);
             }
         }
 
-        //CROSSROADS
+        // VEHICLES
+        await writer.WriteLineAsync(game.Player.Vehicles.Count.ToString());
 
+        foreach (var vehicle in game.Player.Vehicles)
+        {
+            string destination =
+                vehicle.Destination is null
+                    ? "null"
+                    : vehicle.Destination.ID.ToString();
+
+            string route =
+                string.Join(',', vehicle.Route.Select(x => x.ID));
+
+            string cargo = vehicle is TransportVehicle transport
+                            ? transport.CargoType.ToString()
+                            : "null";
+
+            string line =
+                $"{vehicle.GetType().Name};" +
+                $"{vehicle.ID};" +
+                $"{vehicle.X};" +
+                $"{vehicle.Y};" +
+                $"{cargo}" +
+                $"{vehicle.Condition};" +
+                $"{vehicle.Direction};" +
+                $"{destination}|{route}";
+
+            await writer.WriteLineAsync(line);
+        }
+
+
+        // CROSSROADS
         await writer.WriteLineAsync(game.Map.Crossroads.Count.ToString());
+
         foreach (var item in game.Map.Crossroads)
         {
             int x = item.Key.Item1;
@@ -56,48 +110,6 @@ public sealed class Save
 
             string line =
                 $"{x};{y};{crossroad.GreenInterval}|{lights}";
-
-            await writer.WriteLineAsync(line);
-        }
-
-        //GAME
-
-        await writer.WriteLineAsync(game.CurrentTime.ToString());
-        await writer.WriteLineAsync(game.AccountBalance.ToString());
-        await writer.WriteLineAsync(game.TimeScale.ToString());
-        await writer.WriteLineAsync(game.IsPaused.ToString());
-
-        //FACILITIES
-
-        await writer.WriteLineAsync(game.Player.Facilities.Count.ToString());
-        foreach (var facility in game.Player.Facilities)
-        {
-            string line =
-                $"{facility.ID};" +
-                $"{(facility.IsGenerated ? 1 : 0)};" +
-                $"{facility.X};" +
-                $"{facility.Y};" +
-                $"{EntityFactory.CreateFacilityTypeStringForSave(facility)}";
-
-            await writer.WriteLineAsync(line);
-
-        }
-
-        //VEHICLES
-
-        await writer.WriteLineAsync(game.Player.Vehicles.Count.ToString());
-        foreach (var vehicle in game.Player.Vehicles)
-        {
-            string line =
-                $"{vehicle.GetType().Name};" +
-                $"{vehicle.ID};" +
-                $"{vehicle.X};" +
-                $"{vehicle.Y};" +
-                $"{vehicle.Condition};" +
-                $"{vehicle.Direction};" +
-                $"{(vehicle.Destination is null ? "null" : vehicle.Destination.ID)}|" +
-                $"{String.Join(',', vehicle.Route.Select(x => x.ID))}";
-
 
             await writer.WriteLineAsync(line);
         }

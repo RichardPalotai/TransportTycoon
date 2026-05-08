@@ -21,7 +21,14 @@ public sealed partial class Map
         }
         return _map[x, y];
     }
-
+    public void SetTile(int x, int y, Tile tile)
+    {
+        if (x < 0 || y < 0 || x >= Size || y >= Size)
+        {
+            throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
+        }
+        _map[x, y] = tile;
+    }
     private void MarkCity(int x, int y, int areaSize)
     {
         (int, int)[] roadCoord =

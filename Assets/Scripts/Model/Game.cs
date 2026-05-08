@@ -15,7 +15,7 @@ public sealed partial class Game : IUpdateable
     public Player Player;
     public HashSet<(string name, DateTime timeOfSave)> Saves { get; private set; }
     public DateTime CurrentTime { get; set; }
-    public int AccountBalance { get{ return Player.Money; } }
+    public int AccountBalance { get { return Player.Money; } set { Player.Money = value; } }
     private double _timeScale = 1.0;
     private Stopwatch _stopwatch;
 
@@ -25,7 +25,7 @@ public sealed partial class Game : IUpdateable
         get { return _timeScale; }
         set { _timeScale = Math.Max(1, value); }
     }
-    public bool IsPaused { get; private set; }
+    public bool IsPaused { get; set; }
 
     public void NewGame()
     {
