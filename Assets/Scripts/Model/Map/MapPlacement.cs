@@ -47,6 +47,27 @@ public sealed partial class Map
 #endif
     }
 
+    public void RemoveObject(GameEntity entity)
+    {
+        for (int i = 0; i < _map.GetLength(0); i++)
+        {
+            for (int j = 0; j < _map.GetLength(1); j++)
+            {
+                if (_map[i,j].ObjectId == entity.ID)
+                {
+                    _map[i, j] = new(i,j);
+                }
+            }
+        }
+
+        if (entity is TrafficLight tl)
+        {
+            tl.Crossroad.TrafficLights.Remove(tl);
+        }
+
+        Player.instance.Facilities.Remove(entity as Facility);
+    }
+
     private Direction SetLightDirection(int lightX, int lightY, (int x, int y) middleOfCrossroad)
     {
         if (lightX - middleOfCrossroad.x <= 0 && lightY - middleOfCrossroad.y > 0) //We are left and down from the center
