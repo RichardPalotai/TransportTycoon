@@ -142,12 +142,12 @@ public class VehicleRouteHandler : MonoBehaviour
     public void LoadRoute()
     {
         // TODO - connect REAL DATA!!!! <BINDING>
-        Vehicle f = Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.GetComponent<SawmillScript>().ID);
+        Vehicle f = Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.ID);
         if (f == null)
             return;
 
         // TODO - connect REAL DATA!!!! <BINDING>
-        currentRoute = new LinkedList<int>(Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.GetComponent<SawmillScript>().ID).Route.Select(f => f.ID));
+        currentRoute = new LinkedList<int>(Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.ID).Route.Select(f => f.ID));
     }
 
     /// <summary>

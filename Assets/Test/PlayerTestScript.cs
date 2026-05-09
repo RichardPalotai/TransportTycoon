@@ -27,7 +27,8 @@ public class PlayerTestScript
     {
         var game = new Game();
         Game.instance = game;
-        game.NewGame();
+        DataAccess dataAccess = new();
+        game.NewGame(dataAccess);
         var player = game.Player;
         int initialMoney = player.Money;
         player.Purchase(new Bus(40, game.Map));
@@ -53,7 +54,8 @@ public class PlayerTestScript
     {
         var game = new Game();
         Game.instance = game;
-        game.NewGame();
+        DataAccess dataAccess = new();
+        game.NewGame(dataAccess);
         var player = game.Player;
         int initialMoney = player.Money;
         for (int i = 0; i < 12; ++i)
