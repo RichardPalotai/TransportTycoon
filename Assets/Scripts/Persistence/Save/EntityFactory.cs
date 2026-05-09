@@ -76,7 +76,7 @@ public static class EntityFactory
                     return new BusStop(isGenerated, id, x, y);
             }
         }
-        else //TODO
+        else
         {
             string typeName = type.Split(':')[0];
             string genType = type.Split(':')[1];
@@ -85,26 +85,26 @@ public static class EntityFactory
             {
                 case "Iron":
                     return typeName == "Factory" ?
-                        new Factory<Iron>() : typeName == "Mine" ?
-                        new Mine<Iron>() : new LumberMill<Iron>();
+                        new Factory<Iron>(id, x, y, isGenerated) : typeName == "Mine" ?
+                        new Mine<Iron>(id, x, y, isGenerated) : new LumberMill<Iron>(id, x, y, isGenerated);
                 case "Paper":
                     return typeName == "Factory" ?
-                        new Factory<Paper>() : typeName == "Mine" ?
-                        new Mine<Paper>() : new LumberMill<Paper>();
+                        new Factory<Paper>(id, x, y, isGenerated) : typeName == "Mine" ?
+                        new Mine<Paper>(id, x, y, isGenerated) : new LumberMill<Paper>(id, x, y, isGenerated);
                 case "Steel":
                     return typeName == "Factory" ?
-                        new Factory<Steel>() : typeName == "Mine" ?
-                        new Mine<Steel>() : new LumberMill<Steel>();
+                        new Factory<Steel>(id, x, y, isGenerated) : typeName == "Mine" ?
+                        new Mine<Steel>(id, x, y, isGenerated) : new LumberMill<Steel>(id, x, y, isGenerated);
                 case "Wood":
                     return typeName == "Factory" ?
-                    new Factory<Wood>() : typeName == "Mine" ?
-                    new Mine<Wood>() : new LumberMill<Wood>();
+                    new Factory<Wood>(id, x, y, isGenerated) : typeName == "Mine" ?
+                    new Mine<Wood>(id, x, y, isGenerated) : new LumberMill<Wood>(id, x, y, isGenerated);
                 case "Egg":
-                    return new Farm<Egg>();
+                    return new Farm<Egg>(id, x, y, isGenerated);
                 case "Cheese":
-                    return new Farm<Cheese>();
+                    return new Farm<Cheese>(id, x, y, isGenerated);
                 case "Milk":
-                    return new Farm<Milk>();
+                    return new Farm<Milk>(id, x, y, isGenerated);
             }
         }
         throw new Exception("Something went wrong!");

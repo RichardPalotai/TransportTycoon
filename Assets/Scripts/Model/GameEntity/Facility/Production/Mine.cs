@@ -4,4 +4,8 @@ public sealed class Mine<T> : ProdFacility where T : Commodity
     {
         producedPerSec = 10;
     }
+    public Mine(int id, int x, int y, bool isGenerated) : base(1200, isGenerated, id, x, y)
+    {
+        producedPerSec = 10;
+    }
 }
