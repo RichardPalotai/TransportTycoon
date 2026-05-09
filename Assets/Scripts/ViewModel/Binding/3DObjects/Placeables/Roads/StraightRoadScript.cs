@@ -245,18 +245,35 @@ public class StraightRoadScript : GridObject
 
         if (LeftOccupied != null)
         {
-            if (RightOccupied.modelSelf is Vehicle vehicle)
+            if (LeftOccupied.modelSelf is Vehicle vehicle)
             {
                 if (vehicle.X != position.x || vehicle.Y != position.y)
                 {
-                    if (vehicle.X > position.x)
+                    if (vehicle.X > LeftOccupied.position.x)
                     {
-
+                        left = false;
+                    }
+                    if (vehicle.Y > LeftOccupied.position.y)
+                    {
+                        left = false;
+                    }
+                    if (vehicle.X < LeftOccupied.position.x)
+                    {
+                        left = true;
+                    }
+                    if (vehicle.Y < LeftOccupied.position.y)
+                    {
+                        left = true;
                     }
                 }
 
-                RightOccupied.position.x = vehicle.X;
-                RightOccupied.position.y = vehicle.Y;
+                if (map.GetTile(vehicle.X, vehicle.Y).Type is StraightRoadScript road)
+                {
+                    road.AddCar(LeftOccupied as VehicleScript, left);
+                }
+
+                LeftOccupied.position.x = vehicle.X;
+                LeftOccupied.position.y = vehicle.Y;
             }
         }
 
