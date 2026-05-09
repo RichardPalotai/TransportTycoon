@@ -10,7 +10,7 @@ public class GameTestScript
     public void NewGameTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
 
         Assert.IsNotNull(game.Map);
         Assert.IsNotNull(game.Player);
@@ -22,7 +22,7 @@ public class GameTestScript
     public void PauseGameTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         game.PauseGame();
 
         Assert.IsTrue(game.IsPaused);
@@ -31,7 +31,7 @@ public class GameTestScript
     public void ResumeGameTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         game.PauseGame();
         game.ResumeGame();
 
@@ -44,7 +44,7 @@ public class GameTestScript
     public void GameTimeAdvanceWhenRunningTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         var startTime = game.CurrentTime;
         game.UpdateGame(10);
 
@@ -56,7 +56,7 @@ public class GameTestScript
     public void GameTimeAdvanceWhenStoppedTest()
     {
         var game = new Game();
-        game.NewGame();
+        game.NewGame(new DataAccess());
         var startTime = game.CurrentTime;
         game.PauseGame();
         game.UpdateGame(10);
@@ -73,6 +73,6 @@ public class GameTestScript
     public void GameGetSavesTest()
     {
         var game = new Game();
-        Assert.Throws<NotImplementedException>(() => Game.GetSaves());
+        Assert.Throws<NotImplementedException>(() => Game.GetSaves(new DataAccess()));
     }
 }

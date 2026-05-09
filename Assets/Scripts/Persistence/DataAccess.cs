@@ -6,16 +6,16 @@ public class DataAccess : IDataAccess
 {
     public HashSet<(string name, DateTime timeOfSave)> GetSaves()
     {
-        throw new NotImplementedException();
+        return Save.GetSaves();
     }
 
-    public Task<(Map, List<GameEntity>)> LoadGameAsync(string name)
+    public Game LoadGameAsync(string name)
     {
-        throw new NotImplementedException();
+        return Load.LoadAsync(name);
     }
 
-    public Task SaveGameAsync(string name)
+    public async Task SaveGameAsync(Game game)
     {
-        throw new NotImplementedException();
+        await Save.SaveAsync(game);
     }
 }

@@ -5,7 +5,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 {
     private Map _map;
     public Queue<Facility> Route { get; private set; }
-    private Facility Destination { get; set; }
+    public Facility Destination { get; set; }
     /// <summary>
     /// Brand new price
     /// </summary>
@@ -65,6 +65,19 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
         _elapsedTimeSinceLastUpdate = 0.0;
         _timeUntilNextStep = 0.0;
         Route = new();
+    }
+    public Vehicle(int id, int x, int y, int cost, double speed, double condition, Direction direction, Facility destination, List<Facility> route, Map map)
+    {
+        ID = id;
+        Cost = cost;
+        Speed = speed;
+        X = x;
+        Y = y;
+        _condition = condition;
+        Direction = direction;
+        Destination = destination;
+        Route = new Queue<Facility>(route);
+        _map = map;
     }
     /// <summary>
     /// Adds vehicle to the vehicles list

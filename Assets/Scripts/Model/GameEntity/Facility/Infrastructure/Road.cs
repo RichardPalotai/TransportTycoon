@@ -5,4 +5,8 @@ public sealed class Road : Facility
     {
 
     }
+    public Road(bool isGenerated, int id, int x, int y) : base((int)Prices.ROAD, isGenerated, id, x, y)
+    {
+
+    }
 }

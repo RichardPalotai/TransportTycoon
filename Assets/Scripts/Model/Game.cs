@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public sealed partial class Game : IUpdateable
 {
     public static Game instance;
+    public IDataAccess _dataAccess;
     private Map _map;
     public Map Map
     {
@@ -14,9 +15,9 @@ public sealed partial class Game : IUpdateable
     }
 
     public Player Player;
-    public HashSet<(string name, DateTime timeOfSave)> Saves { get; private set; }
+    public HashSet<(string name, DateTime timeOfSave)> Saves => _dataAccess.GetSaves();
     public DateTime CurrentTime { get; set; }
-    public int AccountBalance { get { return Player.Money; } }
+    public int AccountBalance { get { return Player.Money; } set { Player.Money = value; } }
     private double _timeScale = 1.0;
     private Stopwatch _stopwatch;
 
@@ -27,10 +28,11 @@ public sealed partial class Game : IUpdateable
         get { return _timeScale; }
         set { _timeScale = Math.Max(1, value); }
     }
-    public bool IsPaused { get; private set; }
+    public bool IsPaused { get; set; }
 
-    public void NewGame()
+    public void NewGame(IDataAccess dataAccess)
     {
+        _dataAccess = dataAccess;
         CurrentTime = DateTime.Today;
 #if DEBUG
         Logger.Log("Current time set to today");
@@ -47,6 +49,12 @@ public sealed partial class Game : IUpdateable
 #if DEBUG
         Logger.Log("Stopwatch set");
 #endif
+        Factory<Steel> fac = new();
+        Player.Facilities.Add(fac);
+        fac.Build(_map, _map.GetTile(25, 25));
+        Road road = new(false);
+        Player.Facilities.Add(road);
+        road.Build(_map, _map.GetTile(0, 5));
     }
     public void ResumeGame()
     {
@@ -59,18 +67,12 @@ public sealed partial class Game : IUpdateable
     }
     public void SaveGame()
     {
-        //TODO
-        throw new System.NotImplementedException();
+        _dataAccess.SaveGameAsync(this);
     }
-    public static HashSet<(string name, DateTime timeOfSave)> GetSaves()
+    public static HashSet<(string name, DateTime timeOfSave)> GetSaves(IDataAccess da) => da.GetSaves();
+    public static Game LoadGame(IDataAccess _dataAccess, string name)
     {
-        //TODO
-        throw new System.NotImplementedException();
-    }
-    public HashSet<(string name, DateTime timeOfSave)> LoadGame(string name)
-    {
-        //TODO
-        throw new System.NotImplementedException();
+        return _dataAccess.LoadGameAsync(name);
     }
     /// <summary>
     /// Updates time, vehicles and facilities in every deltaTime

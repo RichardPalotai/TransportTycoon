@@ -10,6 +10,7 @@ public abstract class ProdFacility : Facility, IProdInteractable
     public int VehiclesWhoAreVisitingThisFacilityCount(Player player) =>
         player.Vehicles.Count(x => x.Route.Contains(this));
     protected ProdFacility(int cost, bool isGenerated) : base(cost, isGenerated) { }
+    protected ProdFacility(int cost, bool isGenerated, int id, int x, int y) : base(cost, isGenerated, id, x, y) { }
     public override void Build(Map map, Tile tile)
     {
         map.PlaceObject(tile.X, tile.Y, this);

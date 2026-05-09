@@ -76,8 +76,6 @@ public class GameViewModel : MonoBehaviour
         IsRouteDisplayOn = false;
         gameMode = GameMode.MOUSE;
 
-        Game game = new Game();
-        Game.instance = game;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -86,11 +84,17 @@ public class GameViewModel : MonoBehaviour
         Game.instance.OnGameOver += HandleGameOver;
         if (LoadedGame != null)
         {
-            Game.instance.LoadGame(LoadedGame?.name);
+            Game game = new();
+            Game.instance = Game.LoadGame(new DataAccess(), LoadedGame?.name);
+            
         }
         else
         {
-            Game.instance.NewGame();
+            Game game = new Game();
+            Game.instance = game;
+
+            Game.instance.NewGame(new DataAccess());
+
         }
     }
 
@@ -326,8 +330,8 @@ public class GameViewModel : MonoBehaviour
         // }
         selectedObject = null;
     }
-    public void NewGame() => Game.instance.NewGame();
+    public void NewGame() => Game.instance.NewGame(new DataAccess());
     public void SaveGame() => Game.instance.SaveGame();
-    public void LoadGame((string name, DateTime timeOfSave) game) => Game.instance.LoadGame(game.name);
+    public void LoadGame((string name, DateTime timeOfSave) game) => Game.LoadGame(new DataAccess(), game.name);
     #endregion
 }

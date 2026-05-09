@@ -5,7 +5,6 @@ public class Crossroad : IUpdateable
     public List<TrafficLight> TrafficLights { get; private set; }
     public double GreenInterval { get; set; }
     private readonly double _yellowInterval = 2;
-    private bool _northSouthGreen = true;
     private double _timer;
     private CurrentGreens _greens;
     public Crossroad()
