@@ -14,7 +14,7 @@ public class GameViewModel : MonoBehaviour
     [SerializeField]
     private Canvas VehicleRoute_cnv;
     [SerializeField]
-    private GameObject selectedObject;
+    private GameEntity selectedObject;
 
     private GameMode gameMode;
     private Mouse mouse;
@@ -48,7 +48,7 @@ public class GameViewModel : MonoBehaviour
     /// <summary>
     /// The object that is selected by the mouse pointer click
     /// </summary>
-    public GameObject SelectedObject
+    public GameEntity SelectedObject
     {
         get { return selectedObject; }
         set
@@ -106,7 +106,7 @@ public class GameViewModel : MonoBehaviour
                 {
                     BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue(), BuilderSelectorHandler.instance.selectedBuilding);
                     // TODO - Specify parameter!!!!! <BINDING> <MODEL>
-                    //Game.instance.Player.Purchase(SelectedObject.GetComponent<SawmillScript>().ID);
+                    Game.instance.Player.Purchase(SelectedObject as ITradeable);
                 }
                 catch (NotEnoughSpaceForObjectException e)
                 {
@@ -139,7 +139,6 @@ public class GameViewModel : MonoBehaviour
 
         if (selectedObject != null)
         {
-            BuilderSelectorHandler.instance.SetBuildButtonsActive(false);
             // TODO - SET SELECTED properties to given <BINDING>
             // switch (selectedObject)
             // {

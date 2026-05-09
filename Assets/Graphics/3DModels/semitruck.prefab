@@ -79,6 +79,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 218ce11ab19265544b47b0fa75eb0be1, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1644068314783598444}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 218ce11ab19265544b47b0fa75eb0be1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8634901720840359252}
   m_SourcePrefab: {fileID: 100100000, guid: 218ce11ab19265544b47b0fa75eb0be1, type: 3}
 --- !u!1 &2283624102171344061 stripped
 GameObject:
@@ -105,3 +108,15 @@ MonoBehaviour:
   SelectedSprite: {fileID: 0}
   OrderText: {fileID: 0}
   selfObject: {fileID: 0}
+--- !u!114 &8634901720840359252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2283624102171344061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d305075a7296b4f85b7563ec9ebfd454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ViewModel::ObjectController

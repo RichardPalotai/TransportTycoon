@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 public class ObjectController : MonoBehaviour
 {
     public static ObjectController instance;
+    
+    [SerializeField]
+    public GridObject ObjScript;
+
     void Update()
     {
         if (Mouse.current != null && Camera.main != null)
@@ -19,7 +23,7 @@ public class ObjectController : MonoBehaviour
                     {
                         CameraController.instance.followTransform = transform;
                         // TODO - SOME DATA SCRIPT WHICH HAS THE OBJECT INFO <BINDING>
-                        //GameViewModel.instance.SelectedObject = gameObject.GetComponent<SOME SCRIPT NAME>;
+                        GameViewModel.instance.SelectedObject = ObjScript.modelSelf;
                     }
                 }
             }
