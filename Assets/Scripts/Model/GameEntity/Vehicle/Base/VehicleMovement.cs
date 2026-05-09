@@ -30,9 +30,17 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 
     private (int x, int y) GetNextStep(Map map, Facility target)
     {
-        var neighbors = map.GetTilesNeighborRoadsCoords(X, Y);
+        List<(int, int)> neighbors;
+        if (_prevX != null && _prevY != null)
+        {
+            neighbors = map.GetTilesNeighborRoadsCoords(X, Y)
+                                .Where(n => n.x != _prevX || n.y != _prevY)
+                                .ToList();
+        }
+        else
+            neighbors = map.GetTilesNeighborRoadsCoords(X, Y);
 
-        (int x, int y) best = neighbors.First();
+            (int x, int y) best = neighbors.First();
         double bestDist = Distance(best.x, best.y, target);
 
         foreach (var (neighborX, neighborY) in neighbors.Skip(1))
@@ -47,8 +55,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
             }
         }
         Direction = calcDir((X, Y), best) ?? Direction;
-
-        var v = Player.instance.Vehicles.FirstOrDefault(x => x.X == best.x && x.Y == best.y);
+        var v = Player.instance.Vehicles.FirstOrDefault(x => x != this && x.X == best.x && x.Y == best.y);
         var trafLigLoc = PotentialTrafficLightLocation(X, Y, map.Size);
         if ((v is not null && v.Direction == Direction) ||
             (trafLigLoc is not null && map.GetTile(trafLigLoc.Value.x, trafLigLoc.Value.y).Entity is TrafficLight trafficLight
@@ -117,6 +124,8 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
         if (nextStep.x == X && nextStep.y == Y)
             return;
 
+        _prevX = X;
+        _prevY = Y;
         X = nextStep.x;
         Y = nextStep.y;
 

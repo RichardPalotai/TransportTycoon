@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 {
+#nullable enable
+    private int? _prevX;
+    private int? _prevY;
+#nullable disable
     private Map _map;
-    public Queue<Facility> Route { get; private set; }
+    public Queue<Facility> Route { get; set; }
     public Facility Destination { get; set; }
     /// <summary>
     /// Brand new price
@@ -41,7 +45,7 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     /// <summary>
     /// Seconds to wain until the next step.
     /// </summary>
-    private double WaitTime => Speed / 15;
+    private double WaitTime => 200 / Speed;
     /// <summary>
     /// Vehicles condition in % ([0-100] double value).
     /// </summary>
