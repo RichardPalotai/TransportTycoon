@@ -41,6 +41,11 @@ public sealed class TrafficLight : Facility
     {
         
     }
+    public override void Sell(Player player)
+    {
+        base.Sell(player);
+        Crossroad.TrafficLights.Remove(this);
+    }
 
     public enum LightColor
     {

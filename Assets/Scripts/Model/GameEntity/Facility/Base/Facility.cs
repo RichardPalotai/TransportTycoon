@@ -31,7 +31,7 @@ public abstract class Facility : GameEntity, IBuildable, ITradeable, IUpdateable
         player.Money -= Cost;
     }
 
-    public void Sell(Player player)
+    public virtual void Sell(Player player)
     {
         player.Facilities.Remove(this);
         player.Money += Convert.ToInt32(Cost * 0.8);
