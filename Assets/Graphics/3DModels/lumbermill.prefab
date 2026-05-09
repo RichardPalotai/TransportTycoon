@@ -54,8 +54,8 @@ MonoBehaviour:
   routeButton: {fileID: 4849180976598481465}
   DefaultSprite: {fileID: 21300000, guid: ded225bde04a8420c94b78bea50ffc52, type: 3}
   SelectedSprite: {fileID: 21300000, guid: 8db0b3da6e59343d4af8a1aa3eeb01c3, type: 3}
-  OrderText: {fileID: 7548044523547024985}
-  ID: 0
+  OrderText: {fileID: 6080500973005154420}
+  selfObject: {fileID: 0}
 --- !u!114 &-577258179704463814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d305075a7296b4f85b7563ec9ebfd454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectController
+  ObjScript: {fileID: 5632702034466025198}
 --- !u!65 &-8623514979590308243
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -100,6 +101,10 @@ PrefabInstance:
     - target: {fileID: 7406200569220320579, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_Name
       value: RouteIcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992330011843056127, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_Pivot.x
@@ -134,18 +139,6 @@ PrefabInstance:
       value: 8.12
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -159,23 +152,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -187,16 +180,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 8766298705735525907, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ded225bde04a8420c94b78bea50ffc52, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -213,14 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
---- !u!223 &7160351765726504896 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 9026000344860908444, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
-  m_PrefabInstance: {fileID: 2169721835711954012}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7548044523547024985 stripped
+--- !u!114 &6080500973005154420 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8564839352329216517, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5367765089533776936, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
   m_PrefabInstance: {fileID: 2169721835711954012}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -229,6 +217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!223 &7160351765726504896 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 9026000344860908444, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+  m_PrefabInstance: {fileID: 2169721835711954012}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8006067272139078618 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}

@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RouteIcon
       objectReference: {fileID: 0}
+    - target: {fileID: 7992330011843056127, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -74,19 +78,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -102,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -180
       objectReference: {fileID: 0}
     - target: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -131,17 +135,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
   m_PrefabInstance: {fileID: 3020697187390547608}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6861163755321017501 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8564839352329216517, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
-  m_PrefabInstance: {fileID: 3020697187390547608}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &8411610238969471229 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6726028068676109925, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
@@ -270,8 +263,8 @@ MonoBehaviour:
   routeButton: {fileID: 8411610238969471229}
   DefaultSprite: {fileID: 21300000, guid: dbe4e3b701f714a1587990520aa2443d, type: 3}
   SelectedSprite: {fileID: 21300000, guid: 9fe9de8f4cbaa433384ad54dbbef713e, type: 3}
-  OrderText: {fileID: 6861163755321017501}
-  ID: 0
+  OrderText: {fileID: 0}
+  selfObject: {fileID: 0}
 --- !u!114 &-8899962538416827918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d305075a7296b4f85b7563ec9ebfd454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectController
+  ObjScript: {fileID: 1176928122029860186}
 --- !u!65 &1270056042866726344
 BoxCollider:
   m_ObjectHideFlags: 0
