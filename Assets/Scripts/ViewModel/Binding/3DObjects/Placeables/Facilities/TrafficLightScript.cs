@@ -24,7 +24,6 @@ public class TrafficLightScript : GridObject
 
     void Start()
     {
-        ID = VehicleRouteHandler.instance.TestObjID++;
         routeButton.onClick.AddListener(OnIconClicked);
 
 

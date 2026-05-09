@@ -115,6 +115,9 @@ public sealed class Save
     public static HashSet<(string name, DateTime timeOfSave)> GetSaves()
     {
         string path = Path.Combine(Application.persistentDataPath, "saves");
+        if (!Directory.Exists(path) || !Directory.EnumerateFileSystemEntries(path).Any())
+            throw new Exception("No saves yet!");
+
         var saveFileNames = Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly);
         HashSet<(string name, DateTime timeOfSave)> saves = new();
         foreach (var item in saveFileNames)
