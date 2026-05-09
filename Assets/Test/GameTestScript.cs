@@ -67,12 +67,19 @@ public class GameTestScript
     public void GameSaveTest()
     {
         var game = new Game();
-        Assert.Throws<NotImplementedException>(() => game.SaveGame());
+        game.NewGame(new DataAccess());
+        int count = Game.GetSaves(new DataAccess()).Count;
+        game.SaveGame();
+        Assert.IsNotNull(Game.GetSaves(new DataAccess()));
+        Assert.AreEqual(count, Game.GetSaves(new DataAccess()).Count);
     }
     [Test]
     public void GameGetSavesTest()
     {
         var game = new Game();
-        Assert.Throws<NotImplementedException>(() => Game.GetSaves(new DataAccess()));
+        game.NewGame(new DataAccess());
+        game.SaveGame();
+        Assert.IsNotNull(Game.GetSaves(new DataAccess()));
+        Assert.IsNotEmpty(Game.GetSaves(new DataAccess()));
     }
 }

@@ -49,12 +49,13 @@ public sealed partial class Game : IUpdateable
 #if DEBUG
         Logger.Log("Stopwatch set");
 #endif
-        Factory<Steel> fac = new();
-        Player.Facilities.Add(fac);
-        fac.Build(_map, _map.GetTile(25, 25));
-        Road road = new(false);
-        Player.Facilities.Add(road);
-        road.Build(_map, _map.GetTile(0, 5));
+        //Only for testing purposes
+        //Factory<Steel> fac = new();
+        //Player.Facilities.Add(fac);
+        //fac.Build(_map, _map.GetTile(25, 25));
+        //Road road = new(false);
+        //Player.Facilities.Add(road);
+        //road.Build(_map, _map.GetTile(0, 5));
     }
     public void ResumeGame()
     {
