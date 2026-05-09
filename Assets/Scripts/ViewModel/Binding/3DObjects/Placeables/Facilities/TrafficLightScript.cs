@@ -3,9 +3,7 @@ using UnityEngine;
 public class TrafficLightScript : GridObject
 {
     #region Private variables
-    // TODO - Connect to REAL ID from Model (delete dummy data) <BINDING>
-    [SerializeField]
-    public int ID;
+
     #endregion
 
     #region Public override methods
@@ -16,8 +14,9 @@ public class TrafficLightScript : GridObject
     #endregion
 
     #region Unity calls
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         DefaultSprite = routeButton.image.sprite;
         SelectedSprite = routeButton.spriteState.highlightedSprite;
         routeCanvas.gameObject.SetActive(false);
