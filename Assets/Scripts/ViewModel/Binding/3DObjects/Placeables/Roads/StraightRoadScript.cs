@@ -155,6 +155,18 @@ public class StraightRoadScript : GridObject
         }
     }
 
+    public void RemoveCar(bool left)
+    {
+        if (left)
+        {
+            LeftOccupied = null;
+        }
+        else
+        {
+            RightOccupied = null;
+        }
+    }
+
     public void AddCar(VehicleScript car)
     {
         if (RightOccupied == null)
@@ -168,6 +180,27 @@ public class StraightRoadScript : GridObject
             Instantiate(car.data.prefab, SlotLeft.position, SlotLeft.rotation);
         }
     }
+
+    public void AddCar(VehicleScript car, bool left)
+    {
+        if (left)
+        {
+            if (LeftOccupied == null)
+            {
+                LeftOccupied = car;
+                Instantiate(car.data.prefab, SlotLeft.position, SlotLeft.rotation);
+            }
+        }
+        else
+        {
+            if (RightOccupied == null)
+            {
+                RightOccupied = car;
+                Instantiate(car.data.prefab, SlotRight.position, SlotRight.rotation);
+            }
+        }
+        
+    }
     void Start()
     {
 
@@ -176,6 +209,56 @@ public class StraightRoadScript : GridObject
     // Update is called once per frame
     void Update()
     {
+        bool left = true;
+        if (RightOccupied != null)
+        {
+            if (RightOccupied.modelSelf is Vehicle vehicle)
+            {
+                if (vehicle.X != position.x || vehicle.Y != position.y)
+                {
+                    if (vehicle.X > RightOccupied.position.x)
+                    {
+                        left = false;
+                    }
+                    if (vehicle.Y > RightOccupied.position.y)
+                    {
+                        left = false;
+                    }
+                    if (vehicle.X < RightOccupied.position.x)
+                    {
+                        left = true;
+                    }
+                    if (vehicle.Y < RightOccupied.position.y)
+                    {
+                        left = true;
+                    }
+                }
+
+                if (map.GetTile(vehicle.X, vehicle.Y).Type is StraightRoadScript road)
+                {
+                    road.AddCar(RightOccupied as VehicleScript, left);
+                }
+                RightOccupied.position.x = vehicle.X;
+                RightOccupied.position.y = vehicle.Y;
+            }
+        }
+
+        if (LeftOccupied != null)
+        {
+            if (RightOccupied.modelSelf is Vehicle vehicle)
+            {
+                if (vehicle.X != position.x || vehicle.Y != position.y)
+                {
+                    if (vehicle.X > position.x)
+                    {
+
+                    }
+                }
+
+                RightOccupied.position.x = vehicle.X;
+                RightOccupied.position.y = vehicle.Y;
+            }
+        }
 
     }
 }

@@ -71,5 +71,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4103419c34025074dbefe8b6d0d92266, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -431947834347700825}
   m_SourcePrefab: {fileID: 100100000, guid: 4103419c34025074dbefe8b6d0d92266, type: 3}
+--- !u!1 &2881643864528560389 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4103419c34025074dbefe8b6d0d92266, type: 3}
+  m_PrefabInstance: {fileID: 3115591550862990420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-431947834347700825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2881643864528560389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca8429161f77db47ab787faf4c40dcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ViewModel::BusScript
+  data: {fileID: 11400000, guid: d550fff806f25034cb30fee7f7b4491c, type: 2}
+  position: {x: 0, y: 0}
+  routeCanvas: {fileID: 0}
+  routeButton: {fileID: 0}
+  DefaultSprite: {fileID: 0}
+  SelectedSprite: {fileID: 0}
+  OrderText: {fileID: 0}
+  selfObject: {fileID: 0}

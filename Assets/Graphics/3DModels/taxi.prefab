@@ -75,5 +75,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 806bb10c006e32e449c0c0580be89cb6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9188971089763018169}
   m_SourcePrefab: {fileID: 100100000, guid: 806bb10c006e32e449c0c0580be89cb6, type: 3}
+--- !u!1 &8288470585667552093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 806bb10c006e32e449c0c0580be89cb6, type: 3}
+  m_PrefabInstance: {fileID: 9207602586510704140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-9188971089763018169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288470585667552093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb05dac49cbf044eb1b78e641ff9069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ViewModel::TaxiScript
+  data: {fileID: 11400000, guid: 9b1faf4db5d5c5f4294ffd333230280b, type: 2}
+  position: {x: 0, y: 0}
+  routeCanvas: {fileID: 0}
+  routeButton: {fileID: 0}
+  DefaultSprite: {fileID: 0}
+  SelectedSprite: {fileID: 0}
+  OrderText: {fileID: 0}
+  selfObject: {fileID: 0}

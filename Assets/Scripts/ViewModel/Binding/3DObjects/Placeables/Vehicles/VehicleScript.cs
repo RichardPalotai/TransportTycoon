@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class VehicleScript : GridObject
 {
+    
+
+
     public override void OnObjectPlaced()
     {
         Debug.LogWarning("Placed Road");
@@ -17,5 +20,6 @@ public class VehicleScript : GridObject
     void Update()
     {
 
+        
     }
 }

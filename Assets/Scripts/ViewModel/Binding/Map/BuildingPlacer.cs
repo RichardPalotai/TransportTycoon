@@ -15,7 +15,12 @@ public class BuildingPlacer : MonoBehaviour
     public GridObject Farm;
     public GridObject Factory;
 
+    public GridObject TrafficLight;
+
+    public GridObject Car;
+    public GridObject Bus;
     public GridObject MiniVan;
+    public GridObject Truck;
 
     private GridObject[] objects = new GridObject[4];
     private int num;
@@ -95,19 +100,73 @@ public class BuildingPlacer : MonoBehaviour
             int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
             int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
 
-            if (build == BuilderSelectorHandler.Building.MINIVAN)
+            if (mapManager.GetTile(originX, originZ).Type is StraightRoadScript road)
             {
-                if (mapManager.GetTile(originX, originZ).Type is StraightRoadScript road)
+
+                switch (build)
                 {
-                    if (MiniVan is VehicleScript car)
-                    {
-                        road.AddCar(car);
-                    }
-                    
-                }
-                else
-                {
-                    Debug.LogWarning("Cannot place car here, tile is not road!");
+                    case BuilderSelectorHandler.Building.MINIVAN:
+
+                        if (MiniVan is VehicleScript carvan)
+                        {
+
+                            Game.instance.Map.PlaceObject(originX, originZ, new Minivan(Milk.Instance, Game.instance.Map));
+                            if (Game.instance.Map.GetTile(originX, originZ).Entity is Minivan van)
+                            {
+                                carvan.modelSelf = van;
+                            }
+
+                            road.AddCar(carvan);
+                        }
+
+                        break;
+                    case BuilderSelectorHandler.Building.CAR:
+
+                        if (MiniVan is VehicleScript carcar)
+                        {
+
+                            Game.instance.Map.PlaceObject(originX, originZ, new Car(4, Game.instance.Map));
+                            if (Game.instance.Map.GetTile(originX, originZ).Entity is Car car)
+                            {
+                                carcar.modelSelf = car;
+                            }
+
+                            road.AddCar(carcar);
+                        }
+
+                        break;
+                    case BuilderSelectorHandler.Building.BUS:
+
+                        if (MiniVan is VehicleScript carbus)
+                        {
+
+                            Game.instance.Map.PlaceObject(originX, originZ, new Bus(50, Game.instance.Map));
+                            if (Game.instance.Map.GetTile(originX, originZ).Entity is Bus bus)
+                            {
+                                carbus.modelSelf = bus;
+                            }
+
+                            road.AddCar(carbus);
+                        }
+
+                        break;
+
+                    case BuilderSelectorHandler.Building.TRUCK:
+
+                        if (MiniVan is VehicleScript cartruck)
+                        {
+
+                            Game.instance.Map.PlaceObject(originX, originZ, new Truck(Milk.Instance, Game.instance.Map));
+                            if (Game.instance.Map.GetTile(originX, originZ).Entity is Truck truck)
+                            {
+                                cartruck.modelSelf = truck;
+                            }
+
+                            road.AddCar(cartruck);
+                        }
+
+                        break;
+
                 }
             }
             else
@@ -203,6 +262,7 @@ public class BuildingPlacer : MonoBehaviour
 
         else if(selectedBuilding is RoadResource road)
         {
+            Game.instance.Map.PlaceObject(startX, startZ, new Road(false));
             if (gridObject is StraightRoadScript stroad)
             {
                 stroad.map = mapManager;
@@ -223,7 +283,7 @@ public class BuildingPlacer : MonoBehaviour
             }
         }
 
-
+        gridObjScript.modelSelf = Game.instance.Map.GetTile(startX, startZ).Entity;
         gridObjScript.OnObjectPlaced();
     }
 

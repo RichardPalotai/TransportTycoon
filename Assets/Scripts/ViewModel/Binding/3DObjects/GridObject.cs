@@ -6,6 +6,8 @@ public abstract class GridObject : MonoBehaviour
 {
     private static int _globalCounter = 0;
 
+    public GameEntity modelSelf;
+
     public Placeable data;
     public Vector2Int position;
     public Canvas routeCanvas;
