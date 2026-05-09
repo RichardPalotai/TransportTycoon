@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleResource
   objectName: Taxi
   tileSize: 1
-  prefab: {fileID: 0}
+  prefab: {fileID: 8288470585667552093, guid: 0194fe34af320ad4bbb5605580cee9c3, type: 3}
   placementCost: 200
   Capacity: 5
   Speed: 50
   VehicleObj: 0
+  Type: 0

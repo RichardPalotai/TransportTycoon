@@ -171,8 +171,14 @@ public class BuildingPlacer : MonoBehaviour
             }
             else
             {
+                if (build == BuilderSelectorHandler.Building.TRAFFICLIGHT)
+                {
+                    gridObject = TrafficLight;
+                    selectedBuilding = TrafficLight.data;
+                }
                 if (IsFootprintValid(originX, originZ, selectedBuilding.tileSize))
                 {
+                    
                     PlaceBuilding(originX, originZ);
                 }
                 else
@@ -206,6 +212,18 @@ public class BuildingPlacer : MonoBehaviour
                 {
                     return false;
                 }
+            }
+        }
+        if (gridObject == TrafficLight)
+        {
+            try
+            {
+                Game.instance.Map.PlaceObject(startX, startZ, new TrafficLight(false));
+                
+            }
+            catch
+            {
+                return false;
             }
         }
         return true;
