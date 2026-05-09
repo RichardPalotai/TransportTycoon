@@ -28,7 +28,7 @@ public abstract class GridObject : MonoBehaviour
 
     public abstract void OnObjectPlaced();
 
-    protected virtual void Awake()
+    public virtual void Awake()
     {
         _id = _globalCounter;
         _globalCounter++;

@@ -81,12 +81,10 @@ public class GameViewModel : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Game.instance.OnGameOver += HandleGameOver;
         if (LoadedGame != null)
         {
             Game game = new();
             Game.instance = Game.LoadGame(new DataAccess(), LoadedGame?.name);
-            
         }
         else
         {
@@ -94,8 +92,8 @@ public class GameViewModel : MonoBehaviour
             Game.instance = game;
 
             Game.instance.NewGame(new DataAccess());
-
         }
+        Game.instance.OnGameOver += HandleGameOver;
     }
 
     // Update is called once per frame
@@ -124,7 +122,8 @@ public class GameViewModel : MonoBehaviour
             else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject == null)
             {
                 // TODO - Destror building from  -- BuildingPlacer -- <BINDING>
-                BuildingPlacer.instance.DemolishBuilding(mouse.position.ReadValue());
+                BuildingPlacer.instance.DemolishBuilding(mouse.position.ReadValue(), SelectedObject);
+                Game.instance.Player.SellItem(SelectedObject as ITradeable);
             }
         }
 
@@ -139,28 +138,6 @@ public class GameViewModel : MonoBehaviour
                 gameMode = IsDemolishOn ? GameMode.DEMOLISH : GameMode.MOUSE;
                 BuilderSelectorHandler.instance.SetDemolishMode(IsDemolishOn);
             }
-        }
-
-        if (selectedObject != null)
-        {
-            // TODO - SET SELECTED properties to given <BINDING>
-            // switch (selectedObject)
-            // {
-            //     case "City":
-            //         CityDataHandler.instance.SelectedCity = selectedObject;
-            //         break;
-            //     case "Facility":
-            //         FacilityDataHandler.instance.SelectedFacility = selectedObject;
-            //         break;
-            //     case "TrafficLight":
-            //         TrafficLightDataHandler.instance.SelectedTrafficLight = selectedObject;
-            //         break;
-            //     case "Vehicle":
-            //         VehicleDataHandler.instance.SelectedVehicle = selectedObject;
-            //         break;
-            //     default:
-            //         break;
-            // }
         }
     }
     #endregion
@@ -184,27 +161,24 @@ public class GameViewModel : MonoBehaviour
         MenuBarHandler.instance.gameObject.SetActive(state);
         BuilderSelectorHandler.instance.gameObject.SetActive(state);
 
-        // TODO - Delete (When car can be placed down)
-        VehicleDataHandler.instance.gameObject.SetActive(state);
-
         // TODO - REACTIVATE THE SELECTED VEHICLE DATA DISPLAY <BINDING>
-        // switch (selectedObject)
-        // {
-        //     case "City":
-        //         CityDataHandler.instance.gameObject.SetActive(state);
-        //         break;
-        //     case "Facility":
-        //         FacilityDataHandler.instance.gameObject.SetActive(state);
-        //         break;
-        //     case "TrafficLight":
-        //         TrafficLightDataHandler.instance.gameObject.SetActive(state);
-        //         break;
-        //     case "Vehicle":
-        //         VehicleDataHandler.instance.gameObject.SetActive(state);
-        //         break;
-        //     default:
-        //         break;
-        // }
+        switch (selectedObject)
+        {
+            case City:
+                CityDataHandler.instance.gameObject.SetActive(state);
+                break;
+            case ProdFacility:
+                FacilityDataHandler.instance.gameObject.SetActive(state);
+                break;
+            case TrafficLight:
+                TrafficLightDataHandler.instance.gameObject.SetActive(state);
+                break;
+            case Vehicle:
+                VehicleDataHandler.instance.gameObject.SetActive(state);
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -259,6 +233,36 @@ public class GameViewModel : MonoBehaviour
     #endregion
 
     #region Public methods
+
+    public void SelectObject(GameEntity obj)
+    {
+        if (SelectedObject != null)
+            return;
+            
+        SelectedObject = obj;
+        switch (selectedObject)
+        {
+            case City:
+                CityDataHandler.instance.SelectedCity = selectedObject as City;
+                CityDataHandler.instance.gameObject.SetActive(true);
+                break;
+            case ProdFacility:
+                FacilityDataHandler.instance.SelectedFacility = selectedObject as ProdFacility;
+                FacilityDataHandler.instance.gameObject.SetActive(true);
+                break;
+            case TrafficLight:
+                TrafficLightDataHandler.instance.SelectedTrafficLight = selectedObject as TrafficLight;
+                TrafficLightDataHandler.instance.gameObject.SetActive(true);
+                break;
+            case Vehicle:
+                VehicleDataHandler.instance.SelectedVehicle = selectedObject as Vehicle;
+                VehicleDataHandler.instance.gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
     /// <summary>
     /// Sets GameMenuUI on/off
     /// </summary>
@@ -278,7 +282,6 @@ public class GameViewModel : MonoBehaviour
             MenuBarHandler.instance.SelectPlayButton();
         }
     }
-
 
     /// <summary>
     /// Sets the VehicleRouteUI on/off
@@ -300,7 +303,7 @@ public class GameViewModel : MonoBehaviour
             Game.instance.ResumeGame();
             MenuBarHandler.instance.SelectPlayButton();
         }
-        
+
         OnRouteDisplayChanged?.Invoke(state);
     }
 
@@ -311,23 +314,23 @@ public class GameViewModel : MonoBehaviour
     {
         BuilderSelectorHandler.instance.SetBuildButtonsActive(true);
         // TODO - Reset the PROPERTIES <BINDING>
-        // switch (selectedObject)
-        // {
-        //     case "City":
-        //         CityDataHandler.instance.SelectedCity = null;
-        //         break;
-        //     case "Facility":
-        //         FacilityDataHandler.instance.SelectedFacility = null;
-        //         break;
-        //     case "TrafficLight":
-        //         TrafficLightDataHandler.instance.SelectedTrafficLight = null;
-        //         break;
-        //     case "Vehicle":
-        //         VehicleDataHandler.instance.SelectedVehicle = null;
-        //         break;
-        //     default:
-        //         break;
-        // }
+        switch (selectedObject)
+        {
+            case City:
+                CityDataHandler.instance.SelectedCity = null;
+                break;
+            case ProdFacility:
+                FacilityDataHandler.instance.SelectedFacility = null;
+                break;
+            case TrafficLight:
+                TrafficLightDataHandler.instance.SelectedTrafficLight = null;
+                break;
+            case Vehicle:
+                VehicleDataHandler.instance.SelectedVehicle = null;
+                break;
+            default:
+                break;
+        }
         selectedObject = null;
     }
     public void NewGame() => Game.instance.NewGame(new DataAccess());

@@ -33,7 +33,7 @@ public class VehicleDataHandler : MonoBehaviour
 
     #region Public variables
     [SerializeField]
-    public GameObject SelectedVehicle;
+    public Vehicle SelectedVehicle;
     #endregion
 
     #region Properties
@@ -79,19 +79,22 @@ public class VehicleDataHandler : MonoBehaviour
     /// <summary>
     /// The condition of the vehicle (Obsolete/Service/New)
     /// </summary>
-    public string Condition
+    public double Condition
     {
-        get { return Condition_Text.text; }
+        get { return double.Parse(Condition_Text.text); }
         set
         {
-            Condition_Text.text = value;
+            if (value < 0 || value > 100)
+                throw new Exception("Value is not in % bounds");
+            else
+                Condition_Text.text = value.ToString() + "%";
         }
     }
 
     /// <summary>
     /// The price of changing the vehicle's condition to "New", must be non-negative number
     /// </summary>
-    public int RepairCost
+    public double RepairCost
     {
         get { return int.Parse(RepairCost_Text.text); }
         set
@@ -106,7 +109,7 @@ public class VehicleDataHandler : MonoBehaviour
     /// <summary>
     /// The worth of the vehicle, depends on the Condition and must be non-negative number
     /// </summary>
-    public int Worth
+    public double Worth
     {
         get { return int.Parse(Worth_Text.text); }
         set
@@ -135,8 +138,7 @@ public class VehicleDataHandler : MonoBehaviour
         Repair_btn.onClick.AddListener(OnRepairClicked);
         Sell_btn.onClick.AddListener(OnSellClicked);
 
-        // TODO - Set to false!!!!! <FRONTEND> - WHEN <CAR CAN BE PLACED> AND <SELECTION ON CLICK SHOWS DATA>
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -145,8 +147,33 @@ public class VehicleDataHandler : MonoBehaviour
         if (SelectedVehicle != null)
         {
             // TODO - Set properties to the selected car's (3D modell - Bálint) <BINDING>
-
-            gameObject.SetActive(true);
+            ID = SelectedVehicle.ID;
+            switch (SelectedVehicle)
+            {
+                case Bus:
+                    Resource = "People";
+                    Capacity = (SelectedVehicle as Bus).PassengersCount;
+                    break;
+                case Car:
+                    Resource = "People";
+                    Capacity = (SelectedVehicle as Car).PassengersCount;
+                    break;
+                case Minivan:
+                    Resource = (SelectedVehicle as Minivan).CargoType.NameString;
+                    Capacity = (SelectedVehicle as Minivan).CargoCapacity;
+                    break;
+                case Truck:
+                    Resource = (SelectedVehicle as Truck).CargoType.NameString;
+                    Capacity = (SelectedVehicle as Truck).CargoCapacity;
+                    break;
+                default:
+                    Resource = "N/A";
+                    Capacity = -1;
+                    break;
+            }
+            Condition = SelectedVehicle.Condition;
+            RepairCost = SelectedVehicle.RepairCost;
+            Worth = SelectedVehicle.Worth;
             CheckDeselectKey();
         }
     }
@@ -165,12 +192,13 @@ public class VehicleDataHandler : MonoBehaviour
     private void OnRepairClicked()
     {
         // TODO - Connect to REAL DATA <BINDING>
-        Game.instance.Player.Vehicles.Find(v => v.ID == SelectedVehicle.GetComponent<SawmillScript>().ID).Repair(Game.instance.Player);
+        Game.instance.Player.Vehicles.Find(v => v.ID == SelectedVehicle.ID).Repair(Game.instance.Player);
     }
     private void OnSellClicked()
     {
         // TODO - Connect to model <BINDING>
-        BuildingPlacer.instance.DemolishBuilding(new Vector2(SelectedVehicle.transform.position.x, SelectedVehicle.transform.position.y));
+        BuildingPlacer.instance.DemolishBuilding(SelectedVehicle.X, SelectedVehicle.Y, SelectedVehicle);
+        Game.instance.Player.SellItem(SelectedVehicle);
         SetDefaultValues();
     }
     #endregion
@@ -194,7 +222,7 @@ public class VehicleDataHandler : MonoBehaviour
         ID = -2;
         Resource = "None";
         Capacity = 9999;
-        Condition = "None";
+        Condition = 0;
         RepairCost = 0;
         Worth = 0;
     }

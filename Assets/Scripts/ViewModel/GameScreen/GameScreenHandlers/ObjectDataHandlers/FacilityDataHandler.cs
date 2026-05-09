@@ -23,7 +23,7 @@ public class FacilityDataHandler : MonoBehaviour
 
     #region Public variables
     [SerializeField]
-    public GameObject SelectedFacility;
+    public ProdFacility SelectedFacility;
     #endregion
 
     #region Properties
@@ -42,9 +42,9 @@ public class FacilityDataHandler : MonoBehaviour
     /// <summary>
     /// The traffic of the facility in % depending on the vehicles visiting it
     /// </summary>
-    public int Traffic
+    public double Traffic
     {
-        get { return int.Parse(Traffic_Text.text); }
+        get { return double.Parse(Traffic_Text.text); }
         set
         {
             if (value < 0 || value > 100)
@@ -101,8 +101,43 @@ public class FacilityDataHandler : MonoBehaviour
         if (SelectedFacility != null)
         {
             // TODO - Set properties to the selected facility's (3D modell - Bálint) <BINDING>
-
-            gameObject.SetActive(true);
+            ID = SelectedFacility.ID;
+            Traffic = SelectedFacility.Traffic(Game.instance.Player);
+            switch (SelectedFacility.GetType().GetGenericArguments()[0].Name)
+            {
+                case "Steel":
+                    Consume = "Iron";
+                    Produce = "Steel";
+                    break;
+                case "Paper":
+                    Consume = "Wood";
+                    Produce = "Paper";
+                    break;
+                case "Wood":
+                    Consume = "----";
+                    Produce = "Wood";
+                    break;
+                case "Iron":
+                    Consume = "----";
+                    Produce = "Iron";
+                    break;
+                case "Cheese":
+                    Consume = "----";
+                    Produce = "Cheese";
+                    break;
+                case "Milk":
+                    Consume = "----";
+                    Produce = "Milk";
+                    break;
+                case "Egg":
+                    Consume = "----";
+                    Produce = "Egg";
+                    break;
+                default:
+                    Consume = "N/A";
+                    Produce = "N/A";
+                    break;
+            }
             CheckDeselectKey();
         }
     }

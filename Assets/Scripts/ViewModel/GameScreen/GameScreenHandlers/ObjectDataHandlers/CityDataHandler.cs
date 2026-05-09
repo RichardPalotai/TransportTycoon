@@ -23,7 +23,7 @@ public class CityDataHandler : MonoBehaviour
 
     #region Public variables
     [SerializeField]
-    public GameObject SelectedCity;
+    public City SelectedCity;
     #endregion
 
     #region Properties
@@ -42,9 +42,9 @@ public class CityDataHandler : MonoBehaviour
     /// <summary>
     /// The satisfaction of a city in %
     /// </summary>
-    public int Satisfaction
+    public double Satisfaction
     {
-        get { return int.Parse(Satisfaction_Text.text); }
+        get { return double.Parse(Satisfaction_Text.text); }
         set
         {
             if (value < 0 || value > 100)
@@ -89,8 +89,9 @@ public class CityDataHandler : MonoBehaviour
         if (SelectedCity != null)
         {
             // TODO - Set properties to the selected city's (3D modell - Bálint) <BINDING>
-
-            gameObject.SetActive(true);
+            ID = SelectedCity.ID;
+            Satisfaction = SelectedCity.Satisfaction();
+            Needs = SelectedCity.Need.Select(x => x.Key.ToString()).ToList();
             CheckDeselectKey();
         }
     }

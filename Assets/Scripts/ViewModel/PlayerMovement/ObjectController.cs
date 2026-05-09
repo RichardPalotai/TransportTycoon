@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,7 +24,7 @@ public class ObjectController : MonoBehaviour
                     {
                         CameraController.instance.followTransform = transform;
                         // TODO - SOME DATA SCRIPT WHICH HAS THE OBJECT INFO <BINDING>
-                        GameViewModel.instance.SelectedObject = ObjScript.modelSelf;
+                        GameViewModel.instance.SelectObject(ObjScript.modelSelf);
                     }
                 }
             }

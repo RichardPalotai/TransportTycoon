@@ -78,12 +78,13 @@ public class BuildingPlacer : MonoBehaviour
 
     public void AttemptPlacement(Vector2 mousePos, BuilderSelectorHandler.Building build)
     {
-        if (build == BuilderSelectorHandler.Building.ROAD) {
+        if (build == BuilderSelectorHandler.Building.ROAD)
+        {
             gridObject = Road;
         }
         else
         {
-            gridObject = objects[num%4];
+            gridObject = objects[num % 4];
             ++num;
 
         }
@@ -180,7 +181,7 @@ public class BuildingPlacer : MonoBehaviour
                     Debug.LogWarning("Cannot build here! Area is blocked or out of bounds." + originX + " " + originZ);
                 }
             }
-            
+
         }
     }
 
@@ -224,7 +225,7 @@ public class BuildingPlacer : MonoBehaviour
         gridObjScript.data = selectedBuilding;
         gridObjScript.position = new Vector2Int(startX, startZ);
         gridObjScript.selfObject = newBuildingObj;
-        
+
         int x = 0;
         int z = 0;
         for (x = 0; x < selectedBuilding.tileSize; x++)
@@ -234,7 +235,7 @@ public class BuildingPlacer : MonoBehaviour
                 mapManager.SetTile(startX + x, startZ + z, gridObjScript);
             }
         }
-        
+
         if (selectedBuilding is FacilityResource facility)
         {
             switch (facility.FacilityObj)
@@ -260,7 +261,7 @@ public class BuildingPlacer : MonoBehaviour
         ///         -1  X   +1
         ///             -1
 
-        else if(selectedBuilding is RoadResource road)
+        else if (selectedBuilding is RoadResource road)
         {
             Game.instance.Map.PlaceObject(startX, startZ, new Road(false));
             if (gridObject is StraightRoadScript stroad)
@@ -270,7 +271,7 @@ public class BuildingPlacer : MonoBehaviour
                 for (int i = -1; i < 2; i += 2)
                 {
 
-                    if ( (startX + i < mapManager.Size ) && (startX + i >= 0) && mapManager.GetTile(startX + i, startZ).Type is StraightRoadScript neighbourX)
+                    if ((startX + i < mapManager.Size) && (startX + i >= 0) && mapManager.GetTile(startX + i, startZ).Type is StraightRoadScript neighbourX)
                     {
                         neighbourX.UpdateRoadShape();
                     }
@@ -287,7 +288,7 @@ public class BuildingPlacer : MonoBehaviour
         gridObjScript.OnObjectPlaced();
     }
 
-    public void DemolishBuilding(Vector2 mousePos)
+    public void DemolishBuilding(Vector2 mousePos, GameEntity selectedBuilding)
     {
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
@@ -313,20 +314,40 @@ public class BuildingPlacer : MonoBehaviour
             {
                 for (int j = 0; j < mapManager.Size; ++j)
                 {
-                    if (mapManager.GetTile(x,y).Type != null &&mapManager.GetTile(x, y).Type.ID == demol.ID)
+                    if (mapManager.GetTile(x, y).Type != null && mapManager.GetTile(x, y).Type.ID == demol.ID)
                     {
                         mapManager.GetTile(x, y).Type = null;
                     }
                 }
             }
+            Game.instance.Map.RemoveObject(selectedBuilding);
             Destroy(demol.selfObject);
         }
+    }
 
-        
+    public void DemolishBuilding(int x, int y, GameEntity selectedBuilding)
+    {
+        GridObject demol;
+        if (mapManager.GetTile(x, y).Type != null)
+        {
+            demol = mapManager.GetTile(x, y).Type;
+        }
+        else
+        {
+            return;
+        }
 
-        //Delete from game model and add to balance ! ! ! !
-
-
-        
+        for (int i = 0; i < mapManager.Size; ++i)
+        {
+            for (int j = 0; j < mapManager.Size; ++j)
+            {
+                if (mapManager.GetTile(x, y).Type != null && mapManager.GetTile(x, y).Type.ID == demol.ID)
+                {
+                    mapManager.GetTile(x, y).Type = null;
+                }
+            }
+        }
+        Game.instance.Map.RemoveObject(selectedBuilding);
+        Destroy(demol.selfObject);
     }
 }

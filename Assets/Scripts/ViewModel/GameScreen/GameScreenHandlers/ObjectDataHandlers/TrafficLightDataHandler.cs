@@ -27,7 +27,7 @@ public class TrafficLightDataHandler : MonoBehaviour
 
     #region Public variables
     [SerializeField]
-    public GameObject SelectedTrafficLight;
+    public TrafficLight SelectedTrafficLight;
     #endregion
 
     #region Properties
@@ -61,9 +61,9 @@ public class TrafficLightDataHandler : MonoBehaviour
     /// <summary>
     /// The length of the green light, between 0 and 61 seconds
     /// </summary>
-    public int GreenLight
+    public double GreenLight
     {
-        get { return int.Parse(GreenLight_Text.text); }
+        get { return double.Parse(GreenLight_Text.text); }
         set
         {
             if (value <= 0 || value > 60)
@@ -99,8 +99,9 @@ public class TrafficLightDataHandler : MonoBehaviour
         if (SelectedTrafficLight != null)
         {
             // TODO - Set properties to the selected car's (3D modell - Bálint) <BINDING>
-
-            gameObject.SetActive(true);
+            ID = SelectedTrafficLight.ID;
+            Worth = SelectedTrafficLight.Cost;
+            GreenLight = SelectedTrafficLight.Crossroad.GreenInterval;
             CheckDeselectKey();
         }
     }
@@ -115,17 +116,18 @@ public class TrafficLightDataHandler : MonoBehaviour
     private void OnMinusClicked()
     {
         // TODO - Connect to Model <MODEL>
-        //Game.instance.Player.TrafficLights.
+        SelectedTrafficLight.GreenLightDecrement();
     }
     private void OnPlusClicked()
     {
         // TODO - Connect to Model <MODEL>
-        //Game.instance.Player.TrafficLights.
+        SelectedTrafficLight.GreenLightIncrement();
     }
     private void OnSellClicked()
     {
         // TODO - Connect to model <BINDING>
-        BuildingPlacer.instance.DemolishBuilding(new Vector2(SelectedTrafficLight.transform.position.x, SelectedTrafficLight.transform.position.y));
+        BuildingPlacer.instance.DemolishBuilding(SelectedTrafficLight.X, SelectedTrafficLight.Y, SelectedTrafficLight);
+        Game.instance.Player.SellItem(SelectedTrafficLight);
         SetDefaultValues();
     }
     #endregion
