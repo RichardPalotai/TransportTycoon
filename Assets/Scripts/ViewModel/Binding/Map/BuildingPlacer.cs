@@ -410,6 +410,9 @@ public class BuildingPlacer : MonoBehaviour
                 case FacilityResource.Facility.SAWMILL:
                     Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Wood>());
                     break;
+                case FacilityResource.Facility.CITY:
+                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new City());
+                    break;
                 default:
                     break;
             }
