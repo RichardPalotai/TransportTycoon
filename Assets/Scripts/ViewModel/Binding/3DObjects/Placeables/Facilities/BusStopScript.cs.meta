@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 39dbcf421a854a245bad42224650e0a9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - data: {fileID: 11400000, guid: 5e884cc1d7ffbcf4cac19fc8311e91fc, type: 2}
+  - routeCanvas: {instanceID: 0}
+  - routeButton: {instanceID: 0}
+  - DefaultSprite: {instanceID: 0}
+  - SelectedSprite: {instanceID: 0}
+  - OrderText: {instanceID: 0}
+  - selfObject: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

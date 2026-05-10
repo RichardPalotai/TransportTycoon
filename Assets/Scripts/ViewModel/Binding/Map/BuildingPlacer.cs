@@ -16,6 +16,7 @@ public class BuildingPlacer : MonoBehaviour
     public GridObject Factory;
 
     public GridObject TrafficLight;
+    public GridObject BusStop;
 
     public GridObject Car;
     public GridObject Bus;
@@ -78,7 +79,6 @@ public class BuildingPlacer : MonoBehaviour
 
     public void AttemptPlacement(Vector2 mousePos, BuilderSelectorHandler.Building build)
     {
-        // 1. FIX THE FACILITY BUG: Correctly route the prefab selection!
         switch (build)
         {
             case BuilderSelectorHandler.Building.ROAD: gridObject = Road; break;
@@ -87,6 +87,7 @@ public class BuildingPlacer : MonoBehaviour
             case BuilderSelectorHandler.Building.BUS: gridObject = Bus; break;
             case BuilderSelectorHandler.Building.TRUCK: gridObject = Truck; break;
             case BuilderSelectorHandler.Building.MINIVAN: gridObject = MiniVan; break;
+            case BuilderSelectorHandler.Building.BUSSTOP: gridObject = BusStop; break;
             case BuilderSelectorHandler.Building.NONE: return;
             default:
                 gridObject = objects[num % 4];
@@ -129,6 +130,7 @@ public class BuildingPlacer : MonoBehaviour
 
                                 Minivan van = new Minivan(Milk.Instance, Game.instance.Map);
                                 van.PlaceVehicle(originX, originZ);
+                                Game.instance.Player.Purchase(van);
 
                                 VehicleScript spawnedVan = road.AddCar(minivanPrefab) as VehicleScript;
 
@@ -144,6 +146,7 @@ public class BuildingPlacer : MonoBehaviour
 
                                 Car c = new Car(5, Game.instance.Map);
                                 c.PlaceVehicle(originX, originZ);
+                                Game.instance.Player.Purchase(c);
 
                                 VehicleScript spawnedCar = road.AddCar(carPrefab) as VehicleScript;
 
@@ -159,6 +162,7 @@ public class BuildingPlacer : MonoBehaviour
 
                                 Bus bus = new Bus(50, Game.instance.Map);
                                 bus.PlaceVehicle(originX, originZ);
+                                Game.instance.Player.Purchase(bus);
 
                                 VehicleScript spawnedBus = road.AddCar(busPrefab) as VehicleScript;
 
@@ -174,6 +178,7 @@ public class BuildingPlacer : MonoBehaviour
 
                                 Truck truck = new Truck(Milk.Instance, Game.instance.Map);
                                 truck.PlaceVehicle(originX, originZ);
+                                Game.instance.Player.Purchase(truck);
 
                                 VehicleScript spawnedTruck = road.AddCar(truckPrefab) as VehicleScript;
 
@@ -223,12 +228,25 @@ public class BuildingPlacer : MonoBehaviour
         }
         if (gridObject == TrafficLight)
         {
-            try
+            Game.instance.Map.PlaceObject(startX, startZ, new TrafficLight(false));
+            if (Game.instance.Map.GetTile(startX,startZ).Entity is TrafficLight)
             {
-                Game.instance.Map.PlaceObject(startX, startZ, new TrafficLight(false));
-                
+               
             }
-            catch
+            else
+            {
+                return false;
+            }
+        }
+
+        if (gridObject == BusStop)
+        {
+            Game.instance.Map.PlaceObject(startX, startZ, new BusStop(false));
+            if (Game.instance.Map.GetTile(startX, startZ).Entity is BusStop)
+            {
+
+            }
+            else
             {
                 return false;
             }
@@ -288,6 +306,7 @@ public class BuildingPlacer : MonoBehaviour
         else if (selectedBuilding is RoadResource road)
         {
             Game.instance.Map.PlaceObject(startX, startZ, new Road(false));
+            
             if (gridObject is StraightRoadScript stroad)
             {
                 stroad.map = mapManager;
@@ -309,6 +328,7 @@ public class BuildingPlacer : MonoBehaviour
         }
 
         gridObjScript.modelSelf = Game.instance.Map.GetTile(startX, startZ).Entity;
+        Game.instance.Player.Purchase(gridObjScript.modelSelf as ITradeable);
         gridObjScript.OnObjectPlaced();
     }
 
@@ -317,7 +337,7 @@ public class BuildingPlacer : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, groundLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
             Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
@@ -328,6 +348,7 @@ public class BuildingPlacer : MonoBehaviour
             if (mapManager.GetTile(x, y).Type != null)
             {
                 demol = mapManager.GetTile(x, y).Type;
+                Debug.LogWarning("Attempting to sell:" + demol.data.name);
             }
             else
             {
@@ -344,7 +365,9 @@ public class BuildingPlacer : MonoBehaviour
                     }
                 }
             }
-            Game.instance.Map.RemoveObject(selectedBuilding);
+            Game.instance.Player.SellItem(demol.modelSelf as ITradeable);
+            Game.instance.Map.RemoveObject(demol.modelSelf);
+           
             Destroy(demol.selfObject);
         }
     }
@@ -371,7 +394,9 @@ public class BuildingPlacer : MonoBehaviour
                 }
             }
         }
+        //Game.instance.Player.SellItem(selectedBuilding as ITradeable);
         Game.instance.Map.RemoveObject(selectedBuilding);
+        
         Destroy(demol.selfObject);
     }
 }
