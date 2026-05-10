@@ -17,6 +17,7 @@ public class StraightRoadScript : GridObject
     private GridObject? RightOccupied = null;
     private GridObject? LeftOccupied = null;
 
+
     private int score;
 
     public int Score
@@ -167,39 +168,60 @@ public class StraightRoadScript : GridObject
         }
     }
 
-    public void AddCar(VehicleScript car)
+    public VehicleScript? AddCar(VehicleScript carPrefab)
     {
+        Debug.LogWarning("Trying to place car!");
+
+        if (SlotRight == null || SlotLeft == null)
+        {
+            Debug.LogError("CRITICAL: SlotRight or SlotLeft is missing on this Road prefab! Assign them in the Inspector.");
+            return null;
+        }
+
+        GameObject spawnedCarObj = null;
+        VehicleScript spawnedScript = null;
+
         if (RightOccupied == null)
         {
-            RightOccupied = car;
-            Instantiate(car.data.prefab, SlotRight.position, SlotRight.rotation);
+            spawnedCarObj = Instantiate(carPrefab.data.prefab, SlotRight.position, SlotRight.rotation);
+            Debug.LogWarning("Placed car on Right side!");
+            spawnedScript = spawnedCarObj.GetComponent<VehicleScript>();
+
+            RightOccupied = spawnedScript;
+            return spawnedScript;
         }
-        else if (LeftOccupied == null)
+        if (LeftOccupied == null)
         {
-            LeftOccupied = car;
-            Instantiate(car.data.prefab, SlotLeft.position, SlotLeft.rotation);
+            spawnedCarObj = Instantiate(carPrefab.data.prefab, SlotLeft.position, SlotLeft.rotation);
+            Debug.LogWarning("Placed car on Left side!");
+            spawnedScript = spawnedCarObj.GetComponent<VehicleScript>();
+
+            LeftOccupied = spawnedScript; 
+            return spawnedScript;
         }
+
+
+        Debug.LogWarning("Cannot place car: This road tile is full!");
+        return null;
     }
 
-    public void AddCar(VehicleScript car, bool left)
+    // You also need to fix your second AddCar method so it doesn't leak memory when cars move
+    public void AddCar(VehicleScript existingCarClone, bool left)
     {
-        if (left)
+        if (left && LeftOccupied == null)
         {
-            if (LeftOccupied == null)
-            {
-                LeftOccupied = car;
-                Instantiate(car.data.prefab, SlotLeft.position, SlotLeft.rotation);
-            }
+            LeftOccupied = existingCarClone;
+            // DO NOT Instantiate here! Just move the existing 3D model!
+            existingCarClone.transform.position = SlotLeft.position;
+            existingCarClone.transform.rotation = SlotLeft.rotation;
         }
-        else
+        else if (!left && RightOccupied == null)
         {
-            if (RightOccupied == null)
-            {
-                RightOccupied = car;
-                Instantiate(car.data.prefab, SlotRight.position, SlotRight.rotation);
-            }
+            RightOccupied = existingCarClone;
+            // DO NOT Instantiate here!
+            existingCarClone.transform.position = SlotRight.position;
+            existingCarClone.transform.rotation = SlotRight.rotation;
         }
-        
     }
     void Start()
     {
@@ -209,73 +231,69 @@ public class StraightRoadScript : GridObject
     // Update is called once per frame
     void Update()
     {
+        // -----------------------------------------
+        // 1. CHECK THE RIGHT LANE
+        // -----------------------------------------
+        if (RightOccupied != null && RightOccupied.modelSelf is Vehicle rightVehicle)
+        {
+            // HAS THE CAR MOVED TO A NEW TILE?
+            if (rightVehicle.X != position.x || rightVehicle.Y != position.y)
+            {
+                // Figure out which lane it needs on the NEXT road
+                bool goesLeft = CalculateLaneDirection(rightVehicle, RightOccupied);
+
+                // Hand it over to the NEXT road
+                if (map.GetTile(rightVehicle.X, rightVehicle.Y).Type is StraightRoadScript nextRoad)
+                {
+                    nextRoad.AddCar(RightOccupied as VehicleScript, goesLeft);
+                }
+
+                // CRITICAL FIX: The car left our tile! We MUST clear our Right slot so a new car can use it!
+                RightOccupied = null;
+            }
+            else
+            {
+                // The car hasn't moved to a new tile yet. Update its internal memory, but do NOT call AddCar!
+                RightOccupied.position.x = rightVehicle.X;
+                RightOccupied.position.y = rightVehicle.Y;
+            }
+        }
+
+        // -----------------------------------------
+        // 2. CHECK THE LEFT LANE
+        // -----------------------------------------
+        if (LeftOccupied != null && LeftOccupied.modelSelf is Vehicle leftVehicle)
+        {
+            // HAS THE CAR MOVED TO A NEW TILE?
+            if (leftVehicle.X != position.x || leftVehicle.Y != position.y)
+            {
+                bool goesLeft = CalculateLaneDirection(leftVehicle, LeftOccupied);
+
+                if (map.GetTile(leftVehicle.X, leftVehicle.Y).Type is StraightRoadScript nextRoad)
+                {
+                    nextRoad.AddCar(LeftOccupied as VehicleScript, goesLeft);
+                }
+
+                // CRITICAL FIX: Clear the Left slot!
+                LeftOccupied = null;
+            }
+            else
+            {
+                LeftOccupied.position.x = leftVehicle.X;
+                LeftOccupied.position.y = leftVehicle.Y;
+            }
+        }
+    }
+
+    // Helper method to keep your Update loop clean!
+    private bool CalculateLaneDirection(Vehicle backendVehicle, GridObject carScript)
+    {
         bool left = true;
-        if (RightOccupied != null)
-        {
-            if (RightOccupied.modelSelf is Vehicle vehicle)
-            {
-                if (vehicle.X != position.x || vehicle.Y != position.y)
-                {
-                    if (vehicle.X > RightOccupied.position.x)
-                    {
-                        left = false;
-                    }
-                    if (vehicle.Y > RightOccupied.position.y)
-                    {
-                        left = false;
-                    }
-                    if (vehicle.X < RightOccupied.position.x)
-                    {
-                        left = true;
-                    }
-                    if (vehicle.Y < RightOccupied.position.y)
-                    {
-                        left = true;
-                    }
-                }
+        if (backendVehicle.X > carScript.position.x) left = false;
+        if (backendVehicle.Y > carScript.position.y) left = false;
+        if (backendVehicle.X < carScript.position.x) left = true;
+        if (backendVehicle.Y < carScript.position.y) left = true;
 
-                if (map.GetTile(vehicle.X, vehicle.Y).Type is StraightRoadScript road)
-                {
-                    road.AddCar(RightOccupied as VehicleScript, left);
-                }
-                RightOccupied.position.x = vehicle.X;
-                RightOccupied.position.y = vehicle.Y;
-            }
-        }
-
-        if (LeftOccupied != null)
-        {
-            if (LeftOccupied.modelSelf is Vehicle vehicle)
-            {
-                if (vehicle.X != position.x || vehicle.Y != position.y)
-                {
-                    if (vehicle.X > LeftOccupied.position.x)
-                    {
-                        left = false;
-                    }
-                    if (vehicle.Y > LeftOccupied.position.y)
-                    {
-                        left = false;
-                    }
-                    if (vehicle.X < LeftOccupied.position.x)
-                    {
-                        left = true;
-                    }
-                    if (vehicle.Y < LeftOccupied.position.y)
-                    {
-                        left = true;
-                    }
-                }
-
-                if (map.GetTile(vehicle.X, vehicle.Y).Type is StraightRoadScript road)
-                {
-                    road.AddCar(LeftOccupied as VehicleScript, left);
-                }
-
-                LeftOccupied.position.x = vehicle.X;
-                LeftOccupied.position.y = vehicle.Y;
-            }
-        }
-
+        return left;
     }
 }
