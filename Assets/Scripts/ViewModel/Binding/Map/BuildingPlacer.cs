@@ -340,7 +340,9 @@ public class BuildingPlacer : MonoBehaviour
         }
         if (gridObject == TrafficLight)
         {
-            Game.instance.Map.PlaceObject(startX, startZ, new TrafficLight(false));
+            TrafficLight light = new TrafficLight(false);
+            Game.instance.Player.Purchase(light);
+            Game.instance.Map.PlaceObject(startX, startZ, light);
             if (Game.instance.Map.GetTile(startX,startZ).Entity is TrafficLight)
             {
                
@@ -353,7 +355,9 @@ public class BuildingPlacer : MonoBehaviour
 
         if (gridObject == BusStop)
         {
-            Game.instance.Map.PlaceObject(startX, startZ, new BusStop(false));
+            BusStop stop = new BusStop(false);
+            Game.instance.Player.Purchase(stop);
+            Game.instance.Map.PlaceObject(startX, startZ, stop);
             if (Game.instance.Map.GetTile(startX, startZ).Entity is BusStop)
             {
 
