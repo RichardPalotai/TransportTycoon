@@ -45,7 +45,7 @@ public class City : Facility, IUpdateable, IBuildable
         _currentTime += deltaTime;
         if (_currentTime < _inGameDayInSecs) return;
 
-        foreach (var item in Need)
+        foreach (var item in Need.ToList())
         {
             Need[item.Key] = item.Key is Food ? item.Value / 2 : item.Value / 3;
         }

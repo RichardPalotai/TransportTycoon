@@ -191,4 +191,73 @@ public class VehicleTestScript
         AreEqual(_y, c.Y);
 
     }
+
+    [Test]
+    public void BusPersistenceConstructorTest()
+    {
+        Bus bus = new(40, 12345, 1, 1, 0.5, Direction.NORTH, new Factory<Steel>(), new List<Facility>(), new Map());
+        NotNull(bus);
+        AreEqual(40, bus.Seats);
+        AreEqual(12345, bus.ID);
+        AreEqual(1, bus.X);
+        AreEqual(1, bus.Y);
+        AreEqual(0.5, bus.Condition);
+        AreEqual(Direction.NORTH, bus.Direction);
+        IsInstanceOf<Factory<Steel>>(bus.Destination);
+        NotNull(bus.Route);
+        Bus bus2 = new(40, new Map());
+        NotNull(bus2);
+        AreEqual(40, bus2.Seats);
+    }
+    [Test]
+    public void CarPersistenceConstructorTest()
+    {
+        Car car = new(5, 12345, 1, 1, 0.5, Direction.NORTH, new Factory<Steel>(), new List<Facility>(), new Map());
+        NotNull(car);
+        AreEqual(5, car.Seats);
+        AreEqual(12345, car.ID);
+        AreEqual(1, car.X);
+        AreEqual(1, car.Y);
+        AreEqual(0.5, car.Condition);
+        AreEqual(Direction.NORTH, car.Direction);
+        IsInstanceOf<Factory<Steel>>(car.Destination);
+        NotNull(car.Route);
+        Car car2 = new(5, new());
+        NotNull(car2);
+        AreEqual(5, car2.Seats);
+    }
+    [Test]
+    public void MinivanPersistenceConstructorTest()
+    {
+        Minivan van = new(Milk.Instance, 12345, 1, 1, 0.5, Direction.NORTH, new Factory<Steel>(), new List<Facility>(), new Map());
+        NotNull(van);
+        IsInstanceOf<Milk>(van.CargoType);
+        AreEqual(12345, van.ID);
+        AreEqual(1, van.X);
+        AreEqual(1, van.Y);
+        AreEqual(0.5, van.Condition);
+        AreEqual(Direction.NORTH, van.Direction);
+        IsInstanceOf<Factory<Steel>>(van.Destination);
+        NotNull(van.Route);
+        Minivan van2 = new(Milk.Instance, new());
+        NotNull(van2);
+        IsInstanceOf<Milk>(van2.CargoType);
+    }
+    [Test]
+    public void TruckPersistenceConstructorTest()
+    {
+        Truck truck = new(Milk.Instance, 12345, 1, 1, 0.5, Direction.NORTH, new Factory<Steel>(), new List<Facility>(), new Map());
+        NotNull(truck);
+        IsInstanceOf<Milk>(truck.CargoType);
+        AreEqual(12345, truck.ID);
+        AreEqual(1, truck.X);
+        AreEqual(1, truck.Y);
+        AreEqual(0.5, truck.Condition);
+        AreEqual(Direction.NORTH, truck.Direction);
+        IsInstanceOf<Factory<Steel>>(truck.Destination);
+        NotNull(truck.Route);
+        Truck truck2 = new(Milk.Instance, new());
+        NotNull(truck2);
+        IsInstanceOf<Milk>(truck2.CargoType);
+    }
 }
