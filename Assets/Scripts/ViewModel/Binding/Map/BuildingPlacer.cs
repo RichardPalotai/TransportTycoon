@@ -14,6 +14,7 @@ public class BuildingPlacer : MonoBehaviour
     public GridObject Mine;
     public GridObject Farm;
     public GridObject Factory;
+    public GridObject City;
 
     public GridObject TrafficLight;
     public GridObject BusStop;
@@ -40,14 +41,7 @@ public class BuildingPlacer : MonoBehaviour
         objects[3] = Factory;
         num = 0;
 
-        gridObject = SawMill;
-        AttemptPlacement(new Vector2(-15, -15));
-        gridObject = Mine;
-        AttemptPlacement(new Vector2(-10, -15));
-        gridObject = Farm;
-        AttemptPlacement(new Vector2(-15, -10));
-        gridObject = Factory;
-        AttemptPlacement(new Vector2(-10, -10));
+        
 
         Debug.LogWarning("Placed starters");
     }
@@ -73,6 +67,120 @@ public class BuildingPlacer : MonoBehaviour
             else
             {
                 Debug.LogWarning("Cannot build here! Area is blocked or out of bounds." + originX + " " + originZ);
+            }
+        }
+    }
+
+    private void AttemptPlacement(int x, int y, BuilderSelectorHandler.Building build)
+    {
+        
+
+        selectedBuilding = gridObject.data;
+        if (selectedBuilding == null) return;
+
+
+        if (true)
+        {
+            int originX = x;
+            int originZ = y;
+
+            bool isVehicle = (build == BuilderSelectorHandler.Building.CAR ||
+                          build == BuilderSelectorHandler.Building.BUS ||
+                          build == BuilderSelectorHandler.Building.TRUCK ||
+                          build == BuilderSelectorHandler.Building.MINIVAN);
+
+            GridObject clickedTileObject = mapManager.GetTile(originX, originZ).Type;
+
+            if (isVehicle)
+            {
+
+
+                if (mapManager.GetTile(originX, originZ).Type is StraightRoadScript road)
+                {
+                    //Debug.LogWarning("Entered IF!");
+                    switch (build)
+                    {
+                        case BuilderSelectorHandler.Building.MINIVAN:
+                            //Debug.LogWarning("Entered MiniVan!");
+                            if (MiniVan is VehicleScript minivanPrefab)
+                            {
+                                //Debug.LogWarning("Entered MiniVan IF!");
+                                //Game.instance.Map.PlaceObject(originX, originZ, new Minivan(Milk.Instance, Game.instance.Map));
+
+                                Minivan van = new Minivan(Milk.Instance, Game.instance.Map);
+                                Game.instance.Player.Purchase(van);
+                                van.PlaceVehicle(originX, originZ);
+
+
+                                VehicleScript spawnedVan = road.AddCar(minivanPrefab) as VehicleScript;
+
+                                spawnedVan.modelSelf = van;
+
+                            }
+                            break;
+
+                        case BuilderSelectorHandler.Building.CAR:
+                            if (Car is VehicleScript carPrefab)
+                            {
+                                //Game.instance.Map.PlaceObject(originX, originZ, new Car(4, Game.instance.Map));
+
+                                Car c = new Car(5, Game.instance.Map);
+                                Game.instance.Player.Purchase(c);
+                                c.PlaceVehicle(originX, originZ);
+
+
+                                VehicleScript spawnedCar = road.AddCar(carPrefab) as VehicleScript;
+
+                                spawnedCar.modelSelf = c;
+
+                            }
+                            break;
+
+                        case BuilderSelectorHandler.Building.BUS:
+                            if (Bus is VehicleScript busPrefab)
+                            {
+                                //Game.instance.Map.PlaceObject(originX, originZ, new Bus(50, Game.instance.Map));
+
+                                Bus bus = new Bus(50, Game.instance.Map);
+                                Game.instance.Player.Purchase(bus);
+                                bus.PlaceVehicle(originX, originZ);
+
+
+                                VehicleScript spawnedBus = road.AddCar(busPrefab) as VehicleScript;
+
+                                spawnedBus.modelSelf = bus;
+
+                            }
+                            break;
+
+                        case BuilderSelectorHandler.Building.TRUCK:
+                            if (Truck is VehicleScript truckPrefab)
+                            {
+                                //Game.instance.Map.PlaceObject(originX, originZ, new Truck(Milk.Instance, Game.instance.Map));
+
+                                Truck truck = new Truck(Milk.Instance, Game.instance.Map);
+                                Game.instance.Player.Purchase(truck);
+                                truck.PlaceVehicle(originX, originZ);
+
+
+                                VehicleScript spawnedTruck = road.AddCar(truckPrefab) as VehicleScript;
+
+                                spawnedTruck.modelSelf = truck;
+                            }
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                if (IsFootprintValid(originX, originZ, selectedBuilding.tileSize))
+                {
+                    PlaceBuilding(originX, originZ);
+                }
+                else
+                {
+                    Debug.LogWarning("Cannot build here! Area is blocked or out of bounds." + originX + " " + originZ);
+                }
             }
         }
     }
@@ -129,8 +237,9 @@ public class BuildingPlacer : MonoBehaviour
                                 //Game.instance.Map.PlaceObject(originX, originZ, new Minivan(Milk.Instance, Game.instance.Map));
 
                                 Minivan van = new Minivan(Milk.Instance, Game.instance.Map);
-                                van.PlaceVehicle(originX, originZ);
                                 Game.instance.Player.Purchase(van);
+                                van.PlaceVehicle(originX, originZ);
+                                
 
                                 VehicleScript spawnedVan = road.AddCar(minivanPrefab) as VehicleScript;
 
@@ -145,8 +254,9 @@ public class BuildingPlacer : MonoBehaviour
                                 //Game.instance.Map.PlaceObject(originX, originZ, new Car(4, Game.instance.Map));
 
                                 Car c = new Car(5, Game.instance.Map);
-                                c.PlaceVehicle(originX, originZ);
                                 Game.instance.Player.Purchase(c);
+                                c.PlaceVehicle(originX, originZ);
+                                
 
                                 VehicleScript spawnedCar = road.AddCar(carPrefab) as VehicleScript;
 
@@ -161,8 +271,9 @@ public class BuildingPlacer : MonoBehaviour
                                 //Game.instance.Map.PlaceObject(originX, originZ, new Bus(50, Game.instance.Map));
 
                                 Bus bus = new Bus(50, Game.instance.Map);
-                                bus.PlaceVehicle(originX, originZ);
                                 Game.instance.Player.Purchase(bus);
+                                bus.PlaceVehicle(originX, originZ);
+                                
 
                                 VehicleScript spawnedBus = road.AddCar(busPrefab) as VehicleScript;
 
@@ -177,8 +288,9 @@ public class BuildingPlacer : MonoBehaviour
                                 //Game.instance.Map.PlaceObject(originX, originZ, new Truck(Milk.Instance, Game.instance.Map));
 
                                 Truck truck = new Truck(Milk.Instance, Game.instance.Map);
-                                truck.PlaceVehicle(originX, originZ);
                                 Game.instance.Player.Purchase(truck);
+                                truck.PlaceVehicle(originX, originZ);
+                                
 
                                 VehicleScript spawnedTruck = road.AddCar(truckPrefab) as VehicleScript;
 
@@ -228,7 +340,9 @@ public class BuildingPlacer : MonoBehaviour
         }
         if (gridObject == TrafficLight)
         {
-            Game.instance.Map.PlaceObject(startX, startZ, new TrafficLight(false));
+            TrafficLight light = new TrafficLight(false);
+            Game.instance.Player.Purchase(light);
+            Game.instance.Map.PlaceObject(startX, startZ, light);
             if (Game.instance.Map.GetTile(startX,startZ).Entity is TrafficLight)
             {
                
@@ -241,7 +355,9 @@ public class BuildingPlacer : MonoBehaviour
 
         if (gridObject == BusStop)
         {
-            Game.instance.Map.PlaceObject(startX, startZ, new BusStop(false));
+            BusStop stop = new BusStop(false);
+            Game.instance.Player.Purchase(stop);
+            Game.instance.Map.PlaceObject(startX, startZ, stop);
             if (Game.instance.Map.GetTile(startX, startZ).Entity is BusStop)
             {
 
@@ -293,6 +409,9 @@ public class BuildingPlacer : MonoBehaviour
                     break;
                 case FacilityResource.Facility.SAWMILL:
                     Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Wood>());
+                    break;
+                case FacilityResource.Facility.CITY:
+                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new City());
                     break;
                 default:
                     break;
@@ -398,5 +517,26 @@ public class BuildingPlacer : MonoBehaviour
         Game.instance.Map.RemoveObject(selectedBuilding);
         
         Destroy(demol.selfObject);
+    }
+
+
+    private bool after = false;
+    public void Update()
+    {
+        if (!after)
+        {
+            gridObject = City;
+            AttemptPlacement(15, 15, BuilderSelectorHandler.Building.BUSSTOP);
+            gridObject = SawMill;
+            AttemptPlacement(25, 15, BuilderSelectorHandler.Building.BUSSTOP);
+            gridObject = Mine;
+            AttemptPlacement(20, 15, BuilderSelectorHandler.Building.BUSSTOP);
+            gridObject = Farm;
+            AttemptPlacement(20, 20, BuilderSelectorHandler.Building.BUSSTOP);
+            gridObject = Factory;
+            AttemptPlacement(15, 20, BuilderSelectorHandler.Building.BUSSTOP);
+            after = true;
+        }
+        
     }
 }

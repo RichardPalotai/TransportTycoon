@@ -8,7 +8,7 @@
     /// When loading a saved game state ResetId should be called first!
     /// It sets the _idCounter field 0.
     /// </summary>
-    public void ResetId() => _idCounter = 0;
+    public static void ResetId() => _idCounter = 0;
     /// <summary>
     /// Auto generated id
     /// </summary>

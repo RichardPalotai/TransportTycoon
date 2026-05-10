@@ -1,6 +1,7 @@
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using NUnit.Framework;
 using static NUnit.Framework.Assert;
 public class VehicleTestScript
 {
@@ -259,5 +260,20 @@ public class VehicleTestScript
         Truck truck2 = new(Milk.Instance, new());
         NotNull(truck2);
         IsInstanceOf<Milk>(truck2.CargoType);
+    }
+    [Test]
+    public void VehiclePlaceVehicleTest()
+    {
+        Game game = new Game();
+        game.NewGame(new DataAccess());
+        Game.instance = game;
+
+        Car c = new(5, game.Map);
+        Throws<IndexOutOfRangeException>(() => c.PlaceVehicle(-1, -1));
+        DoesNotThrow(() => c.PlaceVehicle(1, 1));
+
+        AreEqual(1, c.X);
+        AreEqual(1, c.Y);
+
     }
 }

@@ -49,9 +49,7 @@ public sealed partial class Map
                 }
             }
         }
-#if DEBUG
-        //Logger.LogMap(this, y: 25);
-#endif
+        Logger.LogMap(this, y: 25);
     }
     public void GenerateMap()
     {
