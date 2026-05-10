@@ -31,16 +31,20 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
     private (int x, int y) GetNextStep(Map map, Facility target)
     {
         List<(int, int)> neighbors;
+        var allNeighbors = map.GetTilesNeighborRoadsCoords(X, Y);
         if (_prevX != null && _prevY != null)
         {
-            neighbors = map.GetTilesNeighborRoadsCoords(X, Y)
-                                .Where(n => n.x != _prevX || n.y != _prevY)
-                                .ToList();
+            neighbors = allNeighbors .Where(n => n.x != _prevX || n.y != _prevY)
+                                    .ToList();
+            if (!neighbors.Any())
+            {
+                neighbors = allNeighbors;
+            }
         }
         else
             neighbors = map.GetTilesNeighborRoadsCoords(X, Y);
 
-            (int x, int y) best = neighbors.First();
+        (int x, int y) best = neighbors.First();
         double bestDist = Distance(best.x, best.y, target);
 
         foreach (var (neighborX, neighborY) in neighbors.Skip(1))
