@@ -43,17 +43,17 @@ public class CityTestScript
 
         Assert.AreEqual(50, satisfaction);
     }
-    //[Test]
-    //public void CityUpdateAfterOneDayFoodNeedIsDividedByThreeTest()
-    //{
-    //    City city = new City();
-    //    Iron iron = Iron.Instance;
+    [Test]
+    public void CityUpdateAfterOneDayFoodNeedIsDividedByThreeTest()
+    {
+        City city = new City();
+        Iron iron = Iron.Instance;
 
-    //    city.DeliverResource(iron, 3000);
+        city.DeliverResource(iron, 3000);
 
-    //    city.Update(City._inGameDayInSecs);
+        city.Update(City._inGameDayInSecs);
 
-    //    Assert.AreEqual(1000, city.Need[iron]);
-    //}
+        Assert.AreEqual(1000, city.Need[iron]);
+    }
 
 }
