@@ -118,8 +118,23 @@ public class VehicleTestScript
         for (int i = 0; i < 14; i++)
         {
             c.Update(3);
-            Logger.Log($"{c.X}");
-            Logger.Log($"{c.Y}");
+            if (i < 3)
+            {
+                AreEqual(Direction.EAST, c.Direction);
+            }
+            else if (i < 7)
+            {
+                AreEqual(Direction.SOUTH, c.Direction);
+            }
+            else if (i < 11)
+            {
+                AreEqual(Direction.NORTH, c.Direction);
+            }
+            else
+            {
+                AreEqual(Direction.WEST, c.Direction);
+
+            }
         }
         _x = 10;
         _y = 10;
