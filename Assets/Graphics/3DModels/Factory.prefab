@@ -136,6 +136,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &1629174356786422820 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5367765089533776936, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+  m_PrefabInstance: {fileID: 6693998978797236236}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!223 &2424933206138923920 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 9026000344860908444, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
@@ -258,7 +269,7 @@ MonoBehaviour:
   routeButton: {fileID: 122294824374531689}
   DefaultSprite: {fileID: 21300000, guid: 2f912ef5cb11e4b259a6b99bdad97794, type: 3}
   SelectedSprite: {fileID: 21300000, guid: 18d74738192024d19aa575c4f7bc72c3, type: 3}
-  OrderText: {fileID: 0}
+  OrderText: {fileID: 1629174356786422820}
   selfObject: {fileID: 0}
 --- !u!114 &3820486005200939303
 MonoBehaviour:

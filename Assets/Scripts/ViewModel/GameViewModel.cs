@@ -116,6 +116,10 @@ public class GameViewModel : MonoBehaviour
                 {
                     ErrorHandler.instance.DisplayError(e.Tag, e.Message);
                 }
+                catch (NotEnoughMoneyException e)
+                {
+                    ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+                }
             }
             else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject != null)
             {

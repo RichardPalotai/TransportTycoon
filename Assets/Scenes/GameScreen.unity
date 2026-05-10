@@ -3697,6 +3697,7 @@ MonoBehaviour:
   Farm: {fileID: 1176928122029860186, guid: 5f6fd46794243794da639f6520aa5d65, type: 3}
   Factory: {fileID: -2923609552621757463, guid: b39360d7162cb294f8ad9f6995afaca8, type: 3}
   TrafficLight: {fileID: -9176597640430338514, guid: afc346620a111a1459f53f97b1fa115e, type: 3}
+  BusStop: {fileID: 7775937797015221228, guid: d87e3166fbc61be4dae591c13698b487, type: 3}
   Car: {fileID: -9188971089763018169, guid: 0194fe34af320ad4bbb5605580cee9c3, type: 3}
   Bus: {fileID: -431947834347700825, guid: fe39649b3c0249f47b17866cdeeeae74, type: 3}
   MiniVan: {fileID: -6538178328319618751, guid: f5b7d23ab98123848a4de03042f5e31d, type: 3}

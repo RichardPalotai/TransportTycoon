@@ -50,7 +50,7 @@ public class FacilityDataHandler : MonoBehaviour
             if (value < 0 || value > 100)
                 throw new Exception("Value is not in % bounds");
             else
-                Traffic_Text.text = value.ToString() + "%";
+                Traffic_Text.text = Math.Round(value, 2).ToString() + "%";
         }
     }
 

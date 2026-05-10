@@ -87,7 +87,7 @@ public class VehicleDataHandler : MonoBehaviour
             if (value < 0 || value > 100)
                 throw new Exception("Value is not in % bounds");
             else
-                Condition_Text.text = value.ToString() + "%";
+                Condition_Text.text = Math.Round(value, 2).ToString() + "%";
         }
     }
 
@@ -96,13 +96,13 @@ public class VehicleDataHandler : MonoBehaviour
     /// </summary>
     public double RepairCost
     {
-        get { return int.Parse(RepairCost_Text.text); }
+        get { return double.Parse(RepairCost_Text.text); }
         set
         {
             if (value < 0)
                 throw new Exception("Repair cost is negative");
             else
-                RepairCost_Text.text = value.ToString();
+                RepairCost_Text.text = Math.Floor(value).ToString();
         }
     }
 
@@ -111,13 +111,13 @@ public class VehicleDataHandler : MonoBehaviour
     /// </summary>
     public double Worth
     {
-        get { return int.Parse(Worth_Text.text); }
+        get { return Math.Floor(double.Parse(Worth_Text.text)); }
         set
         {
             if (value < 0)
                 throw new Exception("Worth is negative");
             else
-                Worth_Text.text = value.ToString();
+                Worth_Text.text = Math.Floor(value).ToString();
         }
     }
     #endregion

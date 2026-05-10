@@ -113,7 +113,7 @@ MonoBehaviour:
   routeButton: {fileID: 2786844516765179538}
   DefaultSprite: {fileID: 21300000, guid: 26a74d2d9118d4c48b7f030fe7acdd53, type: 3}
   SelectedSprite: {fileID: 21300000, guid: 457b08a0b59744070a632b40324675f2, type: 3}
-  OrderText: {fileID: 0}
+  OrderText: {fileID: 3568358739781143775}
   selfObject: {fileID: 0}
 --- !u!114 &-1230150014239455281
 MonoBehaviour:
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d305075a7296b4f85b7563ec9ebfd454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectController
-  ObjScript: {fileID: 0}
+  ObjScript: {fileID: 5030626575209159399}
 --- !u!65 &-6876511978653734799
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -147,8 +147,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 68.83669, y: 24.927864, z: 79.391335}
+  m_Center: {x: 0.64004886, y: 11.96391, z: 0.76253283}
 --- !u!1001 &8933869211893602551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -295,3 +295,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &3568358739781143775 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5367765089533776936, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+  m_PrefabInstance: {fileID: 8933869211893602551}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI

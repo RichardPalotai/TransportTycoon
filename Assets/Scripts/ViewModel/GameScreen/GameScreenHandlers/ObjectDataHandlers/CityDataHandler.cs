@@ -50,7 +50,7 @@ public class CityDataHandler : MonoBehaviour
             if (value < 0 || value > 100)
                 throw new Exception("Value is not in % bounds");
             else
-                Satisfaction_Text.text = value.ToString() + "%";
+                Satisfaction_Text.text = Math.Round(value, 2).ToString() + "%";
         }
     }
 

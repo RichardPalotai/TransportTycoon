@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class TrafficLightScript : GridObject
 {
-    #region Private variables
+    // #region Private variables
 
-    #endregion
+    // #endregion
 
-    #region Public override methods
+    // #region Public override methods
     public override void OnObjectPlaced()
     {
         Debug.LogWarning("Placed Traffic Light");
     }
-    #endregion
+    // #endregion
 
     // #region Unity calls
-    // public override void Awake()
-    // {
-    //     base.Awake();
-    //     DefaultSprite = routeButton.image.sprite;
-    //     SelectedSprite = routeButton.spriteState.highlightedSprite;
-    //     routeCanvas.gameObject.SetActive(false);
-    // }
+    public override void Awake()
+    {
+        base.Awake();
+        // DefaultSprite = routeButton.image.sprite;
+        // SelectedSprite = routeButton.spriteState.highlightedSprite;
+        // routeCanvas.gameObject.SetActive(false);
+    }
 
     void Start()
     {

@@ -113,8 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: ViewModel::TruckScript
   data: {fileID: 11400000, guid: 99a18876951c74d449b04127919151cb, type: 2}
   position: {x: 0, y: 0}
-  routeCanvas: {fileID: 0}
-  routeButton: {fileID: 0}
+  routeCanvas: {fileID: 3661879320930850156}
+  routeButton: {fileID: 1352476606629496981}
   DefaultSprite: {fileID: 0}
   SelectedSprite: {fileID: 0}
   OrderText: {fileID: 0}
@@ -151,8 +151,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.025221553, y: 0.07894334, z: 0.028226135}
-  m_Center: {x: 0, y: 0.018173307, z: 0.013671092}
+  m_Size: {x: 0.025221553, y: 0.07894334, z: 0.032533854}
+  m_Center: {x: 0, y: 0.018173309, z: 0.01310223}
 --- !u!1001 &5734015444593037040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,6 +161,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1511732457165104647}
     m_Modifications:
+    - target: {fileID: 6726028068676109925, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6922722f2dee849d8ab5ea7ac39210b0, type: 3}
     - target: {fileID: 7406200569220320579, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
       propertyPath: m_Name
       value: RouteIcon
@@ -271,6 +275,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+--- !u!114 &1352476606629496981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6726028068676109925, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+  m_PrefabInstance: {fileID: 5734015444593037040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!223 &3661879320930850156 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 9026000344860908444, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}
+  m_PrefabInstance: {fileID: 5734015444593037040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4509358788665166198 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8144519440491218822, guid: 0bb74e42c572c0141a28ea49e965a44d, type: 3}

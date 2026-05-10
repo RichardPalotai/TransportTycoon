@@ -9,9 +9,15 @@ public class NotEnoughMoneyException : Exception
         Tag = "Not Enough Money Error";
     }
 
-    public NotEnoughMoneyException (string message) 
-        : base(message) {}
+    public NotEnoughMoneyException (string message, string tag = "Not Enough Money Error") 
+        : base(message)
+    {
+        Tag = tag;
+    }
 
     public NotEnoughMoneyException (string message, Exception innerException)
-        : base (message, innerException) {}
+        : base (message, innerException)
+    {
+        Tag = "Not Enough Money Error";
+    }
 }

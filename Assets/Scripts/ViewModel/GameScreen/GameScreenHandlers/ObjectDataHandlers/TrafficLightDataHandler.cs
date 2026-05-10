@@ -69,7 +69,7 @@ public class TrafficLightDataHandler : MonoBehaviour
             if (value <= 0 || value > 60)
                 throw new Exception("Green light length is negative or more than 60 seconds");
             else
-                GreenLight_Text.text = value.ToString();
+                GreenLight_Text.text = Math.Floor(value).ToString();
         }
     }
     #endregion
