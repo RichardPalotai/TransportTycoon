@@ -14,7 +14,7 @@ public class TrafficLightTestScript
 
         trafficLight.Crossroad = new();
         AreEqual(10, trafficLight.Crossroad.GreenInterval);
-        
+
         trafficLight.GreenLightIncrement();
         AreEqual(11, trafficLight.Crossroad.GreenInterval);
 
@@ -37,6 +37,10 @@ public class TrafficLightTestScript
 
 
     }
-
+    [Test]
+    public void TrafficLightGreenLightExceptionTest()
+    {
+        TrafficLight trafficLight = new(false);
+    }
 
 }

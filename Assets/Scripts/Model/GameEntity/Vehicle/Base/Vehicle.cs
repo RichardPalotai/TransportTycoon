@@ -132,5 +132,14 @@ public abstract partial class Vehicle : GameEntity, ITradeable, IUpdateable
 
     }
 
+    public void PlaceVehicle(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= _map.Size || y >= _map.Size)
+        {
+            throw new IndexOutOfRangeException($"X or Y values are out of bounds. Values:\n X: {x},\nY: {y}");
+        }
+        X = x;
+        Y = y;
+    }
 
 }
