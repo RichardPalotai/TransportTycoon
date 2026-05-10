@@ -93,5 +93,10 @@ public class GameTestScript
         Assert.DoesNotThrow(() => game.Map = new Map());
         Assert.NotNull(game.Saves);
         Assert.Throws<FileNotFoundException>(() => Game.LoadGame(new DataAccess(), "asdf"));
+
+        Car c = new(5, game.Map);
+        GameEntity.ResetId();
+        Car c2 = new(5, game.Map);
+        Assert.AreEqual(1, c2.ID);
     }
 }
