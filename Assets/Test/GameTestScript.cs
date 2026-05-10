@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.IO;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -81,5 +82,16 @@ public class GameTestScript
         game.SaveGame();
         Assert.IsNotNull(Game.GetSaves(new DataAccess()));
         Assert.IsNotEmpty(Game.GetSaves(new DataAccess()));
+    }
+    [Test]
+    public void GameSettersTest()
+    {
+        var game = new Game();
+        game.NewGame(new DataAccess());
+        game.SaveGame();
+
+        Assert.DoesNotThrow(() => game.Map = new Map());
+        Assert.NotNull(game.Saves);
+        Assert.Throws<FileNotFoundException>(() => Game.LoadGame(new DataAccess(), "asdf"));
     }
 }

@@ -27,4 +27,11 @@ public class TileTestScript
         Assert.AreEqual(12346, t3.ObjectId);
 
     }
+
+    [Test]
+    public void TileExceptionTests()
+    {
+        Assert.DoesNotThrow(() => new Tile(15, 15, new BusStop(false)));
+
+    }
 }
