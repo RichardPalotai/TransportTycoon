@@ -78,15 +78,20 @@ public class BuildingPlacer : MonoBehaviour
 
     public void AttemptPlacement(Vector2 mousePos, BuilderSelectorHandler.Building build)
     {
-        if (build == BuilderSelectorHandler.Building.ROAD)
+        // 1. FIX THE FACILITY BUG: Correctly route the prefab selection!
+        switch (build)
         {
-            gridObject = Road;
-        }
-        else
-        {
-            gridObject = objects[num % 4];
-            ++num;
-
+            case BuilderSelectorHandler.Building.ROAD: gridObject = Road; break;
+            case BuilderSelectorHandler.Building.TRAFFICLIGHT: gridObject = TrafficLight; break;
+            case BuilderSelectorHandler.Building.CAR: gridObject = Car; break;
+            case BuilderSelectorHandler.Building.BUS: gridObject = Bus; break;
+            case BuilderSelectorHandler.Building.TRUCK: gridObject = Truck; break;
+            case BuilderSelectorHandler.Building.MINIVAN: gridObject = MiniVan; break;
+            case BuilderSelectorHandler.Building.NONE: return;
+            default:
+                gridObject = objects[num % 4];
+                ++num;
+                break;
         }
 
         selectedBuilding = gridObject.data;
@@ -96,90 +101,92 @@ public class BuildingPlacer : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
-            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
             int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
             int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
 
-            if (mapManager.GetTile(originX, originZ).Type is StraightRoadScript road)
+            bool isVehicle = (build == BuilderSelectorHandler.Building.CAR ||
+                          build == BuilderSelectorHandler.Building.BUS ||
+                          build == BuilderSelectorHandler.Building.TRUCK ||
+                          build == BuilderSelectorHandler.Building.MINIVAN);
+
+            GridObject clickedTileObject = mapManager.GetTile(originX, originZ).Type;
+
+            if (isVehicle)
             {
 
-                switch (build)
+
+                if (mapManager.GetTile(originX, originZ).Type is StraightRoadScript road)
                 {
-                    case BuilderSelectorHandler.Building.MINIVAN:
-
-                        if (MiniVan is VehicleScript carvan)
-                        {
-
-                            Game.instance.Map.PlaceObject(originX, originZ, new Minivan(Milk.Instance, Game.instance.Map));
-                            if (Game.instance.Map.GetTile(originX, originZ).Entity is Minivan van)
+                    //Debug.LogWarning("Entered IF!");
+                    switch (build)
+                    {
+                        case BuilderSelectorHandler.Building.MINIVAN:
+                            //Debug.LogWarning("Entered MiniVan!");
+                            if (MiniVan is VehicleScript minivanPrefab)
                             {
-                                carvan.modelSelf = van;
+                                //Debug.LogWarning("Entered MiniVan IF!");
+                                //Game.instance.Map.PlaceObject(originX, originZ, new Minivan(Milk.Instance, Game.instance.Map));
+
+                                Minivan van = new Minivan(Milk.Instance, Game.instance.Map);
+                                van.PlaceVehicle(originX, originZ);
+
+                                VehicleScript spawnedVan = road.AddCar(minivanPrefab) as VehicleScript;
+
+                                spawnedVan.modelSelf = van;
+                                
                             }
+                            break;
 
-                            road.AddCar(carvan);
-                        }
-
-                        break;
-                    case BuilderSelectorHandler.Building.CAR:
-
-                        if (MiniVan is VehicleScript carcar)
-                        {
-
-                            Game.instance.Map.PlaceObject(originX, originZ, new Car(4, Game.instance.Map));
-                            if (Game.instance.Map.GetTile(originX, originZ).Entity is Car car)
+                        case BuilderSelectorHandler.Building.CAR:
+                            if (Car is VehicleScript carPrefab)
                             {
-                                carcar.modelSelf = car;
+                                //Game.instance.Map.PlaceObject(originX, originZ, new Car(4, Game.instance.Map));
+
+                                Car c = new Car(5, Game.instance.Map);
+                                c.PlaceVehicle(originX, originZ);
+
+                                VehicleScript spawnedCar = road.AddCar(carPrefab) as VehicleScript;
+
+                                spawnedCar.modelSelf = c;
+
                             }
+                            break;
 
-                            road.AddCar(carcar);
-                        }
-
-                        break;
-                    case BuilderSelectorHandler.Building.BUS:
-
-                        if (MiniVan is VehicleScript carbus)
-                        {
-
-                            Game.instance.Map.PlaceObject(originX, originZ, new Bus(50, Game.instance.Map));
-                            if (Game.instance.Map.GetTile(originX, originZ).Entity is Bus bus)
+                        case BuilderSelectorHandler.Building.BUS:
+                            if (Bus is VehicleScript busPrefab)
                             {
-                                carbus.modelSelf = bus;
+                                //Game.instance.Map.PlaceObject(originX, originZ, new Bus(50, Game.instance.Map));
+
+                                Bus bus = new Bus(50, Game.instance.Map);
+                                bus.PlaceVehicle(originX, originZ);
+
+                                VehicleScript spawnedBus = road.AddCar(busPrefab) as VehicleScript;
+
+                                spawnedBus.modelSelf = bus;
+                                
                             }
+                            break;
 
-                            road.AddCar(carbus);
-                        }
-
-                        break;
-
-                    case BuilderSelectorHandler.Building.TRUCK:
-
-                        if (MiniVan is VehicleScript cartruck)
-                        {
-
-                            Game.instance.Map.PlaceObject(originX, originZ, new Truck(Milk.Instance, Game.instance.Map));
-                            if (Game.instance.Map.GetTile(originX, originZ).Entity is Truck truck)
+                        case BuilderSelectorHandler.Building.TRUCK:
+                            if (Truck is VehicleScript truckPrefab)
                             {
-                                cartruck.modelSelf = truck;
+                                //Game.instance.Map.PlaceObject(originX, originZ, new Truck(Milk.Instance, Game.instance.Map));
+
+                                Truck truck = new Truck(Milk.Instance, Game.instance.Map);
+                                truck.PlaceVehicle(originX, originZ);
+
+                                VehicleScript spawnedTruck = road.AddCar(truckPrefab) as VehicleScript;
+
+                                spawnedTruck.modelSelf = truck;
                             }
-
-                            road.AddCar(cartruck);
-                        }
-
-                        break;
-
+                            break;
+                    }
                 }
             }
             else
             {
-                if (build == BuilderSelectorHandler.Building.TRAFFICLIGHT)
-                {
-                    gridObject = TrafficLight;
-                    selectedBuilding = TrafficLight.data;
-                }
                 if (IsFootprintValid(originX, originZ, selectedBuilding.tileSize))
                 {
-                    
                     PlaceBuilding(originX, originZ);
                 }
                 else
@@ -187,7 +194,6 @@ public class BuildingPlacer : MonoBehaviour
                     Debug.LogWarning("Cannot build here! Area is blocked or out of bounds." + originX + " " + originZ);
                 }
             }
-
         }
     }
 
@@ -199,9 +205,9 @@ public class BuildingPlacer : MonoBehaviour
             {
                 int checkX = startX + x;
                 int checkZ = startZ + z;
-                Debug.LogWarning("Checking footprint x: " + x);
-                Debug.LogWarning("Checking footprint y: " + z);
-                Debug.LogWarning("Hit Tile: " + checkX + " " + checkZ);
+                //Debug.LogWarning("Checking footprint x: " + x);
+                //Debug.LogWarning("Checking footprint y: " + z);
+                //Debug.LogWarning("Hit Tile: " + checkX + " " + checkZ);
 
                 if (checkX < 0 || checkX >= mapManager.Size ||
                     checkZ < 0 || checkZ >= mapManager.Size)
