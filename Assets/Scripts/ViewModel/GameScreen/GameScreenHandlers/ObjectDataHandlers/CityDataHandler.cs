@@ -92,7 +92,6 @@ public class CityDataHandler : MonoBehaviour
             ID = SelectedCity.ID;
             Satisfaction = SelectedCity.Satisfaction();
             Needs = SelectedCity.Need.Select(x => x.Key.ToString()).ToList();
-            CheckDeselectKey();
         }
     }
     #endregion
@@ -101,23 +100,12 @@ public class CityDataHandler : MonoBehaviour
     private void OnCloseClicked()
     {
         SetDefaultValues();
+        GameViewModel.instance.DeselectObject();
         gameObject.SetActive(false);
     }
     #endregion
 
     #region Private methods
-    /// <summary>
-    /// On k key pressed sets the Data Display off and to default values
-    /// </summary>
-    private void CheckDeselectKey()
-    {
-        if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            SetDefaultValues();
-            gameObject.SetActive(false);
-        }
-    }
-
     private void SetDefaultValues()
     {
         SelectedCity = null;

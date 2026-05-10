@@ -174,7 +174,6 @@ public class VehicleDataHandler : MonoBehaviour
             Condition = SelectedVehicle.Condition;
             RepairCost = SelectedVehicle.RepairCost;
             Worth = SelectedVehicle.Worth;
-            CheckDeselectKey();
         }
     }
     #endregion
@@ -183,6 +182,7 @@ public class VehicleDataHandler : MonoBehaviour
     private void OnCloseClicked()
     {
         SetDefaultValues();
+        GameViewModel.instance.DeselectObject();
         gameObject.SetActive(false);
     }
     private void OnSetRouteClicked()
@@ -204,18 +204,6 @@ public class VehicleDataHandler : MonoBehaviour
     #endregion
 
     #region Private methods
-    /// <summary>
-    /// On k key pressed sets the Data Display off and to default values
-    /// </summary>
-    private void CheckDeselectKey()
-    {
-        if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            SetDefaultValues();
-            gameObject.SetActive(false);
-        }
-    }
-
     private void SetDefaultValues()
     {
         SelectedVehicle = null;

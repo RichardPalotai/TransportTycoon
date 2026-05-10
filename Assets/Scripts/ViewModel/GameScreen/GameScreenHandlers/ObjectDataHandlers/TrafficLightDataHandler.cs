@@ -101,8 +101,8 @@ public class TrafficLightDataHandler : MonoBehaviour
             // TODO - Set properties to the selected car's (3D modell - Bálint) <BINDING>
             ID = SelectedTrafficLight.ID;
             Worth = SelectedTrafficLight.Cost;
+            Debug.Log(SelectedTrafficLight.Crossroad == null);
             GreenLight = SelectedTrafficLight.Crossroad.GreenInterval;
-            CheckDeselectKey();
         }
     }
     #endregion
@@ -111,6 +111,7 @@ public class TrafficLightDataHandler : MonoBehaviour
     private void OnCloseClicked()
     {
         SetDefaultValues();
+        GameViewModel.instance.DeselectObject();
         gameObject.SetActive(false);
     }
     private void OnMinusClicked()
@@ -133,18 +134,6 @@ public class TrafficLightDataHandler : MonoBehaviour
     #endregion
 
     #region Private methods
-    /// <summary>
-    /// On k key pressed sets the Data Display off and to default values
-    /// </summary>
-    private void CheckDeselectKey()
-    {
-        if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            SetDefaultValues();
-            gameObject.SetActive(false);
-        }
-    }
-
     private void SetDefaultValues()
     {
         SelectedTrafficLight = null;

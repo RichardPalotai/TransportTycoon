@@ -107,8 +107,6 @@ public class GameViewModel : MonoBehaviour
                 try
                 {
                     BuildingPlacer.instance.AttemptPlacement(mouse.position.ReadValue(), BuilderSelectorHandler.instance.selectedBuilding);
-                    // TODO - Specify parameter!!!!! <BINDING> <MODEL>
-                    Game.instance.Player.Purchase(SelectedObject as ITradeable);
                 }
                 catch (NotEnoughSpaceForObjectException e)
                 {
@@ -119,9 +117,8 @@ public class GameViewModel : MonoBehaviour
                     ErrorHandler.instance.DisplayError(e.Tag, e.Message);
                 }
             }
-            else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject == null)
+            else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject != null)
             {
-                // TODO - Destror building from  -- BuildingPlacer -- <BINDING>
                 BuildingPlacer.instance.DemolishBuilding(mouse.position.ReadValue(), SelectedObject);
                 Game.instance.Player.SellItem(SelectedObject as ITradeable);
             }

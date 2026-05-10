@@ -61,7 +61,6 @@ public class CameraController : MonoBehaviour
         if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
         {
             followTransform = null;
-            GameViewModel.instance.DeselectObject();
         }
     }
     #endregion
