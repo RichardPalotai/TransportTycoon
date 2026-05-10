@@ -54,9 +54,10 @@ public class MainMenuHandler : MonoBehaviour
         NewGame_btn.onClick.AddListener(OnNewGameClicked);
         LoadGame_btn.onClick.AddListener(OnLoadGameClicked);
         QuitGame_btn.onClick.AddListener(OnQuitGameClicked);
-
+        
         LoadGame_btn.interactable = IsThereSave;
         SetSlotsActive(IsThereSave);
+        GameSlot_dropdown.onValueChanged.AddListener(OnNewSaveSelected);
     }
 
     // Update is called once per frame
@@ -73,7 +74,7 @@ public class MainMenuHandler : MonoBehaviour
     }
     private void OnLoadGameClicked()
     {
-        (string name, DateTime timeOfSave) save = GetSave(GameSlot_dropdown.options[0].text);
+        (string name, DateTime timeOfSave) save = GetSave(GameSlot_dropdown.options[GameSlot_dropdown.value].text);
         GameViewModel.LoadedGame = save;
         SceneManager.LoadScene("GameScreen");
 
@@ -95,7 +96,6 @@ public class MainMenuHandler : MonoBehaviour
     /// <param name="state">true == GameSlots UI on / false == GameSlots UI off</param>
     private void SetSlotsActive(bool state)
     {
-        Debug.LogWarning(state);
         GameSlot_dropdown.gameObject.SetActive(state);
         RectTransform rt = QuitGame_btn.GetComponent<RectTransform>();
         if (state)
@@ -120,6 +120,12 @@ public class MainMenuHandler : MonoBehaviour
         {
             GameSlot_dropdown.options.Add(new TMP_Dropdown.OptionData(name));
         }
+        GameSlot_dropdown.captionText.text = GameSlot_dropdown.options[0].text;
+    }
+
+    private void OnNewSaveSelected(int index)
+    {
+        GameSlot_dropdown.captionText.text = GameSlot_dropdown.options[index].text;
     }
     #endregion
 }
