@@ -64,6 +64,8 @@ public class ProdFacilityTestScript
     public void BusStopTestScript()
     {
         BusStop stop = new BusStop(false, 1, 1, 1);
+        Logger.ObjectPlacedLog(stop.GetType(), 1, 1);
+        Logger.LogTime(System.DateTime.Now);
         IsNotNull(stop);
         False(stop.IsGenerated);
         AreEqual(1, stop.X);

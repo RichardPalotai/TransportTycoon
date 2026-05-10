@@ -42,6 +42,17 @@ public class MapTestScript
     }
 
     [Test]
+    public void SetTileTest()
+    {
+        var game = new Game();
+        game.NewGame(new DataAccess());
+        AreEqual(100, game.Map.Size);
+
+        Throws<IndexOutOfRangeException>(() => game.Map.SetTile(-1, -1, new Tile(-1, -1)));
+        DoesNotThrow(() => game.Map.SetTile(1, 1, new Tile(1, 1)));
+    }
+
+    [Test]
     public void PlaceObjectTest()
     {
         var game = new Game();
