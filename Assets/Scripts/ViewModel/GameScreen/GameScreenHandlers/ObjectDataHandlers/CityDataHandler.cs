@@ -88,7 +88,6 @@ public class CityDataHandler : MonoBehaviour
     {
         if (SelectedCity != null)
         {
-            // TODO - Set properties to the selected city's (3D modell - Bálint) <BINDING>
             ID = SelectedCity.ID;
             Satisfaction = SelectedCity.Satisfaction();
             Needs = SelectedCity.Need.Select(x => x.Key.ToString()).ToList();
@@ -106,6 +105,9 @@ public class CityDataHandler : MonoBehaviour
     #endregion
 
     #region Private methods
+    /// <summary>
+    /// Sets the default values to the data display for error cheking purposes
+    /// </summary>
     private void SetDefaultValues()
     {
         SelectedCity = null;
@@ -116,6 +118,10 @@ public class CityDataHandler : MonoBehaviour
     #endregion
 
     #region Public methods
+    /// <summary>
+    /// Sets all the buttons on the data display to active/inactive
+    /// </summary>
+    /// <param name="state">true == buttons active/false == buttons inactive</param>
     public void SetButtonsActive(bool state)
     {
         Close_btn.interactable = state;

@@ -100,7 +100,6 @@ public class FacilityDataHandler : MonoBehaviour
     {
         if (SelectedFacility != null)
         {
-            // TODO - Set properties to the selected facility's (3D modell - Bálint) <BINDING>
             ID = SelectedFacility.ID;
             Traffic = SelectedFacility.Traffic(Game.instance.Player);
             switch (SelectedFacility.GetType().GetGenericArguments()[0].Name)
@@ -152,6 +151,9 @@ public class FacilityDataHandler : MonoBehaviour
     #endregion
 
     #region Private methods
+    /// <summary>
+    /// Sets the default values to the data display for error cheking purposes
+    /// </summary>
     private void SetDefaultValues()
     {
         SelectedFacility = null;
@@ -163,6 +165,10 @@ public class FacilityDataHandler : MonoBehaviour
     #endregion
 
     #region Public methods
+    /// <summary>
+    /// Sets all the buttons on the data display to active/inactive
+    /// </summary>
+    /// <param name="state">true == buttons active/false == buttons inactive</param>
     public void SetButtonsActive(bool state)
     {
         Close_btn.interactable = state;

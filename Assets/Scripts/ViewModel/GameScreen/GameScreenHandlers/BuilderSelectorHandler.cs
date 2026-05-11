@@ -37,6 +37,9 @@ public class BuilderSelectorHandler : MonoBehaviour
     #endregion
 
     #region Properties
+    /// <summary>
+    /// The price of the object
+    /// </summary>
     private int PriceAmount
     {
         get { return int.Parse(PriceTag_Text.text); }
@@ -48,6 +51,10 @@ public class BuilderSelectorHandler : MonoBehaviour
                 PriceTag_Text.text = value.ToString();
         }
     }
+
+    /// <summary>
+    /// If the selected button is Mouse_btn
+    /// </summary>
     public bool IsMouseSelected
     {
         get { return SelectedButton == Mouse_btn; }

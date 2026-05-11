@@ -49,6 +49,9 @@ public class GameOverHandler : MonoBehaviour
     #endregion
 
     #region Public methods
+    /// <summary>
+    /// Toggles the GameOver screen on/off
+    /// </summary>
     public void ToggleGameOverScreen() => gameObject.SetActive(!gameObject.activeSelf);
     #endregion
 }

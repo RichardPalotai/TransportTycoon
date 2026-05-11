@@ -146,7 +146,6 @@ public class VehicleDataHandler : MonoBehaviour
     {
         if (SelectedVehicle != null)
         {
-            // TODO - Set properties to the selected car's (3D modell - Bálint) <BINDING>
             ID = SelectedVehicle.ID;
             switch (SelectedVehicle)
             {
@@ -191,12 +190,10 @@ public class VehicleDataHandler : MonoBehaviour
     }
     private void OnRepairClicked()
     {
-        // TODO - Connect to REAL DATA <BINDING>
         Game.instance.Player.Vehicles.Find(v => v.ID == SelectedVehicle.ID).Repair(Game.instance.Player);
     }
     private void OnSellClicked()
     {
-        // TODO - Connect to model <BINDING>
         BuildingPlacer.instance.DemolishBuilding(SelectedVehicle.X, SelectedVehicle.Y, SelectedVehicle);
         Game.instance.Player.SellItem(SelectedVehicle);
         SetDefaultValues();
@@ -204,6 +201,9 @@ public class VehicleDataHandler : MonoBehaviour
     #endregion
 
     #region Private methods
+    /// <summary>
+    /// Sets the default values to the data display for error cheking purposes
+    /// </summary>
     private void SetDefaultValues()
     {
         SelectedVehicle = null;
@@ -217,6 +217,10 @@ public class VehicleDataHandler : MonoBehaviour
     #endregion
 
     #region Public methods
+    /// <summary>
+    /// Sets all the buttons on the data display to active/inactive
+    /// </summary>
+    /// <param name="state">true == buttons active/false == buttons inactive</param>
     public void SetButtonsActive(bool state)
     {
         Close_btn.interactable = state;

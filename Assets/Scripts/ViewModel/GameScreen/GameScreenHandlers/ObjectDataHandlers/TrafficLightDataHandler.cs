@@ -98,11 +98,10 @@ public class TrafficLightDataHandler : MonoBehaviour
     {
         if (SelectedTrafficLight != null)
         {
-            // TODO - Set properties to the selected car's (3D modell - Bálint) <BINDING>
             ID = SelectedTrafficLight.ID;
             Worth = SelectedTrafficLight.Cost;
-            Debug.Log(SelectedTrafficLight.Crossroad == null);
-            GreenLight = SelectedTrafficLight.Crossroad.GreenInterval;
+            //Debug.Log(SelectedTrafficLight.Crossroad == null);
+            GreenLight = SelectedTrafficLight.Crossroad.GreenInterval; // GreenInterval != null (csak akkor ha szabályosan van letéve a traffic light)
         }
     }
     #endregion
@@ -116,17 +115,14 @@ public class TrafficLightDataHandler : MonoBehaviour
     }
     private void OnMinusClicked()
     {
-        // TODO - Connect to Model <MODEL>
         SelectedTrafficLight.GreenLightDecrement();
     }
     private void OnPlusClicked()
     {
-        // TODO - Connect to Model <MODEL>
         SelectedTrafficLight.GreenLightIncrement();
     }
     private void OnSellClicked()
     {
-        // TODO - Connect to model <BINDING>
         BuildingPlacer.instance.DemolishBuilding(SelectedTrafficLight.X, SelectedTrafficLight.Y, SelectedTrafficLight);
         Game.instance.Player.SellItem(SelectedTrafficLight);
         SetDefaultValues();
@@ -134,6 +130,9 @@ public class TrafficLightDataHandler : MonoBehaviour
     #endregion
 
     #region Private methods
+    /// <summary>
+    /// Sets the default values to the data display for error cheking purposes
+    /// </summary>
     private void SetDefaultValues()
     {
         SelectedTrafficLight = null;
@@ -144,6 +143,10 @@ public class TrafficLightDataHandler : MonoBehaviour
     #endregion
 
     #region Public methods
+    /// <summary>
+    /// Sets all the buttons on the data display to active/inactive
+    /// </summary>
+    /// <param name="state">true == buttons active/false == buttons inactive</param>
     public void SetButtonsActive(bool state)
     {
         Close_btn.interactable = state;

@@ -85,10 +85,10 @@ public class MenuBarHandler : MonoBehaviour
         Forward_btn.onClick.AddListener(OnForwardClicked);
         FastForward_btn.onClick.AddListener(OnFastForwardClicked);
 
-        // Only for debug pruposes
-        Debug.Log("Account Balance: " + AccountBalance);
-        Debug.Log("Calendar Time: " + CalendarTime);
-        Debug.Log("Time: " + Time);
+        // // Only for debug pruposes
+        // Debug.Log("Account Balance: " + AccountBalance);
+        // Debug.Log("Calendar Time: " + CalendarTime);
+        // Debug.Log("Time: " + Time);
     }
 
     // Update is called once per frame
@@ -106,10 +106,10 @@ public class MenuBarHandler : MonoBehaviour
     #region Private methods
     private void OnPauseClicked()
     {
-        Debug.Log("GAME INSTANCE: " + Game.instance);
-        Debug.Log("GAME CURRENTIME: " + Game.instance?.CurrentTime);
-        Debug.Log("CALENDAR: " + CalendarTime);
-        Debug.Log("TIME: " + Time);
+        // Debug.Log("GAME INSTANCE: " + Game.instance);
+        // Debug.Log("GAME CURRENTIME: " + Game.instance?.CurrentTime);
+        // Debug.Log("CALENDAR: " + CalendarTime);
+        // Debug.Log("TIME: " + Time);
         Game.instance.PauseGame();
         SelectButton(Pause_btn);
     }
@@ -147,6 +147,10 @@ public class MenuBarHandler : MonoBehaviour
     #endregion
 
     #region Public methods
+    /// <summary>
+    /// Sets all the buttons on the menu bar display to active/inactive
+    /// </summary>
+    /// <param name="status">true == buttons active/false == buttons inactive</param>
     public void SetButtonsActive(bool status)
     {
         Pause_btn.interactable = status;
@@ -155,11 +159,17 @@ public class MenuBarHandler : MonoBehaviour
         FastForward_btn.interactable = status;
     }
 
+    /// <summary>
+    /// Makes the play button the selected button
+    /// </summary>
     public void SelectPlayButton()
     {
         SelectButton(Play_btn);
     }
 
+    /// <summary>
+    /// Makes the Pause button the selected button
+    /// </summary>
     public void SelectPauseButton()
     {
         SelectButton(Pause_btn);

@@ -21,6 +21,9 @@ public class MinimapHandler : MonoBehaviour
         AdjustPlayerPositionIcon();
     }
 
+    /// <summary>
+    /// Adjusts the minimap arrow to the direction the player is looking at the map
+    /// </summary>
     private void AdjustPlayerPositionIcon()
     {
         Quaternion rotation = Quaternion.Euler(90, Camera.main.transform.rotation.eulerAngles.y, Camera.main.transform.rotation.eulerAngles.z); ;

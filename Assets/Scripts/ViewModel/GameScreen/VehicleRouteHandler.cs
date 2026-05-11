@@ -19,12 +19,14 @@ public class VehicleRouteHandler : MonoBehaviour
     private LinkedList<int> currentRoute = new LinkedList<int>();
     #endregion
 
-    #region Public variables
-
-    #endregion
-
     #region Events
+    /// <summary>
+    /// When the route is reset invoke this
+    /// </summary>
     public event Action OnRouteReset;
+    /// <summary>
+    /// When route chnages invoke this
+    /// </summary>
     public event Action OnRouteChanged;
     #endregion
 
@@ -69,6 +71,12 @@ public class VehicleRouteHandler : MonoBehaviour
         GameViewModel.instance.SetRouteDisplayActive(false);
     }
 
+    /// <summary>
+    /// Chekcs if the place connected to the ID is at the end of the list ir the beggining
+    /// </summary>
+    /// <param name="ID">Object ID</param>
+    /// <returns></returns>
+    /// <exception cref="RouteException"></exception>
     private bool IsPlaceAnEnd(int ID)
     {
         if (currentRoute.First.Value == ID || currentRoute.Last.Value == ID)
@@ -81,6 +89,11 @@ public class VehicleRouteHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if place (ID) is near to vehicle
+    /// </summary>
+    /// <param name="toID">Object ID</param>
+    /// <returns>true/false</returns>
     private bool IsPlaceNear(int toID) // TODO FIX BUG
     {
         // Facility toFacility = Game.instance.Player.Facilities.Find(x => x.ID == toID);
@@ -102,31 +115,46 @@ public class VehicleRouteHandler : MonoBehaviour
     #endregion
 
     #region Public methods
+    /// <summary>
+    /// If place can be selected false than true
+    /// </summary>
+    /// <param name="ID">Object ID</param>
+    /// <returns>true/false</returns>
     public bool IsPlaceSelected(int ID)
     {
         if (currentRoute.Contains(ID) && IsPlaceAnEnd(ID))
         {
             currentRoute.Remove(ID);
             OnRouteChanged?.Invoke();
-            Debug.Log("[REMOVED] " + ID + " from " + currentRoute.ToList());
+            //Debug.Log("[REMOVED] " + ID + " from " + currentRoute.ToList());
             return false;
         }
         else if (!currentRoute.Contains(ID) && IsPlaceNear(ID))
         {
             currentRoute.AddLast(ID);
             OnRouteChanged?.Invoke();
-            Debug.Log("[ADDED] " + ID + " to " + currentRoute.ToList());
+            //Debug.Log("[ADDED] " + ID + " to " + currentRoute.ToList());
             return true;
         }
 
         return false;
     }
 
+    /// <summary>
+    /// Checks if ID is in currentRoute
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns>true/false</returns>
     public bool IsPlaceInRoute(int ID)
     {
         return currentRoute.Contains(ID);
     }
 
+    /// <summary>
+    /// Gets the order of the place (ID) in the currentRoute
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns></returns>
     public string GetPlaceOrder(int ID)
     {
         var order = currentRoute.ToList().IndexOf(ID);

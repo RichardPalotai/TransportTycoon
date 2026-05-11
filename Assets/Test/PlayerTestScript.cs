@@ -14,7 +14,7 @@ public class PlayerTestScript
 
         Assert.IsNotNull(player);
         Assert.IsNotNull(Player.instance);
-        Assert.AreEqual(2000, player.Money);
+        Assert.AreEqual(20000, player.Money);
         Assert.IsNotNull(player.Facilities);
         Assert.IsNotNull(player.Vehicles);
         Assert.AreEqual(0, player.Facilities.Count);
@@ -35,13 +35,13 @@ public class PlayerTestScript
 
         Assert.AreEqual(initialMoney - (int)Prices.BUS, player.Money);
         Assert.AreEqual(1, player.Vehicles.Count);
-        for (int i = 0; i < 12; ++i)
+        for (int i = 0; i < 132; ++i)
         {
             player.Purchase(new Bus(40, game.Map));
         }
-        Assert.AreEqual(13, player.Vehicles.Count);
+        Assert.AreEqual(133, player.Vehicles.Count);
 
-        Assert.AreEqual(initialMoney - (int)Prices.BUS * 13, player.Money);
+        Assert.AreEqual(initialMoney - (int)Prices.BUS * 133, player.Money);
         Assert.Throws<NotEnoughMoneyException>(() => player.Purchase(new Bus(40, game.Map)));
         Assert.Throws<NotEnoughMoneyException>(() => player.Purchase(new Bus(40, game.Map)));
         Assert.Throws<NotEnoughMoneyException>(() => player.Purchase(new Bus(40, game.Map)));
