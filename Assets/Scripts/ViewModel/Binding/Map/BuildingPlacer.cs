@@ -24,6 +24,9 @@ public class BuildingPlacer : MonoBehaviour
     public GridObject MiniVan;
     public GridObject Truck;
 
+    private int factoryCommodity = 0;
+    private int farmCommodity = 0;
+
     private GridObject[] objects = new GridObject[4];
     private int num;
 
@@ -393,25 +396,53 @@ public class BuildingPlacer : MonoBehaviour
                 mapManager.SetTile(startX + x, startZ + z, gridObjScript);
             }
         }
-
+        GameEntity facil = new Road(false);
         if (selectedBuilding is FacilityResource facility)
         {
+            
             switch (facility.FacilityObj)
             {
                 case FacilityResource.Facility.FARM:
-                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new Farm<Milk>());
-                    break;
+                    if (farmCommodity == 0)
+                    {
+                        facil = new Farm<Milk>();
+                        //Game.instance.Map.PlaceObject(startX + x, startZ + z, new Farm<Milk>());
+                    }
+                    else if (farmCommodity == 1)
+                    {
+                        facil = new Farm<Egg>();
+                        //Game.instance.Map.PlaceObject(startX + x, startZ + z, new Farm<Egg>());
+                    }
+                    else
+                    {
+                        facil = new Farm<Cheese>();
+                        //Game.instance.Map.PlaceObject(startX + x, startZ + z, new Farm<Cheese>());
+                    }
+
+                        break;
                 case FacilityResource.Facility.FACTORY:
-                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new Factory<Steel>());
-                    break;
+                    if (factoryCommodity == 0)
+                    {
+                        facil = new Factory<Steel>();
+                        //Game.instance.Map.PlaceObject(startX + x, startZ + z, new Factory<Steel>());
+                    }
+                    else if (factoryCommodity == 1)
+                    {
+                        facil = new Factory<Paper>();
+                        //Game.instance.Map.PlaceObject(startX + x, startZ + z, new Factory<Paper>());
+                    }
+                        break;
                 case FacilityResource.Facility.MINE:
-                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Iron>());
+                    facil = new Mine<Iron>();
+                    //Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Iron>());
                     break;
                 case FacilityResource.Facility.SAWMILL:
-                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Wood>());
+                    facil = new Mine<Wood>();
+                    //Game.instance.Map.PlaceObject(startX + x, startZ + z, new Mine<Wood>());
                     break;
                 case FacilityResource.Facility.CITY:
-                    Game.instance.Map.PlaceObject(startX + x, startZ + z, new City());
+                    facil = new City();
+                    //Game.instance.Map.PlaceObject(startX + x, startZ + z, new City());
                     break;
                 default:
                     break;
@@ -424,7 +455,8 @@ public class BuildingPlacer : MonoBehaviour
 
         else if (selectedBuilding is RoadResource road)
         {
-            Game.instance.Map.PlaceObject(startX, startZ, new Road(false));
+            facil = new Road(false);
+            //Game.instance.Map.PlaceObject(startX, startZ, new Road(false));
             
             if (gridObject is StraightRoadScript stroad)
             {
@@ -445,9 +477,10 @@ public class BuildingPlacer : MonoBehaviour
                 }
             }
         }
-
+        Game.instance.Player.Purchase(facil as ITradeable);
+        Game.instance.Map.PlaceObject(startX, startZ, facil);
         gridObjScript.modelSelf = Game.instance.Map.GetTile(startX, startZ).Entity;
-        Game.instance.Player.Purchase(gridObjScript.modelSelf as ITradeable);
+        
         gridObjScript.OnObjectPlaced();
     }
 
@@ -532,9 +565,15 @@ public class BuildingPlacer : MonoBehaviour
             gridObject = Mine;
             AttemptPlacement(20, 50, BuilderSelectorHandler.Building.BUSSTOP);
             gridObject = Farm;
-            AttemptPlacement(20, 20, BuilderSelectorHandler.Building.BUSSTOP);
+            AttemptPlacement(60, 20, BuilderSelectorHandler.Building.BUSSTOP);
+            farmCommodity = 1;
+            AttemptPlacement(70, 20, BuilderSelectorHandler.Building.BUSSTOP);
+            farmCommodity = 2;
+            AttemptPlacement(20, 70, BuilderSelectorHandler.Building.BUSSTOP);
             gridObject = Factory;
             AttemptPlacement(50, 20, BuilderSelectorHandler.Building.BUSSTOP);
+            factoryCommodity = 1;
+            AttemptPlacement(50, 40, BuilderSelectorHandler.Building.BUSSTOP);
             after = true;
         }
         

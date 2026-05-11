@@ -1,7 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FarmScript : GridObject
 {
+    public Sprite EggSprite;
+    public Sprite EggSelectedSprite;
+    public Sprite CheeseSprite;
+    public Sprite CheeseSelectedSprite;
+
     #region Private variables
 
     #endregion
@@ -10,15 +16,37 @@ public class FarmScript : GridObject
     public override void OnObjectPlaced()
     {
         Debug.LogWarning("Placed Farm");
+        //Debug.LogWarning("Farm is: " + modelSelf.ToString());
+        DefaultSprite = routeButton.image.sprite;
+        SelectedSprite = routeButton.spriteState.highlightedSprite;
+        if (this.modelSelf is Farm<Egg> eggfarm)
+        {
+            SpriteState state = new SpriteState();
+            state.highlightedSprite = EggSelectedSprite;
+            Debug.LogWarning("Egg FARM!");
+            DefaultSprite = EggSprite;
+            SelectedSprite = EggSelectedSprite;
+            routeButton.spriteState = state;
+        }
+        if (this.modelSelf is Farm<Cheese> cheesefarm) {
+            SpriteState state = new SpriteState();
+            state.highlightedSprite = CheeseSelectedSprite;
+            Debug.LogWarning("Cheese FARM!");
+            DefaultSprite = CheeseSprite;
+            SelectedSprite = CheeseSelectedSprite;
+            routeButton.spriteState = state;
+        }
     }
     #endregion
 
     #region Unity calls
     public override void Awake()
     {
-        base.Awake();
+        base.Awake();/*
         DefaultSprite = routeButton.image.sprite;
-        SelectedSprite = routeButton.spriteState.highlightedSprite;
+        SelectedSprite = routeButton.spriteState.highlightedSprite;*/
+        
+        
         routeCanvas.gameObject.SetActive(false);
     }
 

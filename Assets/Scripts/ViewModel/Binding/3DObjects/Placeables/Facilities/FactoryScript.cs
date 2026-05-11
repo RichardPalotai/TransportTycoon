@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FactoryScript : GridObject
 {
+    public Sprite PaperSprite;
+    public Sprite PaperSelectedSprite;
     #region Private variables
 
     #endregion
@@ -9,16 +12,29 @@ public class FactoryScript : GridObject
     #region Public override methods
     public override void OnObjectPlaced()
     {
-        Debug.LogWarning("Placed Farm");
+        Debug.LogWarning("Placed Factory");
+        //Debug.LogWarning("Farm is: " + modelSelf.ToString());
+        DefaultSprite = routeButton.image.sprite;
+        SelectedSprite = routeButton.spriteState.highlightedSprite;
+        if (this.modelSelf is Factory<Paper> eggfarm)
+        {
+            SpriteState state = new SpriteState();
+            state.highlightedSprite = PaperSelectedSprite;
+            DefaultSprite = PaperSprite;
+            SelectedSprite = PaperSelectedSprite;
+            routeButton.spriteState = state;
+        }
     }
     #endregion
 
     #region Unity calls
     public override void Awake()
     {
-        base.Awake();
+        base.Awake();/*
         DefaultSprite = routeButton.image.sprite;
-        SelectedSprite = routeButton.spriteState.highlightedSprite;
+        SelectedSprite = routeButton.spriteState.highlightedSprite;*/
+
+
         routeCanvas.gameObject.SetActive(false);
     }
 

@@ -276,6 +276,10 @@ MonoBehaviour:
   SelectedSprite: {fileID: 21300000, guid: 9fe9de8f4cbaa433384ad54dbbef713e, type: 3}
   OrderText: {fileID: 7175797706215404208}
   selfObject: {fileID: 0}
+  EggSprite: {fileID: 21300000, guid: 5e40ce765a94a42468b036261deb422f, type: 3}
+  EggSelectedSprite: {fileID: 21300000, guid: 8445bd6f085db498bb1b0efdc040dfd1, type: 3}
+  CheeseSprite: {fileID: 21300000, guid: 643677fc301404d1b81d4c79bbaf816e, type: 3}
+  CheeseSelectedSprite: {fileID: 21300000, guid: 581b18e3632324096a8bac08b7ae1d8e, type: 3}
 --- !u!114 &-8899962538416827918
 MonoBehaviour:
   m_ObjectHideFlags: 0

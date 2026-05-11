@@ -271,6 +271,8 @@ MonoBehaviour:
   SelectedSprite: {fileID: 21300000, guid: 18d74738192024d19aa575c4f7bc72c3, type: 3}
   OrderText: {fileID: 1629174356786422820}
   selfObject: {fileID: 0}
+  PaperSprite: {fileID: 21300000, guid: 383c3b525584146c394b60ab57057b1a, type: 3}
+  PaperSelectedSprite: {fileID: 21300000, guid: dbe8fc5067f904a7f926bf329abe7345, type: 3}
 --- !u!114 &3820486005200939303
 MonoBehaviour:
   m_ObjectHideFlags: 0

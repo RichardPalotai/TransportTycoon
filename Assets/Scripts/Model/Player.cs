@@ -8,7 +8,7 @@ public sealed class Player
     public List<Facility> Facilities { get; set; }
     public Player()
     {
-        Money = 2000;
+        Money = 20000;
         Vehicles = new();
         Facilities = new();
     }
