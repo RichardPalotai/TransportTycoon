@@ -56,9 +56,9 @@ public class BuildingPlacer : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, groundLayer))
         {
             Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
-            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
-            int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
-            int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
+            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 50) + " " + (hit.point.z + 50));
+            int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 50);
+            int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 50);
 
             if (IsFootprintValid(originX, originZ, selectedBuilding.tileSize))
             {
@@ -210,8 +210,8 @@ public class BuildingPlacer : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
-            int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
+            int originX = Mathf.FloorToInt((hit.point.x / 5.0f) + 50);
+            int originZ = Mathf.FloorToInt((hit.point.z / 5.0f) + 50);
 
             bool isVehicle = (build == BuilderSelectorHandler.Building.CAR ||
                           build == BuilderSelectorHandler.Building.BUS ||
@@ -372,8 +372,8 @@ public class BuildingPlacer : MonoBehaviour
 
     private void PlaceBuilding(int startX, int startZ)
     {
-        float worldX = (startX - 15 + (selectedBuilding.tileSize / 2.0f)) * 5;
-        float worldZ = (startZ - 15 + (selectedBuilding.tileSize / 2.0f)) * 5;
+        float worldX = (startX - 50 + (selectedBuilding.tileSize / 2.0f)) * 5;
+        float worldZ = (startZ - 50 + (selectedBuilding.tileSize / 2.0f)) * 5;
         Vector3 spawnPosition = new Vector3(worldX, 0, worldZ);
 
         GameObject newBuildingObj = Instantiate(selectedBuilding.prefab, spawnPosition, selectedBuilding.prefab.transform.rotation);
@@ -459,9 +459,9 @@ public class BuildingPlacer : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Debug.LogWarning("Point hit: " + hit.point.x + " " + hit.point.z);
-            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 15) + " " + (hit.point.z + 15));
-            int x = Mathf.FloorToInt((hit.point.x / 5.0f) + 15);
-            int y = Mathf.FloorToInt((hit.point.z / 5.0f) + 15);
+            Debug.LogWarning("Point hit(tile): " + (hit.point.x + 50) + " " + (hit.point.z + 50));
+            int x = Mathf.FloorToInt((hit.point.x / 5.0f) + 50);
+            int y = Mathf.FloorToInt((hit.point.z / 5.0f) + 50);
 
             GridObject demol;
             if (mapManager.GetTile(x, y).Type != null)
@@ -526,15 +526,15 @@ public class BuildingPlacer : MonoBehaviour
         if (!after)
         {
             gridObject = City;
-            AttemptPlacement(15, 15, BuilderSelectorHandler.Building.BUSSTOP);
+            AttemptPlacement(50, 50, BuilderSelectorHandler.Building.BUSSTOP);
             gridObject = SawMill;
-            AttemptPlacement(25, 15, BuilderSelectorHandler.Building.BUSSTOP);
+            AttemptPlacement(25, 50, BuilderSelectorHandler.Building.BUSSTOP);
             gridObject = Mine;
-            AttemptPlacement(20, 15, BuilderSelectorHandler.Building.BUSSTOP);
+            AttemptPlacement(20, 50, BuilderSelectorHandler.Building.BUSSTOP);
             gridObject = Farm;
             AttemptPlacement(20, 20, BuilderSelectorHandler.Building.BUSSTOP);
             gridObject = Factory;
-            AttemptPlacement(15, 20, BuilderSelectorHandler.Building.BUSSTOP);
+            AttemptPlacement(50, 20, BuilderSelectorHandler.Building.BUSSTOP);
             after = true;
         }
         

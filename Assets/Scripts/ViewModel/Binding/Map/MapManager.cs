@@ -4,7 +4,7 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     private TileResource[,]? _map = null;
-    private int _size = 30;
+    private int _size = 100;
 
     public int Size
     {
@@ -12,6 +12,7 @@ public class MapManager : MonoBehaviour
         {
             return _size;
         }
+
     }
     public TileResource GetTile(int x, int y)
     {

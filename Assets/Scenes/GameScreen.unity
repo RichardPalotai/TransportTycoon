@@ -3695,7 +3695,7 @@ MonoBehaviour:
   SawMill: {fileID: 5632702034466025198, guid: 4bc137e9c4d793d40ae0f93fea5e3a00, type: 3}
   Mine: {fileID: 5030626575209159399, guid: 159051c761f20ef43b5edddedee17cfb, type: 3}
   Farm: {fileID: 1176928122029860186, guid: 5f6fd46794243794da639f6520aa5d65, type: 3}
-  Factory: {fileID: -4430171015924775083, guid: b39360d7162cb294f8ad9f6995afaca8, type: 3}
+  Factory: {fileID: -2923609552621757463, guid: b39360d7162cb294f8ad9f6995afaca8, type: 3}
   City: {fileID: 3948835210818888794, guid: a7136a68b9a42bd409ae35afdfa6d83d, type: 3}
   TrafficLight: {fileID: -9176597640430338514, guid: afc346620a111a1459f53f97b1fa115e, type: 3}
   BusStop: {fileID: 7775937797015221228, guid: d87e3166fbc61be4dae591c13698b487, type: 3}
@@ -11354,7 +11354,6 @@ GameObject:
   - component: {fileID: 1300995486}
   - component: {fileID: 1300995485}
   - component: {fileID: 1300995484}
-  - component: {fileID: 1300995488}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -11451,25 +11450,13 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 1, z: 15}
+  m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1967080449}
   - {fileID: 1954658968}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1300995488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300995483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97710960737fcdd45bdae0fac2c3b65a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ViewModel::StarterPlaneScript
 --- !u!1 &1301689843
 GameObject:
   m_ObjectHideFlags: 0
