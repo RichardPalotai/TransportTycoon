@@ -85,8 +85,6 @@ public class MenuBarHandler : MonoBehaviour
         Forward_btn.onClick.AddListener(OnForwardClicked);
         FastForward_btn.onClick.AddListener(OnFastForwardClicked);
 
-        SelectButton(Play_btn);
-
         // Only for debug pruposes
         Debug.Log("Account Balance: " + AccountBalance);
         Debug.Log("Calendar Time: " + CalendarTime);
@@ -160,6 +158,11 @@ public class MenuBarHandler : MonoBehaviour
     public void SelectPlayButton()
     {
         SelectButton(Play_btn);
+    }
+
+    public void SelectPauseButton()
+    {
+        SelectButton(Pause_btn);
     }
     #endregion
 }

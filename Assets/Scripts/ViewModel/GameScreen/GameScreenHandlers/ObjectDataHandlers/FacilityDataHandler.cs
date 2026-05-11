@@ -69,7 +69,7 @@ public class FacilityDataHandler : MonoBehaviour
     /// <summary>
     /// The resource a facility produces
     /// </summary>
-    public string Produce
+    public string Product
     {
         get { return Product_Text.text; }
         set
@@ -107,35 +107,35 @@ public class FacilityDataHandler : MonoBehaviour
             {
                 case "Steel":
                     Consume = "Iron";
-                    Produce = "Steel";
+                    Product = "Steel";
                     break;
                 case "Paper":
                     Consume = "Wood";
-                    Produce = "Paper";
+                    Product = "Paper";
                     break;
                 case "Wood":
                     Consume = "----";
-                    Produce = "Wood";
+                    Product = "Wood";
                     break;
                 case "Iron":
                     Consume = "----";
-                    Produce = "Iron";
+                    Product = "Iron";
                     break;
                 case "Cheese":
                     Consume = "----";
-                    Produce = "Cheese";
+                    Product = "Cheese";
                     break;
                 case "Milk":
                     Consume = "----";
-                    Produce = "Milk";
+                    Product = "Milk";
                     break;
                 case "Egg":
                     Consume = "----";
-                    Produce = "Egg";
+                    Product = "Egg";
                     break;
                 default:
                     Consume = "N/A";
-                    Produce = "N/A";
+                    Product = "N/A";
                     break;
             }
         }
@@ -158,7 +158,7 @@ public class FacilityDataHandler : MonoBehaviour
         ID = -2;
         Traffic = 0;
         Consume = "None";
-        Produce = "None";
+        Product = "None";
     }
     #endregion
 

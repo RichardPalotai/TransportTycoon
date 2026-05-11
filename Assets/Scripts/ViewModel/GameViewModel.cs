@@ -85,11 +85,13 @@ public class GameViewModel : MonoBehaviour
         {
             Game game = new();
             Game.instance = Game.LoadGame(new DataAccess(), LoadedGame?.name);
+            MenuBarHandler.instance.SelectPauseButton();
         }
         else
         {
             Game game = new Game();
             Game.instance = game;
+            MenuBarHandler.instance.SelectPlayButton();
 
             Game.instance.NewGame(new DataAccess());
         }

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuBarHandlerTests
+public class MenuBarTest
 {
     private GameObject root;
     private MenuBarHandler menu;
