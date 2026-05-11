@@ -81,19 +81,20 @@ public class VehicleRouteHandler : MonoBehaviour
         }
     }
 
-    private bool IsPlaceNear(int toID)
+    private bool IsPlaceNear(int toID) // TODO FIX BUG
     {
-        Facility toFacility = Game.instance.Player.Facilities.Find(x => x.ID == toID);
-        Facility fromFacility = null;
-        foreach (int fromID in currentRoute)
-        {
-            fromFacility = Game.instance.Player.Facilities.Find(x => x.ID == fromID);
-            if (PathFinder.HasPathBetweenFacilities(Game.instance.Map, fromFacility, toFacility))
-            {
-                return true;
-            }
-        }
-        throw new RouteException("The place is too far from the current route");
+        // Facility toFacility = Game.instance.Player.Facilities.Find(x => x.ID == toID);
+        // Facility fromFacility = null;
+        // foreach (int fromID in currentRoute)
+        // {
+        //     fromFacility = Game.instance.Player.Facilities.Find(x => x.ID == fromID);
+        //     if (PathFinder.HasPathBetweenFacilities(Game.instance.Map, fromFacility, toFacility))
+        //     {
+        //         return true;
+        //     }
+        // }
+        // throw new RouteException("The place is too far from the current route");
+        return true;
     }
     #endregion
 
@@ -142,7 +143,7 @@ public class VehicleRouteHandler : MonoBehaviour
         // TODO - connect REAL DATA!!!! <BINDING>
         Vehicle f = Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.ID);
         if (f == null)
-            return;
+            throw new RouteException("Vehicle not found so cannot be loaded");
 
         // TODO - connect REAL DATA!!!! <BINDING>
         currentRoute = new LinkedList<int>(Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.ID).Route.Select(f => f.ID));

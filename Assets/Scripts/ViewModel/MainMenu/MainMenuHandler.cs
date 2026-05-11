@@ -39,7 +39,7 @@ public class MainMenuHandler : MonoBehaviour
     #endregion
 
     #region Public methods    
-    public (string name, DateTime timeOfSave) GetSave(string name) => Game.GetSaves(new DataAccess()).First(save => save.name == name);
+    public (string name, DateTime timeOfSave) GetSave(string name) => Game.GetSaves(new DataAccess()).FirstOrDefault(save => save.name == name);
     #endregion
 
     #region Unity calls

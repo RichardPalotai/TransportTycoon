@@ -5,7 +5,9 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "ViewModel",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Persistence",
+        "Model"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
