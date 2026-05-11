@@ -142,6 +142,7 @@ public class VehicleRouteHandler : MonoBehaviour
     {
         // TODO - connect REAL DATA!!!! <BINDING>
         Vehicle f = Game.instance.Player.Vehicles.Find(v => v.ID == GameViewModel.instance.SelectedObject.ID);
+        Debug.Log("<<VEHICLE>>" + f == null);
         if (f == null)
             throw new RouteException("Vehicle not found so cannot be loaded");
 

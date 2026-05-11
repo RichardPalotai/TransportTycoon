@@ -154,35 +154,91 @@ public class VehicleRouteTest
     [Test]
     public void LoadRoute_WhenVehicleNotFound_Returns()
     {
-        Game game = new Game();
+        var game = new Game();
         Game.instance = game;
-        Car c = new Car(2, Game.instance.Map);
-        //Game.instance.Player.Purchase(c);
-        SetPrivateField(viewModel, "selectedObject", c);
+        DataAccess dataAccess = new();
+        game.NewGame(dataAccess);
+        var player = game.Player;
+        SetPrivateField(viewModel, "selectedObject", new Bus(40, game.Map));
         Assert.Throws<RouteException>(() => vehicleRoute.LoadRoute());
     }
 
     [Test]
     public void LoadRoute_WhenVehicleFound_UpdatesCurrentRoute()
     {
-        Game game = new Game();
+        var game = new Game();
         Game.instance = game;
-        Car c = new Car(2, Game.instance.Map);
-        //Game.instance.Player.Purchase(c);
-        SetPrivateField(viewModel, "selectedObject", c);
-        Assert.Throws<RouteException>(() => vehicleRoute.LoadRoute());
+        DataAccess dataAccess = new();
+        game.NewGame(dataAccess);
+        var player = game.Player;
+        player.Money = 20000;
+
+        Assert.AreEqual(GetPrivateField<LinkedList<int>>("currentRoute").Count, 0);
+        player.Purchase(new Bus(40, game.Map));
+        player.Purchase(new LumberMill<Wood>());
+        player.Purchase(new Factory<Steel>());
+        SetPrivateField(viewModel, "selectedObject", player.Vehicles[0]);
+        LinkedList<int> route = new LinkedList<int>();
+        route.AddLast(1);
+        route.AddLast(2);
+        route.AddLast(3);
+        route.AddLast(4);
+        SetPrivateField(vehicleRoute, "currentRoute", new LinkedList<int>(route));
+        Game.instance.Player.Vehicles.Find(v => v.ID == viewModel.SelectedObject.ID).SetRoute(GetPrivateField<LinkedList<int>>("currentRoute"), player.Facilities);
+        vehicleRoute.ResetRoute();
+        vehicleRoute.LoadRoute();
+        Assert.Greater(GetPrivateField<LinkedList<int>>("currentRoute").Count, 0);
     }
 
     [Test]
     public void SaveRoute_WhenVehicleFound_UpdatesRouteInModel()
     {
+        var game = new Game();
+        Game.instance = game;
+        DataAccess dataAccess = new();
+        game.NewGame(dataAccess);
+        var player = game.Player;
+        player.Money = 20000;
 
-    }
+        Assert.AreEqual(GetPrivateField<LinkedList<int>>("currentRoute").Count, 0);
+        player.Purchase(new Bus(40, game.Map));
+        player.Purchase(new LumberMill<Wood>());
+        player.Purchase(new Factory<Steel>());
+        SetPrivateField(viewModel, "selectedObject", player.Vehicles[0]);
+        LinkedList<int> route = new LinkedList<int>();
+        route.AddLast(player.Facilities[0].ID);
+        route.AddLast(player.Facilities[1].ID);
+        SetPrivateField(vehicleRoute, "currentRoute", new LinkedList<int>(route));
+        Game.instance.Player.Vehicles.Find(v => v.ID == viewModel.SelectedObject.ID).SetRoute(GetPrivateField<LinkedList<int>>("currentRoute"), player.Facilities);
+        vehicleRoute.ResetRoute();
+        vehicleRoute.LoadRoute();
+        foreach (var id in route)
+        {
+            Assert.IsTrue(GetPrivateField<LinkedList<int>>("currentRoute").Contains(id));    }
+        }
 
     [Test]
     public void ResetRoute_SetsCurrentRouteEmpty_And_InvokesOnRouteReset()
     {
+        var game = new Game();
+        Game.instance = game;
+        DataAccess dataAccess = new();
+        game.NewGame(dataAccess);
+        var player = game.Player;
+        player.Money = 20000;
 
+        Assert.AreEqual(GetPrivateField<LinkedList<int>>("currentRoute").Count, 0);
+        player.Purchase(new Bus(40, game.Map));
+        player.Purchase(new LumberMill<Wood>());
+        player.Purchase(new Factory<Steel>());
+        SetPrivateField(viewModel, "selectedObject", player.Vehicles[0]);
+        LinkedList<int> route = new LinkedList<int>();
+        route.AddLast(player.Facilities[0].ID);
+        route.AddLast(player.Facilities[1].ID);
+        SetPrivateField(vehicleRoute, "currentRoute", new LinkedList<int>(route));
+        Assert.Greater(GetPrivateField<LinkedList<int>>("currentRoute").Count, 0);
+        vehicleRoute.ResetRoute();
+        Assert.AreEqual(GetPrivateField<LinkedList<int>>("currentRoute").Count, 0);
     }
 
     private TextMeshProUGUI CreateText(string name)
