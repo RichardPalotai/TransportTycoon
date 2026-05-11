@@ -68,7 +68,6 @@ public class StraightRoadScript : GridObject
 
     public void ApplyVisuals(int score)
     {
-        // 1. Reset everything to hidden first so meshes don't overlap!
         Straight.SetActive(false);
         Turn.SetActive(false);
         Tri.SetActive(false);
@@ -231,40 +230,28 @@ public class StraightRoadScript : GridObject
     // Update is called once per frame
     void Update()
     {
-        // -----------------------------------------
-        // 1. CHECK THE RIGHT LANE
-        // -----------------------------------------
         if (RightOccupied != null && RightOccupied.modelSelf is Vehicle rightVehicle)
         {
-            // HAS THE CAR MOVED TO A NEW TILE?
             if (rightVehicle.X != position.x || rightVehicle.Y != position.y)
             {
-                // Figure out which lane it needs on the NEXT road
                 bool goesLeft = CalculateLaneDirection(rightVehicle, RightOccupied);
 
-                // Hand it over to the NEXT road
                 if (map.GetTile(rightVehicle.X, rightVehicle.Y).Type is StraightRoadScript nextRoad)
                 {
                     nextRoad.AddCar(RightOccupied as VehicleScript, goesLeft);
                 }
 
-                // CRITICAL FIX: The car left our tile! We MUST clear our Right slot so a new car can use it!
                 RightOccupied = null;
             }
             else
             {
-                // The car hasn't moved to a new tile yet. Update its internal memory, but do NOT call AddCar!
                 RightOccupied.position.x = rightVehicle.X;
                 RightOccupied.position.y = rightVehicle.Y;
             }
         }
 
-        // -----------------------------------------
-        // 2. CHECK THE LEFT LANE
-        // -----------------------------------------
         if (LeftOccupied != null && LeftOccupied.modelSelf is Vehicle leftVehicle)
         {
-            // HAS THE CAR MOVED TO A NEW TILE?
             if (leftVehicle.X != position.x || leftVehicle.Y != position.y)
             {
                 bool goesLeft = CalculateLaneDirection(leftVehicle, LeftOccupied);
@@ -274,7 +261,6 @@ public class StraightRoadScript : GridObject
                     nextRoad.AddCar(LeftOccupied as VehicleScript, goesLeft);
                 }
 
-                // CRITICAL FIX: Clear the Left slot!
                 LeftOccupied = null;
             }
             else
@@ -285,7 +271,6 @@ public class StraightRoadScript : GridObject
         }
     }
 
-    // Helper method to keep your Update loop clean!
     private bool CalculateLaneDirection(Vehicle backendVehicle, GridObject carScript)
     {
         bool left = true;

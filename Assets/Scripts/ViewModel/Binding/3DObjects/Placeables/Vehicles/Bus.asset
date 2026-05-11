@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleResource
   objectName: Bus
   tileSize: 1
-  prefab: {fileID: 2881643864528560389, guid: fe39649b3c0249f47b17866cdeeeae74, type: 3}
+  prefab: {fileID: 1698962242652300118, guid: b112dc1381ed853438f20874c10d2385, type: 3}
   placementCost: 400
   Capacity: 50
   Speed: 25
