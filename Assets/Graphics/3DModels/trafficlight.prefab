@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7a4fda41638e9a247b9c69af0a032ffb, type: 2}
     - target: {fileID: 919132149155446097, guid: 7fea3d6f0c25a094fbea2ea436e214fb, type: 3}
       propertyPath: m_Name
-      value: trafficlight
+      value: TrafficLight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025651c0dd5337941a83709a237c597d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ViewModel::TrafficLightScript
-  data: {fileID: 11400000, guid: 9264c9bb80f75b146badcdeefb9f145f, type: 2}
+  data: {fileID: 11400000, guid: d24344ea1dcff40e98d2cce06a7abb9c, type: 2}
   position: {x: 0, y: 0}
   routeCanvas: {fileID: 3757163315391959567}
   routeButton: {fileID: 1455029609808711670}

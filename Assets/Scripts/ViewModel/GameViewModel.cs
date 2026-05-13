@@ -85,6 +85,7 @@ public class GameViewModel : MonoBehaviour
         {
             Game game = new();
             Game.instance = Game.LoadGame(new DataAccess(), LoadedGame?.name);
+            BuildingPlacer.instance.RebuildVisualsFromLoadedModel();
             MenuBarHandler.instance.SelectPauseButton();
         }
         else
@@ -112,15 +113,15 @@ public class GameViewModel : MonoBehaviour
                 }
                 catch (NotEnoughSpaceForObjectException e)
                 {
-                    ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+                    MessageHandler.instance.DisplayError(e.Tag, e.Message);
                 }
                 catch (FieldOverrideException e)
                 {
-                    ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+                    MessageHandler.instance.DisplayError(e.Tag, e.Message);
                 }
                 catch (NotEnoughMoneyException e)
                 {
-                    ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+                    MessageHandler.instance.DisplayError(e.Tag, e.Message);
                 }
             }
             else if (!IsMouseOverUI() && gameMode == GameMode.DEMOLISH && selectedObject != null)
@@ -146,15 +147,6 @@ public class GameViewModel : MonoBehaviour
     #endregion
 
     #region Private methods
-    /// <summary>
-    /// Determines whether the mouse is over a UI element or not
-    /// </summary>
-    /// <returns>true == mouse is over UI / false == mouse is not over UI</returns>
-    private bool IsMouseOverUI()
-    {
-        return EventSystem.current.IsPointerOverGameObject();
-    }
-
     /// <summary>
     /// Sets the GameScreenUI on/off
     /// </summary>
@@ -236,12 +228,17 @@ public class GameViewModel : MonoBehaviour
     #endregion
 
     #region Public methods
+    /// <summary>
+    /// Determines whether the mouse is over a UI element or not
+    /// </summary>
+    /// <returns>true == mouse is over UI / false == mouse is not over UI</returns>
+    public bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
 
     public void SelectObject(GameEntity obj)
     {
-        if (SelectedObject != null)
-            return;
-            
         SelectedObject = obj;
         switch (selectedObject)
         {
@@ -272,6 +269,9 @@ public class GameViewModel : MonoBehaviour
     /// <param name="state">true == UI is on / false == UI is off</param>
     public void SetMenuActive(bool state)
     {
+        if (GameOverHandler.instance.IsGameOverUIActive)
+            return;
+            
         IsGameMenuOn = state;
         GameMenu_cnv.gameObject.SetActive(state);
         SetGameScreenUIButtonsActive(!state);

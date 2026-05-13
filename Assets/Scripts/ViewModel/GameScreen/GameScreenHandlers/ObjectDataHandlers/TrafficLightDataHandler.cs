@@ -101,7 +101,10 @@ public class TrafficLightDataHandler : MonoBehaviour
             ID = SelectedTrafficLight.ID;
             Worth = SelectedTrafficLight.Cost;
             //Debug.Log(SelectedTrafficLight.Crossroad == null);
-            GreenLight = SelectedTrafficLight.Crossroad.GreenInterval; // GreenInterval != null (csak akkor ha szabályosan van letéve a traffic light)
+            if (SelectedTrafficLight.Crossroad != null)
+                GreenLight = SelectedTrafficLight.Crossroad.GreenInterval; // GreenInterval != null (csak akkor ha szabályosan van letéve a traffic light)
+            else
+                GreenLight = 13;
         }
     }
     #endregion

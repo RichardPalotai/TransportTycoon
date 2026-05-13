@@ -32,10 +32,10 @@ public class GameOverDisplayTest
     [Test]
     public void ToggleGameOverScreen_SwitchesGameObectActivity()
     {
-        Assert.IsFalse(gameoverDisp.gameObject.activeSelf);
+        Assert.IsFalse(gameoverDisp.IsGameOverUIActive);
         gameoverDisp.ToggleGameOverScreen();
-        Assert.IsTrue(gameoverDisp.gameObject.activeSelf);
+        Assert.IsTrue(gameoverDisp.IsGameOverUIActive);
         gameoverDisp.ToggleGameOverScreen();
-        Assert.IsFalse(gameoverDisp.gameObject.activeSelf);
+        Assert.IsFalse(gameoverDisp.IsGameOverUIActive);
     }
 }

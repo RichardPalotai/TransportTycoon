@@ -11,7 +11,7 @@ public class MainMenuTest
 {
     private GameObject root;
     private MainMenuHandler menu;
-    private ErrorHandler errDisp;
+    private MessageHandler msgDisp;
 
     [SetUp]
     public void SetUp()
@@ -22,16 +22,16 @@ public class MainMenuTest
         root.SetActive(false);
 
         menu = root.AddComponent<MainMenuHandler>();
-        errDisp = root.AddComponent<ErrorHandler>();
+        msgDisp = root.AddComponent<MessageHandler>();
 
         SetPrivateField(menu, "NewGame_btn", CreateButton("NewGame_btn"));
         SetPrivateField(menu, "LoadGame_btn", CreateButton("LoadGame_btn"));
         SetPrivateField(menu, "GameSlot_dropdown", CreateDropdown("SlotSelector_btn"));
         SetPrivateField(menu, "QuitGame_btn", CreateButton("QuitGame_btn"));
 
-        SetPrivateField(errDisp, "Close_btn", CreateButton("Close_btn"));
-        SetPrivateField(errDisp, "ErrorTag_txt", CreateText("ErrorTag_text"));
-        SetPrivateField(errDisp, "Error_txt", CreateText("Error_text"));
+        SetPrivateField(msgDisp, "Close_btn", CreateButton("Close_btn"));
+        SetPrivateField(msgDisp, "MessageTag_txt", CreateText("MessageTag_text"));
+        SetPrivateField(msgDisp, "Message_txt", CreateText("Message_text"));
 
         // Now Awake/Start can run safely
         root.SetActive(true);

@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49427f162ff8960498d690e410885740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FactoryScript
-  data: {fileID: 11400000, guid: 79b6c56c2076b864ab1f92d602794d64, type: 2}
+  data: {fileID: 11400000, guid: 665bf59d75aae4b57b1b4daca15922b8, type: 2}
   position: {x: 0, y: 0}
   routeCanvas: {fileID: 2424933206138923920}
   routeButton: {fileID: 122294824374531689}
@@ -273,6 +273,8 @@ MonoBehaviour:
   selfObject: {fileID: 0}
   PaperSprite: {fileID: 21300000, guid: 383c3b525584146c394b60ab57057b1a, type: 3}
   PaperSelectedSprite: {fileID: 21300000, guid: dbe8fc5067f904a7f926bf329abe7345, type: 3}
+  SteelSprite: {fileID: 21300000, guid: 2f912ef5cb11e4b259a6b99bdad97794, type: 3}
+  SteelSelectedSprite: {fileID: 21300000, guid: 18d74738192024d19aa575c4f7bc72c3, type: 3}
 --- !u!114 &3820486005200939303
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class TrafficLightScript : GridObject
         base.Awake();
         // DefaultSprite = routeButton.image.sprite;
         // SelectedSprite = routeButton.spriteState.highlightedSprite;
-        // routeCanvas.gameObject.SetActive(false);
+        routeCanvas.gameObject.SetActive(false);
     }
 
     void Start()
@@ -27,11 +27,11 @@ public class TrafficLightScript : GridObject
         routeButton.onClick.AddListener(OnIconClicked);
 
 
-        // GameViewModel.instance.OnRouteDisplayChanged += HandleRouteDisplayChanged;
+        GameViewModel.instance.OnRouteDisplayChanged += HandleRouteDisplayChanged;
         // VehicleRouteHandler.instance.OnRouteReset += HandleRouteReset;
         // VehicleRouteHandler.instance.OnRouteChanged += HandleRouteChanged;
 
-        // HandleRouteDisplayChanged(GameViewModel.instance.IsRouteDisplayOn);
+        HandleRouteDisplayChanged(GameViewModel.instance.IsRouteDisplayOn);
         // HandleRouteReset();
         // HandleRouteChanged();
     }
@@ -48,23 +48,14 @@ public class TrafficLightScript : GridObject
     private void OnIconClicked()
     {
         Debug.Log("Route Icon clicked");
-        GameViewModel.instance.SelectObject(this.modelSelf);
+        if (GameViewModel.instance.Gamemode == GameViewModel.GameMode.MOUSE)
+            GameViewModel.instance.SelectObject(this.modelSelf);
     }
 
-    // private void HandleRouteDisplayChanged(bool isOn)
-    // {
-    //     routeCanvas.gameObject.SetActive(isOn);
-    //     if (VehicleRouteHandler.instance.IsPlaceInRoute(ID) && isOn)
-    //     {
-    //         routeButton.image.sprite = SelectedSprite;
-    //         OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
-    //     }
-    //     else
-    //     {
-    //         routeButton.image.sprite = DefaultSprite;
-    //         OrderText.text = VehicleRouteHandler.instance.GetPlaceOrder(ID).ToString();
-    //     }
-    // }
+    private void HandleRouteDisplayChanged(bool isOn)
+    {
+        routeCanvas.gameObject.SetActive(isOn);
+    }
 
     // private void HandleRouteReset()
     // {

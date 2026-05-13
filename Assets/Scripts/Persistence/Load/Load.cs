@@ -40,6 +40,10 @@ public sealed class Load
 
             string[] parts = line.Split(';');
 
+            if (parts.Length < 6)
+            {
+                throw new Exception($"Invalid facility save line. Expected 6 fields, got {parts.Length}: {line}");
+            }
             int id = int.Parse(parts[0]);
             bool isGenerated = parts[1] == "1";
             int x = int.Parse(parts[2]);
@@ -60,7 +64,7 @@ public sealed class Load
             entities.Add(id, facility);
         }
 
-        
+
 
         // MAP
         int mapSize = int.Parse(reader.ReadLine() ?? "0");
@@ -108,6 +112,11 @@ public sealed class Load
                 ?? throw new Exception("Unexpected EOF");
 
             string[] parts = line.Split(';');
+
+            if (parts.Length < 8)
+            {
+                throw new Exception($"Invalid vehicle save line. Expected 8 fields, got {parts.Length}: {line}");
+            }
 
             string vehicleType = parts[0];
             int id = int.Parse(parts[1]);

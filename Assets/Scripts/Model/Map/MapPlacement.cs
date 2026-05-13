@@ -92,7 +92,7 @@ public sealed partial class Map
             {
                 if (!_map[i, j].IsFree)
                 {
-                    UnityEngine.Debug.Log(i + " " + j + " " + _map[i, j].IsFree);
+                    UnityEngine.Debug.Log(i + " " + j + " " + _map[i, j].IsFree + " " + _map[i, j].Entity);
                     return false;
                 }
             }

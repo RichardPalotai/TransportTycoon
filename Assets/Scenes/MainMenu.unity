@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 7448668}
   - component: {fileID: 7448667}
   m_Layer: 5
-  m_Name: Error_text
+  m_Name: Message_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 511233261}
   - component: {fileID: 511233260}
   m_Layer: 5
-  m_Name: ErrorDIsplay
+  m_Name: MessageDIsplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1003,8 +1003,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ErrorHandler
   Close_btn: {fileID: 1099886218}
-  ErrorTag_txt: {fileID: 1536351818}
-  Error_txt: {fileID: 7448667}
+  MessageTag_txt: {fileID: 1536351818}
+  Message_txt: {fileID: 7448667}
 --- !u!114 &511233261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2610,7 +2610,7 @@ GameObject:
   - component: {fileID: 1536351819}
   - component: {fileID: 1536351818}
   m_Layer: 5
-  m_Name: ErrorTag
+  m_Name: MessageTag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

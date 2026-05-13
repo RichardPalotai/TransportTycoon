@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -45,10 +46,11 @@ public class GameMenuHandler : MonoBehaviour
         try
         {
             GameViewModel.instance.SaveGame();
+            MessageHandler.instance.DisplaySuccessMessage("Save Game", "Game saved successfuly!");
         }
         catch (System.Exception e)
         {
-            ErrorHandler.instance.DisplayError("Error", e.Message);
+            MessageHandler.instance.DisplayError("Error", e.Message);
         }
     }
 

@@ -66,38 +66,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2e08a0097110e1449b8ae2e9e9d930c0, type: 3}
       propertyPath: m_Name
-      value: lumbermill
+      value: depr
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2e08a0097110e1449b8ae2e9e9d930c0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -666206486991486647}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e08a0097110e1449b8ae2e9e9d930c0, type: 3}
---- !u!1 &138538524590736817 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2e08a0097110e1449b8ae2e9e9d930c0, type: 3}
-  m_PrefabInstance: {fileID: 949513898912725216}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &-666206486991486647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138538524590736817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f126f3ec86e5ac4499ddafc17a357b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SawmillScript
-  data: {fileID: 11400000, guid: 1057350745b9e475c976978a145efa74, type: 2}
-  position: {x: 0, y: 0}
-  routeCanvas: {fileID: 0}
-  routeButton: {fileID: 0}
-  DefaultSprite: {fileID: 0}
-  SelectedSprite: {fileID: 0}
-  OrderText: {fileID: 0}
-  ID: 0

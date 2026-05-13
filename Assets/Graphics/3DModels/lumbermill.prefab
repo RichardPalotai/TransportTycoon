@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -577258179704463814}
   - component: {fileID: -8623514979590308243}
   m_Layer: 0
-  m_Name: lumbermill
+  m_Name: Lumbermill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f126f3ec86e5ac4499ddafc17a357b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SawmillScript
-  data: {fileID: 11400000, guid: 5d70f92415bb84a4784deb229ccdff86, type: 2}
+  data: {fileID: 11400000, guid: 5395efc3e7e144f71a69933539404fd2, type: 2}
   position: {x: 0, y: 0}
   routeCanvas: {fileID: 7160351765726504896}
   routeButton: {fileID: 4849180976598481465}

@@ -62,7 +62,7 @@ public class BusStopScript : GridObject
         }
         catch (RouteException e)
         {
-            ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+            MessageHandler.instance.DisplayError(e.Tag, e.Message);
         }
     }
 

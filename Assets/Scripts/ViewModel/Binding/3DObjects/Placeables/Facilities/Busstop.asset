@@ -16,4 +16,5 @@ MonoBehaviour:
   tileSize: 1
   prefab: {fileID: 4290873129413916879, guid: d87e3166fbc61be4dae591c13698b487, type: 3}
   placementCost: 200
-  FacilityObj: 5
+  type: 5
+  productType: 7

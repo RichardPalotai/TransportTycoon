@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fca7399e1f355e44860457001808924, type: 3}
-  m_Name: Taxi
+  m_Name: Car
   m_EditorClassIdentifier: Assembly-CSharp::VehicleResource
-  objectName: Taxi
+  objectName: Car
   tileSize: 1
-  prefab: {fileID: 1191948783153654994, guid: 31c1eb84068d3d3409061d201bf07b4e, type: 3}
+  prefab: {fileID: 94180655984033985, guid: c65bf62efb63f41a782ab896e7bf0d46, type: 3}
   placementCost: 200
   Capacity: 5
   Speed: 50

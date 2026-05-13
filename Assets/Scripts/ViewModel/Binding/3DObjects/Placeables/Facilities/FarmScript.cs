@@ -7,6 +7,8 @@ public class FarmScript : GridObject
     public Sprite EggSelectedSprite;
     public Sprite CheeseSprite;
     public Sprite CheeseSelectedSprite;
+    public Sprite MilkSprite;
+    public Sprite MilkSelectedSprite;
 
     #region Private variables
 
@@ -19,7 +21,7 @@ public class FarmScript : GridObject
         //Debug.LogWarning("Farm is: " + modelSelf.ToString());
         DefaultSprite = routeButton.image.sprite;
         SelectedSprite = routeButton.spriteState.highlightedSprite;
-        if (this.modelSelf is Farm<Egg> eggfarm)
+        if (this.modelSelf is Farm<Egg>)
         {
             SpriteState state = new SpriteState();
             state.highlightedSprite = EggSelectedSprite;
@@ -28,12 +30,20 @@ public class FarmScript : GridObject
             SelectedSprite = EggSelectedSprite;
             routeButton.spriteState = state;
         }
-        if (this.modelSelf is Farm<Cheese> cheesefarm) {
+        if (this.modelSelf is Farm<Cheese>) {
             SpriteState state = new SpriteState();
             state.highlightedSprite = CheeseSelectedSprite;
             Debug.LogWarning("Cheese FARM!");
             DefaultSprite = CheeseSprite;
             SelectedSprite = CheeseSelectedSprite;
+            routeButton.spriteState = state;
+        }
+        if (this.modelSelf is Farm<Milk>) {
+            SpriteState state = new SpriteState();
+            state.highlightedSprite = MilkSelectedSprite;
+            Debug.LogWarning("Milk FARM!");
+            DefaultSprite = MilkSprite;
+            SelectedSprite = MilkSelectedSprite;
             routeButton.spriteState = state;
         }
     }
@@ -42,10 +52,7 @@ public class FarmScript : GridObject
     #region Unity calls
     public override void Awake()
     {
-        base.Awake();/*
-        DefaultSprite = routeButton.image.sprite;
-        SelectedSprite = routeButton.spriteState.highlightedSprite;*/
-        
+        base.Awake();
         
         routeCanvas.gameObject.SetActive(false);
     }
@@ -90,7 +97,7 @@ public class FarmScript : GridObject
         }
         catch (RouteException e)
         {
-            ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+            MessageHandler.instance.DisplayError(e.Tag, e.Message);
         }
     }
 

@@ -30,7 +30,7 @@ public class MainMenuHandler : MonoBehaviour
             }
             catch (System.Exception e)
             {
-                ErrorHandler.instance.DisplayError("Error", e.Message);
+                MessageHandler.instance.DisplayError("Error", e.Message);
                 return false;
             }
         }

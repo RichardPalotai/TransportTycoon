@@ -14,6 +14,10 @@ public class GameOverHandler : MonoBehaviour
     private Button MainMenu_btn;
     #endregion
 
+    #region Properties
+    public bool IsGameOverUIActive => gameObject.activeSelf;
+    #endregion
+
     #region Unity calls
     void Awake()
     {

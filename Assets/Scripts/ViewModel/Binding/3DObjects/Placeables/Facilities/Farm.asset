@@ -11,9 +11,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 087234ea6364ef5419556dbbba0b48b5, type: 3}
   m_Name: Farm
-  m_EditorClassIdentifier: Assembly-CSharp::FacilityResource
+  m_EditorClassIdentifier: ViewModel::FacilityObject
   objectName: Farm
   tileSize: 3
   prefab: {fileID: 6836251681542043125, guid: 5f6fd46794243794da639f6520aa5d65, type: 3}
   placementCost: 250
-  FacilityObj: 0
+  type: 0
+  productType: 1

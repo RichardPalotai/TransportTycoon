@@ -71,7 +71,7 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void MouseInput()
     {
-        if (Mouse.current != null)
+        if (Mouse.current != null && !GameViewModel.instance.IsMouseOverUI())
         {
             Mouse mInput = Mouse.current;
             if (mInput.scroll.ReadValue().y != 0)
@@ -79,30 +79,33 @@ public class CameraController : MonoBehaviour
                 newZoom += mInput.scroll.ReadValue().y * zoomAmount;
             }
 
-            if (mInput.leftButton.wasPressedThisFrame)
+            if (GameViewModel.instance.Gamemode == GameViewModel.GameMode.MOUSE)
             {
-                Plane plane = new Plane(Vector3.up, Vector3.zero); // Plane = An infinite surface defined by a Normal vector and a point in space
-                Ray ray = Camera.main.ScreenPointToRay(mInput.position.ReadValue()); // Ray = Straight line in 3D space going from one Object to infinity
-
-                float entry; // Distance between the ray's origin and the plane
-
-                if (plane.Raycast(ray, out entry)) // Check if the ray intersects the plane
+                if (mInput.leftButton.wasPressedThisFrame)
                 {
-                    dragStartPosition = ray.GetPoint(entry);
+                    Plane plane = new Plane(Vector3.up, Vector3.zero); // Plane = An infinite surface defined by a Normal vector and a point in space
+                    Ray ray = Camera.main.ScreenPointToRay(mInput.position.ReadValue()); // Ray = Straight line in 3D space going from one Object to infinity
+
+                    float entry; // Distance between the ray's origin and the plane
+
+                    if (plane.Raycast(ray, out entry)) // Check if the ray intersects the plane
+                    {
+                        dragStartPosition = ray.GetPoint(entry);
+                    }
                 }
-            }
-            if (mInput.leftButton.isPressed)
-            {
-                Plane plane = new Plane(Vector3.up, Vector3.zero);
-                Ray ray = Camera.main.ScreenPointToRay(mInput.position.ReadValue());
-
-                float entry;
-
-                if (plane.Raycast(ray, out entry))
+                if (mInput.leftButton.isPressed)
                 {
-                    dragCurrentPosition = ray.GetPoint(entry);
+                    Plane plane = new Plane(Vector3.up, Vector3.zero);
+                    Ray ray = Camera.main.ScreenPointToRay(mInput.position.ReadValue());
 
-                    newPosition = transform.position + dragStartPosition - dragCurrentPosition;
+                    float entry;
+
+                    if (plane.Raycast(ray, out entry))
+                    {
+                        dragCurrentPosition = ray.GetPoint(entry);
+
+                        newPosition = transform.position + dragStartPosition - dragCurrentPosition;
+                    }
                 }
             }
 
@@ -185,6 +188,11 @@ public class CameraController : MonoBehaviour
     {
         if (Keyboard.current != null || Mouse.current != null)
         {
+            newZoom.y = Mathf.Max(newZoom.y, 80f);
+            newZoom.y = Mathf.Min(newZoom.y, 2400f);
+            newZoom.z = Mathf.Min(newZoom.z, -80f);
+            newZoom.z = Mathf.Max(newZoom.z, -2400f);
+            
             // Linear interpolations (t = Framerate time (seconds) * <some value>)
             transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * moveTime); // between vectors
             transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * moveTime); // between Quaternions = 3D rotations in math

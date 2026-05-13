@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ErrorDisplayTest
 {
     private GameObject root;
-    private ErrorHandler errDisp;
+    private MessageHandler msgDisp;
 
     [SetUp]
     public void SetUp()
@@ -17,11 +17,11 @@ public class ErrorDisplayTest
         // Prevent Awake from running before fields are assigned
         root.SetActive(false);
 
-        errDisp = root.AddComponent<ErrorHandler>();
+        msgDisp = root.AddComponent<MessageHandler>();
 
-        SetPrivateField(errDisp, "Close_btn", CreateButton("Close_btn"));
-        SetPrivateField(errDisp, "ErrorTag_txt", CreateText("ErrorTag_text"));
-        SetPrivateField(errDisp, "Error_txt", CreateText("Error_text"));
+        SetPrivateField(msgDisp, "Close_btn", CreateButton("Close_btn"));
+        SetPrivateField(msgDisp, "MessageTag_txt", CreateText("MessageTag_text"));
+        SetPrivateField(msgDisp, "Message_txt", CreateText("Message_text"));
 
         // Now Awake/Start can run safely
         root.SetActive(true);
@@ -34,28 +34,28 @@ public class ErrorDisplayTest
     }
 
     [Test]
-    public void ErrorTag_WhenSet_UpdatesErrorTag()
+    public void MessageTag_WhenSet_UpdatesMessageTag()
     {
         string errTag = "Button Error";
-        errDisp.ErrorTag = errTag;
-        Assert.AreEqual(GetPrivateField<TextMeshProUGUI>("ErrorTag_txt").text, errTag);
+        msgDisp.MessageTag = errTag;
+        Assert.AreEqual(GetPrivateField<TextMeshProUGUI>("MessageTag_txt").text, errTag);
     }
     [Test]
     public void ErrorText_WhenSet_UpdatesErrorText()
     {
         string errText = "Button cannot be pressed";
-        errDisp.ErrorText = errText;
-        Assert.AreEqual(GetPrivateField<TextMeshProUGUI>("Error_txt").text, errText);
+        msgDisp.MessageText = errText;
+        Assert.AreEqual(GetPrivateField<TextMeshProUGUI>("Message_txt").text, errText);
     }
     [Test]
     public void DisplayError_WhenSet_UpdatesTextAndTagAndSetsGameObjectActive()
     {
         string errTag = "Button Error";
         string errText = "Button cannot be pressed";
-        errDisp.DisplayError(errTag, errText);
-        Assert.AreEqual(GetPrivateField<TextMeshProUGUI>("ErrorTag_txt").text, errTag);
-        Assert.AreEqual(GetPrivateField<TextMeshProUGUI>("Error_txt").text, errText);
-        Assert.IsTrue(errDisp.gameObject.activeSelf);
+        msgDisp.DisplayError(errTag, errText);
+        Assert.AreEqual(GetPrivateField<TextMeshProUGUI>("MessageTag_txt").text, errTag);
+        Assert.AreEqual(GetPrivateField<TextMeshProUGUI>("Message_txt").text, errText);
+        Assert.IsTrue(msgDisp.gameObject.activeSelf);
     }
 
     private TextMeshProUGUI CreateText(string name)
@@ -89,8 +89,8 @@ public class ErrorDisplayTest
 
     private T GetPrivateField<T>(string fieldName)
     {
-        return (T)typeof(ErrorHandler)
+        return (T)typeof(MessageHandler)
             .GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance)
-            .GetValue(errDisp);
+            .GetValue(msgDisp);
     }
 }

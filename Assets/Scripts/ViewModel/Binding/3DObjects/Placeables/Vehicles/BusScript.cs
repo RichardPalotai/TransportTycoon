@@ -8,9 +8,18 @@ public class BusScript : VehicleScript
 
     }
 
+    public override void Awake()
+    {
+        base.Awake();
+        routeCanvas.gameObject.SetActive(false);
+    }
+
     void Start()
     {
         routeButton.onClick.AddListener(OnIconClicked);
+        GameViewModel.instance.OnRouteDisplayChanged += HandleRouteDisplayChanged;
+
+        HandleRouteDisplayChanged(GameViewModel.instance.IsRouteDisplayOn);
     }
 
     // Update is called once per frame
@@ -23,6 +32,13 @@ public class BusScript : VehicleScript
     private void OnIconClicked()
     {
         Debug.Log("Route Icon clicked");
-        GameViewModel.instance.SelectObject(this.modelSelf);
+        if (GameViewModel.instance.Gamemode == GameViewModel.GameMode.MOUSE)
+            GameViewModel.instance.SelectObject(this.modelSelf);
+    }
+
+    private void HandleRouteDisplayChanged(bool isOn)
+    {
+        if (GameViewModel.instance.SelectedObject == this.modelSelf)
+            routeCanvas.gameObject.SetActive(isOn);
     }
 }

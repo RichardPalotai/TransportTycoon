@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MiniVanScript : VehicleScript
+public class CarScript : VehicleScript
 {
     public override void OnObjectPlaced()
     {

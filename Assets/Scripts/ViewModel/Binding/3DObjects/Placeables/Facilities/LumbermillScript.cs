@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SawmillScript : GridObject
+public class LumbermillScript : GridObject
 {
     #region Private variables
 
@@ -9,7 +9,7 @@ public class SawmillScript : GridObject
     #region Public override methods
     public override void OnObjectPlaced()
     {
-        Debug.LogWarning("Placed Sawmill");
+        Debug.LogWarning("Placed Lumbermill");
     }
     #endregion
 
@@ -62,7 +62,7 @@ public class SawmillScript : GridObject
         }
         catch (RouteException e)
         {
-            ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+            MessageHandler.instance.DisplayError(e.Tag, e.Message);
         }
     }
 

@@ -5,6 +5,8 @@ public class FactoryScript : GridObject
 {
     public Sprite PaperSprite;
     public Sprite PaperSelectedSprite;
+    public Sprite SteelSprite;
+    public Sprite SteelSelectedSprite;
     #region Private variables
 
     #endregion
@@ -16,12 +18,20 @@ public class FactoryScript : GridObject
         //Debug.LogWarning("Farm is: " + modelSelf.ToString());
         DefaultSprite = routeButton.image.sprite;
         SelectedSprite = routeButton.spriteState.highlightedSprite;
-        if (this.modelSelf is Factory<Paper> eggfarm)
+        if (this.modelSelf is Factory<Paper>)
         {
             SpriteState state = new SpriteState();
             state.highlightedSprite = PaperSelectedSprite;
             DefaultSprite = PaperSprite;
             SelectedSprite = PaperSelectedSprite;
+            routeButton.spriteState = state;
+        }
+        if (this.modelSelf is Factory<Steel>)
+        {
+            SpriteState state = new SpriteState();
+            state.highlightedSprite = SteelSelectedSprite;
+            DefaultSprite = SteelSprite;
+            SelectedSprite = SteelSelectedSprite;
             routeButton.spriteState = state;
         }
     }
@@ -30,10 +40,7 @@ public class FactoryScript : GridObject
     #region Unity calls
     public override void Awake()
     {
-        base.Awake();/*
-        DefaultSprite = routeButton.image.sprite;
-        SelectedSprite = routeButton.spriteState.highlightedSprite;*/
-
+        base.Awake();
 
         routeCanvas.gameObject.SetActive(false);
     }
@@ -78,7 +85,7 @@ public class FactoryScript : GridObject
         }
         catch (RouteException e)
         {
-            ErrorHandler.instance.DisplayError(e.Tag, e.Message);
+            MessageHandler.instance.DisplayError(e.Tag, e.Message);
         }
     }
 

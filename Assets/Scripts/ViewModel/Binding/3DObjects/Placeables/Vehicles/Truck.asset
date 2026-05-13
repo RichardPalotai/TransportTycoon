@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleResource
   objectName: Truck
   tileSize: 1
-  prefab: {fileID: 2283624102171344061, guid: 8f693e89d13145c49b7ef034008cfc02, type: 3}
+  prefab: {fileID: 3493795610634782149, guid: e2cb57c4d8f6548478dd9628e0f89f29, type: 3}
   placementCost: 500
   Capacity: 200
   Speed: 20

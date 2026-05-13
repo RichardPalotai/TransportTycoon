@@ -36,7 +36,7 @@ public class StraightRoadScript : GridObject
 
     public void UpdateRoadShape()
     {
-        score= 0;
+        score = 0;
 
         if (IsRoadAt(position.x, position.y + 1)) score += 1;
         
@@ -167,7 +167,7 @@ public class StraightRoadScript : GridObject
         }
     }
 
-    public VehicleScript? AddCar(VehicleScript carPrefab)
+    public VehicleScript? AddVehicle(VehicleScript vehiclePrefab)
     {
         Debug.LogWarning("Trying to place car!");
 
@@ -177,23 +177,24 @@ public class StraightRoadScript : GridObject
             return null;
         }
 
-        GameObject spawnedCarObj = null;
+        GameObject spawnedVehicleObj = null;
         VehicleScript spawnedScript = null;
 
         if (RightOccupied == null)
         {
-            spawnedCarObj = Instantiate(carPrefab.data.prefab, SlotRight.position, SlotRight.rotation);
+            spawnedVehicleObj = Instantiate(vehiclePrefab.data.prefab, SlotRight.position, SlotRight.rotation);
             Debug.LogWarning("Placed car on Right side!");
-            spawnedScript = spawnedCarObj.GetComponent<VehicleScript>();
+            spawnedScript = spawnedVehicleObj.GetComponent<VehicleScript>();
 
             RightOccupied = spawnedScript;
+            Debug.LogError(spawnedVehicleObj);
             return spawnedScript;
         }
         if (LeftOccupied == null)
         {
-            spawnedCarObj = Instantiate(carPrefab.data.prefab, SlotLeft.position, SlotLeft.rotation);
+            spawnedVehicleObj = Instantiate(vehiclePrefab.data.prefab, SlotLeft.position, SlotLeft.rotation);
             Debug.LogWarning("Placed car on Left side!");
-            spawnedScript = spawnedCarObj.GetComponent<VehicleScript>();
+            spawnedScript = spawnedVehicleObj.GetComponent<VehicleScript>();
 
             LeftOccupied = spawnedScript; 
             return spawnedScript;
