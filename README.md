@@ -1,92 +1,137 @@
-# Szoftech csoport of Aces
+# Transport Tycoon
 
+A 3D transport management simulation game built in Unity 6. Build road networks, manage a fleet of vehicles, trade commodities between facilities, and grow your transportation empire — all while keeping your budget in the black.
 
-## Getting started
+> Developed as a university coursework project for the ELTE Szoftvertechnológia course (Group 06, 2026).
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+---
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Gameplay
 
-## Add your files
+- **Build** roads, bus stops, traffic lights, and production facilities (farms, factories, mines, lumber mills) on a 100×100 tile map
+- **Buy vehicles** — trucks, minivans, buses, and cars — and assign them routes between locations
+- **Trade commodities** such as Iron, Steel, Coal, Wood, Milk, Eggs, and Cheese between cities and production facilities
+- **Transport passengers** between cities using buses and cars
+- **Manage your budget** — every purchase costs money, and vehicles degrade over time
+- **Save and load** your game at any point
 
-* [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+---
+
+## Getting Started
+
+### Requirements
+
+- **Unity 6000.3.7f1** (or compatible)
+- Universal Render Pipeline (URP) — included via Package Manager
+- .NET / C# 9+
+
+### Running the Project
+
+1. Clone the repository:
+   ```bash
+   git clone <repo-url>
+   cd szoftech-csoport-of-aces
+   ```
+2. Open the project in **Unity Hub** using Unity 6000.3.7f1.
+3. Open the `MainMenu` scene from `Assets/Scenes/MainMenu.unity`.
+4. Press **Play** in the Unity Editor, or build the project via **File → Build Settings**.
+
+---
+
+## Project Structure
 
 ```
-cd existing_repo
-git remote add origin https://szofttech.inf.elte.hu/szofttech-ab-2026/group-06/szoftech-csoport-of-aces.git
-git branch -M master
-git push -uf origin master
+Assets/
+├── Scenes/
+│   ├── MainMenu.unity          # Start screen
+│   ├── GameScreen.unity        # Main gameplay scene
+│   └── GameMenu.unity          # Pause / game-over screen
+├── Scripts/
+│   ├── Model/                  # Core game logic (Unity-independent)
+│   │   ├── Game.cs             # Central game controller & time management
+│   │   ├── Player.cs           # Player state (money, owned assets)
+│   │   ├── Map.cs              # 100×100 tile grid
+│   │   ├── Entities/           # City, Crossroad, base GameEntity
+│   │   ├── Facilities/         # Farm, Factory, Mine, LumberMill, Road, BusStop...
+│   │   ├── Vehicles/           # Bus, Car, Truck, Minivan + movement & routing
+│   │   ├── Resources/          # Commodity and Food resource types
+│   │   └── Algorithms/         # PathFinder, Prices
+│   ├── ViewModel/              # Unity-side: UI binding, input, camera
+│   │   ├── GameViewModel.cs    # Central UI controller & game-mode state
+│   │   ├── Binding/            # 3D visual objects for all map entities
+│   │   ├── GameScreen/         # UI handlers (menu bar, minimap, builder selector…)
+│   │   └── ObjectDataDisplay/  # Info panels for selected objects
+│   └── Persistence/            # Save / load (JSON via Newtonsoft.Json)
+│       ├── DataAccess.cs
+│       ├── Save.cs / Load.cs
+│       └── EntityFactory.cs
+├── Test/                       # Edit-mode unit tests (14 test files)
+└── TestsPlayMode/              # Play-mode integration tests (10 test files)
 ```
 
-## Integrate with your tools
+---
 
-* [Set up project integrations](https://szofttech.inf.elte.hu/szofttech-ab-2026/group-06/szoftech-csoport-of-aces/-/settings/integrations)
+## Architecture
 
-## Collaborate with your team
+The project follows an **MVVM (Model-View-ViewModel)** pattern:
 
-* [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+| Layer | Responsibility |
+|---|---|
+| **Model** | All game rules and state — completely decoupled from Unity |
+| **ViewModel** | Bridges the model to Unity: handles input, scene events, and UI updates |
+| **View** | Unity scenes, prefabs, and 3D visual scripts |
+| **Persistence** | Serializes/deserializes game state to disk using JSON |
 
-## Test and Deploy
+Key design patterns used:
+- **Singleton** — `Game`, `GameViewModel`
+- **Factory** — `EntityFactory` for reconstructing entities on load
+- **Interface segregation** — `IBuildable`, `ITradeable`, `IUpdatable`, `IDataAccess`
+- **Custom exceptions** — `NotEnoughMoneyException`, `FieldOverrideException`, `VehicleConditionException`, etc.
 
-Use the built-in continuous integration in GitLab.
+---
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Technologies
 
-***
+| Tool / Package | Version | Purpose |
+|---|---|---|
+| Unity | 6000.3.7f1 | Game engine |
+| Universal Render Pipeline | 17.3.0 | 3D rendering |
+| Unity Input System | 1.18.0 | Input handling |
+| Unity AI Navigation | 2.0.9 | Pathfinding (NavMesh) |
+| Newtonsoft JSON | 3.2.2 | Save/load serialization |
+| Unity Test Framework | 1.6.0 | Unit & integration testing |
+| Unity Code Coverage | 1.3.0 | Coverage reporting |
+| Moq + Castle.Core | 4.20.72 / 5.1.1 | Mocking in tests |
 
-# Editing this README
+---
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Testing
 
-## Suggestions for a good README
+The project has two test suites:
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+**Edit-mode unit tests** (`Assets/Test/`) — test game logic in isolation:
+- `PlayerTestScript`, `MapTestScript`, `VehicleTestScript`, `GameTestScript`
+- `CityTestScript`, `BusStopTestScript`, `ProdFacilityTestScript`
+- `AlgorithmTestScript`, `ResourceTestScript`, `ExceptionTestScript`, and more
 
-## Name
-Choose a self-explaining name for your project.
+**Play-mode integration tests** (`Assets/TestsPlayMode/`) — test UI and scene behaviour:
+- `MainMenuTest`, `MenuBarTest`, `BuilderSelectorTest`
+- `VehicleRouteTest`, `GameOverDisplayTest`, `ErrorDisplayTest`
+- Object data display tests for vehicles, facilities, cities, and traffic lights
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Run tests via **Window → General → Test Runner** in the Unity Editor.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+---
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## CI/CD
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+A GitLab CI/CD pipeline (`.gitlab-ci.yml`) runs automatically on each push:
+- Builds the project
+- Executes the test suite
+- Generates a code coverage report
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+---
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Team
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+**Szoftech Csoport — of Aces** | ELTE Group 06, 2026
