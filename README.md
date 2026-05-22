@@ -98,7 +98,6 @@ Key design patterns used:
 | Universal Render Pipeline | 17.3.0 | 3D rendering |
 | Unity Input System | 1.18.0 | Input handling |
 | Unity AI Navigation | 2.0.9 | Pathfinding (NavMesh) |
-| Newtonsoft JSON | 3.2.2 | Save/load serialization |
 | Unity Test Framework | 1.6.0 | Unit & integration testing |
 | Unity Code Coverage | 1.3.0 | Coverage reporting |
 | Moq + Castle.Core | 4.20.72 / 5.1.1 | Mocking in tests |
