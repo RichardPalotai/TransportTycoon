@@ -122,7 +122,7 @@ Run tests via **Window → General → Test Runner** in the Unity Editor.
 
 ---
 
-## CI/CD
+## CI/CD (GITLAB ONLY - NOT ON GITHUB)
 
 A GitLab CI/CD pipeline (`.gitlab-ci.yml`) runs automatically on each push:
 - Builds the project
