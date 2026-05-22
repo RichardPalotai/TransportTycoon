@@ -135,4 +135,5 @@ A GitLab CI/CD pipeline (`.gitlab-ci.yml`) runs automatically on each push:
 
 **Szoftech Csoport of Aces** | ELTE Group 06, 2026
 
-Adácsi Bálint, Lajtai Benjámin, Palotai Richárd
+Developers: Adácsi Bálint, Lajtai Benjámin, Palotai Richárd
+Teacher: Császár Péter
