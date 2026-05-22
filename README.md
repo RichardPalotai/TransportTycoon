@@ -133,4 +133,5 @@ A GitLab CI/CD pipeline (`.gitlab-ci.yml`) runs automatically on each push:
 
 ## Team
 
-**Szoftech Csoport — of Aces** | ELTE Group 06, 2026
+**Szoftech Csoport of Aces** | ELTE Group 06, 2026
+`Adácsi Bálint, Lajtai Benjámin, Palotai Richárd`
