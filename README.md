@@ -80,7 +80,7 @@ The project follows an **MVVM (Model-View-ViewModel)** pattern:
 | **Model** | All game rules and state — completely decoupled from Unity |
 | **ViewModel** | Bridges the model to Unity: handles input, scene events, and UI updates |
 | **View** | Unity scenes, prefabs, and 3D visual scripts |
-| **Persistence** | Serializes/deserializes game state to disk using JSON |
+| **Persistence** | Serializes/deserializes game state to disk using txt |
 
 Key design patterns used:
 - **Singleton** — `Game`, `GameViewModel`
