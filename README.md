@@ -8,7 +8,7 @@ A 3D transport management simulation game built in Unity 6. Build road networks,
 
 ## Gameplay
 
-- **Build** roads, bus stops, traffic lights, and production facilities (farms, factories, mines, lumber mills) on a 100×100 tile map
+- **Build** roads, bus stops and traffic lights on a 100×100 tile map
 - **Buy vehicles** — trucks, minivans, buses, and cars — and assign them routes between locations
 - **Trade commodities** such as Iron, Steel, Coal, Wood, Milk, Eggs, and Cheese between cities and production facilities
 - **Transport passengers** between cities using buses and cars
@@ -135,5 +135,8 @@ A GitLab CI/CD pipeline (`.gitlab-ci.yml`) runs automatically on each push:
 
 **Szoftech Csoport of Aces** | ELTE Group 06, 2026
 
-Developers: Adácsi Bálint, Lajtai Benjámin, Palotai Richárd
+Developers (roles):
+   - Adácsi Bálint (Binding -> Connect Business logic and UI)
+   - Lajtai Benjámin (Business logic -> Model, Persistence)
+   - Palotai Richárd (UI, Unity mechanisms (e.g.: camera movement) and Project Manager)
 Teacher: Császár Péter
