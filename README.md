@@ -139,4 +139,5 @@ Developers (roles):
    - Adácsi Bálint (Binding -> Connect Business logic and UI)
    - Lajtai Benjámin (Business logic -> Model, Persistence)
    - Palotai Richárd (UI, Unity mechanisms (e.g.: camera movement) and Project Manager)
+
 Teacher: Császár Péter
